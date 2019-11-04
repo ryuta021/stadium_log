@@ -10,6 +10,24 @@
   </head>
 
   <body>
+  <ul class="nav navbar-nav navbar-right" data-hover="dropdown" data-animations="zoomIn fadeIn fadeInUp fadeIn">
+                <li class="listbar">
+                  <i class="fas fa-user-cog">&nbsp;<%= link_to "球場登録 一覧",admin_stadium_index_path  %></i>
+                </li>
+
+                <li class="listbar">
+                  <i class="fas fa-file-invoice-dollar">&nbsp;<%= link_to "ユーザー一覧" %></i>
+                </li>
+
+                <li class="listbar">
+                  <i class="fas fa-shopping-cart">&nbsp;<%= link_to "投稿一覧",admin_posts_path %></i>
+                </li>
+
+                <li class="listbar">
+                  <i class="fas fa-sign-out-alt">&nbsp;<%= link_to "ログアウト" %></i>
+                </li>
+              </ul>
+
     <%= yield %>
   </body>
 </html>
