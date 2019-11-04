@@ -12,4 +12,9 @@
  *
  *= require_tree .
  *= require_self
+ *= require select2
+ *= require select2-bootstrap
  */
+ @import "bootstrap-sprockets";  /*ここを追加*/
+ @import "bootstrap";            /*ここを追加*/
+
