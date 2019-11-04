@@ -1,0 +1,50 @@
+<h1>球場一覧　作成画面</h1>
+
+
+
+  <div class="col-lg-10">
+    <%= form_for(@stadium, url: admin_stadium_index_path, method: :post) do |f| %>
+   <%#= form_for(@genre, url: admin_genres_path,method: :post) do |f|%>
+        <div class="form-group">
+            <label>球場名</label>
+           <%= f.text_field :stadium_name, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
+        </div><br>
+
+        <div class="form-group">
+           <label>球場紹介文</label><br>
+           <%= f.text_field :information, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
+        </div><br>
+
+         <div class="form-group">
+            <label>球場画像</label>
+            <%#= f.attachment_field :stadium_image_id %>
+        </div><br>
+
+         <%= f.submit "球場登録" , class: "btn btn-success col-lg-7" %>
+         edit_admin_stadium
+    <% end %>
+
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>球場画像</th>
+				<th>球場名</th>
+				<th>球場紹介文</th>
+				<th>住所</th>
+				<th>編集</th>
+			</tr>
+		</thead>
+		<tbody>
+	   <% @stadiums.each do |s| %>
+			<tr>
+				<td><%#=  %></td>
+				<td><%= s.stadium_name %></td>
+				<td><%= s.information %></td>
+				<td><%#= %></td>
+				<td><%= link_to "編集", edit_admin_stadium_path(s.id) ,class: "label label-primary" %></td>
+	　　　　</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+

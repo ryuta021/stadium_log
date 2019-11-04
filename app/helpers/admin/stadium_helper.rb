@@ -1,0 +1,2 @@
+module Admin::StadiumHelper
+end
