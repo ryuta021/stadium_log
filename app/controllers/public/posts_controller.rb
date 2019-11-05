@@ -12,7 +12,7 @@ class Public::PostsController < ApplicationController
   def create
       @post = Post.new(post_params)
       @post.save
-      redirect_to  posts_index_path
+      redirect_to  posts_path
   end
   def show
   end

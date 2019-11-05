@@ -1,36 +1,42 @@
 Rails.application.routes.draw do
 
+
+ root :to => 'public/posts#index_top'
+
   namespace :admin do
-    get 'users/index'
-    get 'users/show'
-    get 'users/edit'
-    get 'users/update'
-    get 'users/destroy'
-
-    get 'user/index'
-    get 'user/show'
-    get 'user/edit'
-    get 'user/update'
-    get 'user/destroy'
-
+    resources :users, only: [:edit, :update, :show, :index, :destroy]
+    resources :team, only: [:edit, :update, :create, :index, :destroy]
     resources :stadium, only: [:edit, :update, :create, :index, :destroy]
     get 'stadium/index'
     post 'stadium/create'
-    resources :posts
+    resources :posts, only: [:edit, :update, :show, :index, :destroy]
   end
+
 
    scope module: :public do
-    get 'posts/index'
-    get 'posts/index_top'
-    get 'posts/new'
-    get 'posts/show'
-    post 'posts/create'
-    get 'posts/destroy'
+     resources :users, only: [:update, :edit, :show ]
+     resources :posts, only: [:index, :create, :show, :new, :destroy]
+      get 'posts/index'
+      post 'posts/create'
   end
 
 
-  devise_for :users
-  devise_for :admin_users
+  devise_for :users,controllers: {
+          sessions: 'public/users/sessions',
+          registrations: 'public/users/registrations',
+          passwords: 'public/users/passwords'
+    }
+
+# devise_for :admin_users, controllers: {
+#           sessions: 'admin/admin_users/sessions',
+#           registrations: 'admin/admin_users/registrations',
+#           passwords: 'admin/admin_users/passwords'
+#     }
+
+
+
+   devise_for :admin_users
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 

@@ -7,7 +7,7 @@
 
         <div class="form-group">
             <label>球場名</label>
-           <%= f.text_field :stadium_name, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
+           <%= f.text_field :name, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
         </div><br>
 
         <div class="form-group">
@@ -24,7 +24,7 @@
 
          <div class="form-group">
             <label>球場画像</label>
-            <%= f.attachment_field :stadium_image %>
+            <%= f.attachment_field :image %>
         </div><br>
 
 
@@ -45,8 +45,8 @@
 		<tbody>
 	   <% @stadiums.each do |s| %>
 			<tr>
-				<td><%= attachment_image_tag s, :stadium_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %></td>
-				<td><%= s.stadium_name %></td>
+				<td><%= attachment_image_tag s, :image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %></td>
+				<td><%= s.name %></td>
 				<td><%= s.information %></td>
 				<td><%= s.address %></td>
 				<td><%= link_to "編集", edit_admin_stadium_path(s.id) ,class: "label label-primary" %></td>

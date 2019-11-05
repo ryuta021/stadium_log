@@ -18,7 +18,7 @@ class Admin::StadiumController < ApplicationController
   def update
        @stadium = Stadium.find(params[:id])
     if @stadium.update(stadium_params)
-       redirect_to admin_stadium_index_path(@stadium.id), success: "#{@stadium.stadium_name}の情報を変更しました。"
+       redirect_to admin_stadium_index_path(@stadium.id), success: "#{@stadium.name}の情報を変更しました。"
     else
       render 'edit'
     end
@@ -33,7 +33,7 @@ class Admin::StadiumController < ApplicationController
 
     private
     def stadium_params
-      params.require(:stadium).permit(:stadium_name, :stadium_image, :information, :position, :address, :latitube, :longitude)
+      params.require(:stadium).permit(:name, :image, :information, :position, :address, :latitube, :longitude)
     end
 
 
