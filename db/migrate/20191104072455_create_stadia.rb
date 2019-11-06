@@ -1,8 +1,8 @@
 class CreateStadia < ActiveRecord::Migration[5.2]
   def change
     create_table :stadia do |t|
-    	t.string :stadium_name
-        t.string :stadium_image_id
+    	t.string :name
+        t.string :image_id
         t.text :information
         t.decimal :position
 

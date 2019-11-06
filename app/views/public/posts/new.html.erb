@@ -1,0 +1,71 @@
+<h1>投稿画面</h1>
+
+
+  <div class="col-lg-10">
+    <%= form_for(@post, url:  posts_path, method: :post) do |f| %>
+
+     <div class="form-group">
+       <label>球場選択</label><br>
+       <%= f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control" %>
+     </div><br>
+
+
+　   <div class="form-group">
+         <label>観戦した日にちを選択</label><br>
+         <%= f.date_field :watching_date, class: 'form-control' %>
+       </div><br>
+
+    <div class="form-group">
+　　　   <label>投稿本文</label>
+        <%= f.text_field :post_content, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
+     </div><br>
+
+	 <div class="form-group">
+	    <label>投稿画像</label>
+	    <%= f.attachment_field :posted_image %>
+	</div><br>
+
+
+ <!-- 評価 -->
+  <div class="form-group row star" id="star">
+    <%= f.label :access_rate,'アクセス ', class:'col-md-3 col-form-label' %>
+    <%= f.hidden_field :access_rate, id: :review_star %>
+  </div>
+
+ <div class="form-group row star" id="star">
+    <%= f.label :gouremet_rate,'グルメ ', class:'col-md-3 col-form-label' %>
+    <%= f.hidden_field :gouremet_rate, id: :review_star %>
+  </div>
+
+   <div class="form-group row star" id="star">
+    <%= f.label :mood_rate,'雰囲気 ', class:'col-md-3 col-form-label' %>
+    <%= f.hidden_field :mood_rate, id: :review_star %>
+  </div>
+
+   <div class="form-group row star" id="star">
+    <%= f.label :capacity_rate,'キャパシティ ', class:'col-md-3 col-form-label' %>
+    <%= f.hidden_field :capacity_rate, id: :review_star %>
+  </div>
+
+   <div class="form-group row star" id="star">
+    <%= f.label :sightseeing_rate,'観光 ', class:'col-md-3 col-form-label' %>
+    <%= f.hidden_field :sightseeing_rate, id: :review_star %>
+  </div>
+
+	  <%= f.submit "投稿する" , class: "btn btn-success col-lg-7" %>
+
+
+<% end %>
+
+<!-- ----------------------------------------------------------------------------->
+  <!-- 評価javascript -->
+  <script>
+  $('.star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    scoreName: 'post[rate]',
+    half: true,
+  });
+  </script>

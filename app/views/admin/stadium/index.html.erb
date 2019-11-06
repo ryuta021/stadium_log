@@ -4,10 +4,10 @@
 
   <div class="col-lg-10">
     <%= form_for(@stadium, url: admin_stadium_index_path, method: :post) do |f| %>
-   <%#= form_for(@genre, url: admin_genres_path,method: :post) do |f|%>
+
         <div class="form-group">
             <label>球場名</label>
-           <%= f.text_field :stadium_name, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
+           <%= f.text_field :name, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
         </div><br>
 
         <div class="form-group">
@@ -15,13 +15,21 @@
            <%= f.text_field :information, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
         </div><br>
 
+
+        <div class="form-group">
+        	 <label>住所登録</label><br>
+           <%= f.text_field :address, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
+       </div><br>
+
+
          <div class="form-group">
             <label>球場画像</label>
-            <%#= f.attachment_field :stadium_image_id %>
+            <%= f.attachment_field :image %>
         </div><br>
 
+
          <%= f.submit "球場登録" , class: "btn btn-success col-lg-7" %>
-         edit_admin_stadium
+
     <% end %>
 
 	<table class="table table-hover">
@@ -37,10 +45,10 @@
 		<tbody>
 	   <% @stadiums.each do |s| %>
 			<tr>
-				<td><%#=  %></td>
-				<td><%= s.stadium_name %></td>
+				<td><%= attachment_image_tag s, :image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %></td>
+				<td><%= s.name %></td>
 				<td><%= s.information %></td>
-				<td><%#= %></td>
+				<td><%= s.address %></td>
 				<td><%= link_to "編集", edit_admin_stadium_path(s.id) ,class: "label label-primary" %></td>
 	　　　　</tr>
 			<% end %>
