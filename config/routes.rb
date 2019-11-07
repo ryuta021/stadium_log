@@ -13,19 +13,25 @@ Rails.application.routes.draw do
   end
 
 
-   scope module: :public do
-     resources :users, only: [:update, :edit, :show ]
-     resources :posts, only: [:index, :create, :show, :new, :destroy]
-      get 'posts/index'
-      post 'posts/create'
-  end
-
-
   devise_for :users,controllers: {
           sessions: 'public/users/sessions',
           registrations: 'public/users/registrations',
           passwords: 'public/users/passwords'
     }
+
+
+
+   scope module: :public do
+     resources :users, only: [:show, :update, :edit, ]
+     resources :posts, only: [:index, :create, :show, :new, :destroy]
+      get 'posts/index'
+      post 'posts/create'
+      resources :stadium do
+        resources :posts
+      end
+  end
+
+
 
 # devise_for :admin_users, controllers: {
 #           sessions: 'admin/admin_users/sessions',

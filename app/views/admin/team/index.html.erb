@@ -1,4 +1,4 @@
-<h1>球場一覧　作成画面</h1>
+<h1>チーム一覧　作成画面</h1>
 
 
 
@@ -25,7 +25,7 @@
 	   <% @teams.each do |s| %>
 			<tr>
 				<td><%= s.team %></td>
-				<td><%= link_to "編集", edit_admin_stadium_path(s.id) ,class: "label label-primary" %></td>
+				<td><%= link_to "編集", edit_admin_team_path(s.id) ,class: "label label-primary" %></td>
 	　　　　</tr>
 			<% end %>
 		</tbody>

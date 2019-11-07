@@ -23,6 +23,25 @@
 
 　              <li class="listbar">
                  <i class="fas fa-sign-out-alt">&nbsp;<%= link_to "ログアウト", user_registration_path, method: :delete %>
+
+               <li class="listbar">
+                  <i class="fas fa-user-cog">&nbsp;<%= link_to "球場登録 一覧",admin_stadium_index_path  %></i>
+                </li>
+
+                <li class="listbar">
+                  <i class="fas fa-user-cog">&nbsp;<%= link_to "チーム登録 一覧",admin_team_index_path  %></i>
+                </li>
+
+                <li class="listbar">
+                  <i class="fas fa-file-invoice-dollar">&nbsp;<%= link_to "ユーザー一覧",admin_users_path %></i>
+                </li>
+
+                <li class="listbar">
+                  <i class="fas fa-shopping-cart">&nbsp;<%= link_to "投稿一覧",admin_posts_path %></i>
+                </li>
+
+
+
                  </i>
               <% elsif admin_user_signed_in? %>
 
@@ -43,6 +62,8 @@
                 </li>
 
                 <% else %>
+
+
                 <li class="listbar">
                   <i class="fas fa-sign-out-alt">&nbsp;<%= link_to "新規登録" ,  new_user_registration_path %></i>
                 </li>

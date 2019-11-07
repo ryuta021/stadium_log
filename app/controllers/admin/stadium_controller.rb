@@ -1,6 +1,9 @@
 class Admin::StadiumController < ApplicationController
   def index
-    @stadium = Stadium.new
+    @stadium = Stadium.new(
+                 latitube: 0,
+                 longitude: 0
+               )
     @stadiums = Stadium.all
   end
 

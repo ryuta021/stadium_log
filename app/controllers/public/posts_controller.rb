@@ -11,10 +11,17 @@ class Public::PostsController < ApplicationController
 
   def create
       @post = Post.new(post_params)
+      @post.user_id = current_user.id
+       #@post = params[:post][:access_rate]
+       #@post = params[:post][:gouremet_rate]
+       #@post = Post.find(params[:post][:mood_rate])
+       #@post = Post.find(params[:post][:capacity_rate])
+       #@post = Post.find(params[:post][:sightseeing_rate])
       @post.save
       redirect_to  posts_path
   end
   def show
+     @post =Post.find(params[:id])
   end
 
 

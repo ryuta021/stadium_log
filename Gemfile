@@ -69,4 +69,6 @@ gem 'ransack'
 gem 'jquery-rails'
 gem 'enum_help'
 gem 'select2-rails'
- gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'geocoder'
+
