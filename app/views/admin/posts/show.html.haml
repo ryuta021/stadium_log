@@ -1,0 +1,58 @@
+%h1 投稿詳細画面
+%tr
+  .form-group
+    %label 投稿画像
+    %br/
+    = attachment_image_tag @post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100'
+  %br/
+  .form-group
+    %label 球場名
+    %br/
+    = @post.stadium.name
+  %br/
+  .form-group
+    %label 観戦日
+    %br/
+    = @post.watching_date
+  %br/
+  .form-group
+    %label 投稿内容
+    %br/
+    = @post.post_content
+  %br/
+  .form-group
+    %label アクセス採点
+    %br/
+    = @post.access_rate
+    点
+  %br/
+  .form-group
+    %label グルメ採点
+    %br/
+    = @post.gouremet_rate
+    点
+    　　
+  %br/
+  　　
+  .form-group
+    %label ムード採点
+    %br/
+    = @post.mood_rate
+    点
+  %br/
+  　　
+  .form-group
+    %label キャパシティ採点
+    %br/
+    = @post.capacity_rate
+    点
+    　　　
+  %br/
+  　　
+  .form-group
+    %label キャパシティ採点
+    %br/
+    = @post.sightseeing_rate
+    点
+  %br/
+  = link_to "投稿編集",edit_admin_post_path(@post.id)

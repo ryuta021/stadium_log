@@ -1,0 +1,109 @@
+.col-lg-5
+  %h1 球場詳細画面
+  / 球場名
+  / 紹介文　
+  / 球場住所
+  .form-group
+    %label アクセス採点
+    %br/
+    #star-rate
+    %label グルメ採点
+    %br/
+    #star2-rate
+    %label ムード採点
+    %br/
+    #star3-rate
+    %label キャパシティ採点
+    %br/
+    #star4-rate
+    %label キャパシティ採点
+    %br/
+    #star5-rate
+  %br/
+.col-lg-7
+  %h1 ユーザー投稿一覧
+  %table.table.table-hover
+    %thead
+      %tr
+        %th
+        %th 球場名
+        %th 投稿者
+        %th 観戦日
+        %th 投稿内容
+    %tbody
+      - @posts.each do |post|
+        %tr
+          %td= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'
+          %td= post.stadium.name
+          %td
+            = link_to post_path(post.id) do
+              = post.user.name
+          %td= post.watching_date.strftime("%Y年%m月%d日")
+          %td= post.post_content
+          - if user_signed_in?
+            - if post.favorited_by?(current_user)
+              / ログインしているユーザーがファボしたかどうかで分岐
+              %td
+                %p
+                  %span いいね:
+                  = link_to post.favorites.count, post_favorites_path(post.id), method: :delete
+            - else
+              %td
+                %p
+                  %span いいね:
+                  = link_to post.favorites.count,  post_favorites_path(post.id), method: :post
+          - else
+            %td
+              %span いいね:
+              = post.favorites.count
+/ ---------------------------------------------------------------------------------
+:javascript
+  $('#star-rate').raty({
+    size: 36,
+    starOff:  '#{asset_path('star-off.png')}',
+    starOn : '#{asset_path('star-on.png')}',
+    starHalf: '#{asset_path('star-half.png')}',
+    half: true,
+    readOnly: true,
+    score: '<haml_silent></haml_silent>'
+  });
+:javascript
+  $('#star2-rate').raty({
+    size: 36,
+    starOff:  '#{asset_path('star-off.png')}',
+    starOn : '#{asset_path('star-on.png')}',
+    starHalf: '#{asset_path('star-half.png')}',
+    half: true,
+    readOnly: true,
+    score: '#{@post_gouremet}'
+  });
+:javascript
+  $('#star3-rate').raty({
+    size: 36,
+    starOff:  '#{asset_path('star-off.png')}',
+    starOn : '#{asset_path('star-on.png')}',
+    starHalf: '#{asset_path('star-half.png')}',
+    half: true,
+    readOnly: true,
+    score: '<haml_silent></haml_silent>',
+  });
+:javascript
+  $('#star4-rate').raty({
+    size: 36,
+    starOff:  '#{asset_path('star-off.png')}',
+    starOn : '#{asset_path('star-on.png')}',
+    starHalf: '#{asset_path('star-half.png')}',
+    half: true,
+    readOnly: true,
+    score: '<haml_silent></haml_silent>',
+  });
+:javascript
+  $('#star5-rate').raty({
+    size: 36,
+    starOff:  '#{asset_path('star-off.png')}',
+    starOn : '#{asset_path('star-on.png')}',
+    starHalf: '#{asset_path('star-half.png')}',
+    half: true,
+    readOnly: true,
+    score: '<haml_silent></haml_silent>',
+  });

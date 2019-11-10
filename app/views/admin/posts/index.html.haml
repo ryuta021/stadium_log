@@ -1,0 +1,44 @@
+%h1 ユーザー投稿一覧
+.col-lg-6
+.col-lg-6
+  %table.table.table-hover
+    %thead
+      %tr
+        %th 球場画像
+        %th 投稿者
+        %th 球場名
+        %th 観戦日
+        %th 投稿内容
+        %th アクセス
+        %th グルメ
+        %th 雰囲気
+        %th キャパシティ
+        %th 観光場所
+        %th 投稿詳細
+    - if @post.present?
+      - @post.each do |post|
+        %tbody
+          %tr
+            %td= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100'
+            %td= post.user.name
+            %td= post.watching_date.strftime("%Y年%m月%d日")
+            %td= post.post_content
+            %td
+              = post.access_rate
+              点
+            %td
+              = post.gouremet_rate
+              点
+            %td
+              = post.mood_rate
+              点
+            %td
+              = post.capacity_rate
+              点
+            %td
+              = post.sightseeing_rate
+              点
+            %td
+              = link_to "投稿詳細",admin_post_path(post.id)
+            　
+        = paginate @post

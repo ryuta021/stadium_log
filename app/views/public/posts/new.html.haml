@@ -1,0 +1,88 @@
+%h1 投稿画面
+.col-lg-10
+  = form_for(@post, url:  posts_path, method: :post) do |f|
+    .form-group
+      %label 球場選択
+      %br/
+      = f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control"
+    %br/
+    　
+    .form-group
+      %label 観戦した日にちを選択
+      %br/
+      = f.date_field :watching_date, class: 'form-control'
+    %br/
+    .form-group
+      　　　
+      %label 投稿本文
+      = f.text_field :post_content, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
+    %br/
+    .form-group
+      %label 投稿画像
+      = f.attachment_field :posted_image
+    %br/
+    / 評価
+    #star1.form-group.row.star
+      = f.label :access_rate,'アクセス ', class:'col-md-3 col-form-label'
+      %p 球場までの交通費　立地など
+      = f.hidden_field :access_rate, id: :review_star
+    #star2.form-group.row.star
+      = f.label :gouremet_rate,'グルメ ', class:'col-md-3 col-form-label'
+      %p 球場のご飯の値段や美味しさなど
+      = f.hidden_field :gouremet_rate, id: :review_star
+    #star3.form-group.row.star
+      = f.label :mood_rate,'雰囲気 ', class:'col-md-3 col-form-label'
+      %p ホーム球場の応援　エンターティメントなど
+      = f.hidden_field :mood_rate, id: :review_star
+    #star4.form-group.row.star
+      = f.label :capacity_rate,'キャパシティ ', class:'col-md-3 col-form-label'
+      %p チケットの購入しやすさ　球場の広さなど
+      = f.hidden_field :capacity_rate, id: :review_star
+    #star5.form-group.row.star
+      %p 球場周辺の観光など
+      = f.label :sightseeing_rate,'観光 ', class:'col-md-3 col-form-label'
+      = f.hidden_field :sightseeing_rate, id: :review_star
+    = f.submit "投稿する" , class: "btn btn-success col-lg-7"
+  / ---------------------------------------------------------------------------
+  / 評価javascript
+  :javascript
+    $('#star1').raty({
+      size     : 36,
+      starOff:  '#{asset_path('star-off.png')}',
+      starOn : '#{asset_path('star-on.png')}',
+      starHalf: '#{asset_path('star-half.png')}',
+      scoreName: 'post[access_rate]',
+      half: true,
+    });
+      $('#star2').raty({
+      size     : 36,
+      starOff:  '#{asset_path('star-off.png')}',
+      starOn : '#{asset_path('star-on.png')}',
+      starHalf: '#{asset_path('star-half.png')}',
+      scoreName: 'post[gouremet_rate]',
+      half: true,
+    });
+        $('#star3').raty({
+      size     : 36,
+      starOff:  '#{asset_path('star-off.png')}',
+      starOn : '#{asset_path('star-on.png')}',
+      starHalf: '#{asset_path('star-half.png')}',
+      scoreName: 'post[mood_rate]',
+      half: true,
+    });
+          $('#star4').raty({
+      size     : 36,
+      starOff:  '#{asset_path('star-off.png')}',
+      starOn : '#{asset_path('star-on.png')}',
+      starHalf: '#{asset_path('star-half.png')}',
+      scoreName: 'post[capacity_rate]',
+      half: true,
+    });
+            $('#star5').raty({
+      size     : 36,
+      starOff:  '#{asset_path('star-off.png')}',
+      starOn : '#{asset_path('star-on.png')}',
+      starHalf: '#{asset_path('star-half.png')}',
+      scoreName: 'post[sightseeing_rate]',
+      half: true,
+    });

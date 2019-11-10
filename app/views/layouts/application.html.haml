@@ -1,0 +1,81 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title StadiumLog
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+　　%script{src: "js/jquery-3.3.1.min.js"}
+/ JavaScript at end of body for optimized loading
+%script{src: "js/materialize.min.js", type: "text/javascript"}
+:javascript
+  $(document).ready(function(){
+  $('select').formSelect();
+  });
+  %body
+    .wrapper
+      %header
+        .container-fluid
+          .col-lg-12
+            %nav.navbar-left
+            %h1.logo
+            %i.fas.fa-compact-disc.faa-spin.animated
+              = link_to "スタログ", root_path
+
+
+            %ul.nav.navbar-nav.navbar-right{"data-animations" => "zoomIn fadeIn fadeInUp fadeIn", "data-hover" => "dropdown"}
+
+
+                if user_signed_in?
+                / ユーザー側ヘッダー　ログイン時
+                %li.login-name
+                  こんにちは、#{current_user.name} 様
+                  　
+                %li
+                  %i.fas.fa-user-cog
+                     #{link_to "投稿", new_post_path}
+                %li.listbar
+                  %i.fas.fa-user-cog
+                     #{link_to "球場別投稿",  posts_path}    　　　　　　　　　
+                　　　　　　　　　
+                %li.listbar
+                  %i.fas.fa-user-cog
+                     #{link_to "マイページ", user_path(current_user.id)}
+                　
+                %li.listbar
+                  %i.fas.fa-sign-out-alt
+                     #{link_to "ログアウト", user_registration_path, method: :delete}
+              - elsif admin_user_signed_in?
+                %li.listbar
+                  %i.fas.fa-user-cog
+                     #{link_to "球場登録 一覧",admin_stadium_index_path}
+                %li.listbar
+                  %i.fas.fa-user-cog
+                     #{link_to "チーム登録 一覧",admin_team_index_path}
+                %li.listbar
+                  %i.fas.fa-file-invoice-dollar
+                     #{link_to "ユーザー一覧",admin_users_path}
+                %li.listbar
+                  %i.fas.fa-shopping-cart
+                     #{link_to "投稿一覧",admin_posts_path}
+                %li.listbar
+                  %i.fas.fa-sign-out-alt
+                     #{link_to "ログアウト", user_registration_path, method: :delete}
+              - else
+                %li.listbar
+                  %i.fas.fa-sign-out-alt
+                     #{link_to "新規登録" ,  new_user_registration_path}
+                　　　　　　　　　　
+                　　　　　　　　　　
+                %li.listbar
+                  %i.fas.fa-sign-out-alt
+                     #{link_to "管理者新規登録" ,  new_admin_user_registration_path}
+                %li.listbar
+                  %i.fas.fa-sign-out-alt
+                     #{link_to "ログイン",new_user_session_path}
+                %li.listbar
+                  %i.fas.fa-sign-out-alt
+                     #{link_to "管理者ログイン",new_admin_user_session_path}
+    = yield
