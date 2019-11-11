@@ -25,34 +25,39 @@
       <%= f.attachment_field :posted_image %>
   </div><br>
 
+<!-- 評価 -->
+    <div class="form-group row star" id="star1">
+      <%= f.label :access_rate,'アクセス ', class:'col-md-3 col-form-label' %>
+      <P>球場までの交通費　立地など</P>
+      <%= f.hidden_field :access_rate, id: :review_star %>
+    </div>
 
- <!-- 評価 -->
-  <div class="form-group row star" id="star">
-    <%= f.label :access_rate,'アクセス ', class:'col-md-3 col-form-label' %>
-    <%= f.hidden_field :access_rate, id: :review_star %>
-  </div>
+   <div class="form-group row star" id="star2">
+      <%= f.label :gouremet_rate,'グルメ ', class:'col-md-3 col-form-label' %>
+      <p>球場のご飯の値段や美味しさなど</p>
+      <%= f.hidden_field :gouremet_rate, id: :review_star %>
+    </div>
 
- <div class="form-group row star" id="star">
-    <%= f.label :gouremet_rate,'グルメ ', class:'col-md-3 col-form-label' %>
-    <%= f.hidden_field :gouremet_rate, id: :review_star %>
-  </div>
+     <div class="form-group row star" id="star3">
+      <%= f.label :mood_rate,'雰囲気 ', class:'col-md-3 col-form-label' %>
+      <P>ホーム球場の応援　エンターティメントなど</P>
+      <%= f.hidden_field :mood_rate, id: :review_star %>
+    </div>
 
-   <div class="form-group row star" id="star">
-    <%= f.label :mood_rate,'雰囲気 ', class:'col-md-3 col-form-label' %>
-    <%= f.hidden_field :mood_rate, id: :review_star %>
-  </div>
+     <div class="form-group row star" id="star4">
+      <%= f.label :capacity_rate,'キャパシティ ', class:'col-md-3 col-form-label' %>
+      <p>チケットの購入しやすさ　球場の広さなど</p>
+      <%= f.hidden_field :capacity_rate, id: :review_star %>
+    </div>
 
-   <div class="form-group row star" id="star">
-    <%= f.label :capacity_rate,'キャパシティ ', class:'col-md-3 col-form-label' %>
-    <%= f.hidden_field :capacity_rate, id: :review_star %>
-  </div>
-
-   <div class="form-group row star" id="star">
-    <%= f.label :sightseeing_rate,'観光 ', class:'col-md-3 col-form-label' %>
-    <%= f.hidden_field :sightseeing_rate, id: :review_star %>
-  </div>
+     <div class="form-group row star" id="star5">
+      <P>球場周辺の観光など</P>
+      <%= f.label :sightseeing_rate,'観光 ', class:'col-md-3 col-form-label' %>
+      <%= f.hidden_field :sightseeing_rate, id: :review_star %>
+    </div>
 
     <%= f.submit "投稿する" , class: "btn btn-success col-lg-7" %>
+
 
 
 <% end %>
@@ -60,12 +65,44 @@
 <!-- ----------------------------------------------------------------------------->
   <!-- 評価javascript -->
   <script>
-  $('.star').raty({
+  $('#star1').raty({
     size     : 36,
     starOff:  '<%= asset_path('star-off.png') %>',
     starOn : '<%= asset_path('star-on.png') %>',
     starHalf: '<%= asset_path('star-half.png') %>',
-    scoreName: 'post[rate]',
+    scoreName: 'post[access_rate]',
+    half: true,
+  });
+    $('#star2').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    scoreName: 'post[gouremet_rate]',
+    half: true,
+  });
+      $('#star3').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    scoreName: 'post[mood_rate]',
+    half: true,
+  });
+        $('#star4').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    scoreName: 'post[capacity_rate]',
+    half: true,
+  });
+          $('#star5').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    scoreName: 'post[sightseeing_rate]',
     half: true,
   });
   </script>

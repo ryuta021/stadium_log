@@ -5,7 +5,12 @@ class Public::PostsController < ApplicationController
      #@post =Post.all
      @posts = Post.where("stadium_id = 2 ")
      @post_gouremet = Post.group("stadium_id = 2 ")
-
+     @access = Post.where(stadium_id: 2).average(:access_rate)
+     @gouremet = Post.where(stadium_id: 2).average(:gouremet_rate)
+     @mood = Post.where(stadium_id: 2).average(:mood_rate)
+     @sightseeing = Post.where(stadium_id: 2).average(:sightseeing_rate)
+     @capacity = Post.where(stadium_id: 2).average(:capacity_rate)
+     #@posted = Post.sum
      #@post =Post.find(params[:id])
   end
 
