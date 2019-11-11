@@ -1,8 +1,5 @@
 <div class='col-lg-5'>
-  <h1>球場詳細画面</h1>
-  <!-- 球場名 -->
-  <!-- 紹介文　 -->
-  <!-- 球場住所 -->
+  <h3>球場詳細画面</h3>
   <div class='form-group'>
     <label>アクセス採点</label>
     <br>
@@ -23,19 +20,30 @@
   <br>
 </div>
 <div class='col-lg-7'>
-  <h1>ユーザー投稿一覧</h1>
+  <h3>ユーザー投稿一覧</h3>
   <table class='table table-hover'>
     <thead>
       <tr>
-        <th></th>
+        <th>画像</th>
         <th>球場名</th>
         <th>投稿者</th>
         <th>観戦日</th>
         <th>投稿内容</th>
+        <th>投稿詳細</th>
       </tr>
-    </thead>
+       </thead>
     <tbody>
+      <% @posts.each do |post| %>
+       <tr>
+        <td><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'100x100' %></td>
+        <td><%= post.stadium.name %></td>
+        <td><%#= post.user.name %></td>
+        <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
+        <td><%= post.post_content %></td>
+        <td><%= link_to "ユーザー詳細", user_path(post.id) ,class: "label label-primary" %></td>
+        </tr>
+        <% end %>
     </tbody>
   </table>
 </div>
-<!-- --------------------------------------------------------------------------------- -->
+

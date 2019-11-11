@@ -5,6 +5,7 @@ class Public::PostsController < ApplicationController
      #@post =Post.all
      @posts = Post.where("stadium_id = 2 ")
      @post_gouremet = Post.group("stadium_id = 2 ")
+
      #@post =Post.find(params[:id])
   end
 
