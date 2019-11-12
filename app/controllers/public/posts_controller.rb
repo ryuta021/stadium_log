@@ -2,35 +2,23 @@ class Public::PostsController < ApplicationController
 
   def index
      #binding.pry
-     #@post =Post.all
+     @posted =Post.find_by ("stadium_id = 2 ")
      @posts = Post.where("stadium_id = 2 ")
-     @post_gouremet = Post.group("stadium_id = 2 ")
+
      @access = Post.where(stadium_id: 2).average(:access_rate)
      @gouremet = Post.where(stadium_id: 2).average(:gouremet_rate)
      @mood = Post.where(stadium_id: 2).average(:mood_rate)
      @sightseeing = Post.where(stadium_id: 2).average(:sightseeing_rate)
      @capacity = Post.where(stadium_id: 2).average(:capacity_rate)
-     #@posted = Post.sum
      #@post =Post.find(params[:id])
   end
 
   def index_top
      #binding.pry
+     #@posts =Post.group(:stadium_id).order(:gouremet_rate).pluck(:stadium_id)
+     @posts = Post.find(Post.group(:stadium_id).order(:gouremet_rate).pluck(:stadium_id))
      @post =Post.all
-     #@post_ranking = Post.group("stadium_id = 2 ").average(:gouremet_rate).order('count_stadium_id DESC').limit(5).count(:stadium_id).keys
-    #@access = Post.where("stadium_id = 2 ").sum(:access_rate)
-    #@capacity = Post.where("stadium_id = 2 ").sum(:capacity_rate)
-    #@gouremet = Post.where("stadium_id = 2 ").sum(:gouremet_rat)
-    #@sightseeing = Post.where("stadium_id = 2 ").sum(:sightseeing_rate)
-    #@mood = Post.where("stadium_id = 2 ").sum(:mood_rate)
-    #Post.group("stadium_id = 2 ").average(:gouremet_rate)
-
-
-
-    #@access = Post.find(Post.group(:access_rate).order('count(access_rate) desc').limit(10).pluck(:access_rate))
-    #@access = Post.find(Post.group(:stadiam_id).order('count(access_rate) desc').limit(10).pluck(:access_rate))
-
-   #@access = Post.group(:access_rate) .order('count_access_rate DESC').limit(5).count(:access_rate).keys
+    
   end
 
   def new

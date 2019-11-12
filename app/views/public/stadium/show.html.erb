@@ -1,6 +1,42 @@
 <div class='col-lg-12'>
+<h2>球場詳細画面</h2>
+
+
+
+
 
 </div>
+
+<div class='col-lg-5'>
+
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+  </ul>
+
+<a id="menu" class="waves-effect waves-light btn btn-floating" ><i class="material-icons">menu</i></a>
+
+  <!-- Tap Target Structure -->
+  <div class="tap-target" data-target="menu">
+    <div class="tap-target-content">
+      <h5>Title</h5>
+      <p>A bunch of text</p>
+    </div>
+  </div>
+
+</div>
+
+
 
 <laber><%#= attachment_image_tag @posted, :image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></laber>
 <div class='form-group'>
@@ -40,8 +76,8 @@
 <%#= post.stadium.name %>
 <%#= post.gouremet_rate %>
 <%# end %>
-
 <div class='col-lg-7'>
+
   <h5>ユーザー投稿一覧</h5>
   <table class='table table-hover'>
     <thead>

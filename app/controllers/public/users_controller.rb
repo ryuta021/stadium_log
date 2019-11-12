@@ -1,6 +1,9 @@
 class Public::UsersController < ApplicationController
 
  def show
+
+
+
  	#binding.pry
  	@user = User.find(params[:id])
    @users = Post.find(params[:id])

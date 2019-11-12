@@ -29,7 +29,7 @@
       <a href="#" class="brand-logo">Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
          <% if user_signed_in? %>
-        <li>こんにちは、<%= current_user.name %> 様</li>
+        <li>こんにちは!<%= current_user.name %> 様</li>
         <li><%= link_to "投稿", new_post_path %></li>
         <li><%= link_to "球場別投稿",  posts_path %></li>
         <li><%= link_to "マイページ", user_path(current_user.id) %></li>

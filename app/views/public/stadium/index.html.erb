@@ -1,0 +1,19 @@
+<div class='col-lg-12'>
+<h3>球場一覧画面</h3>
+
+<% @posts.each do |post| %>
+
+<%= post.stadium.name %>
+<%= post.gouremet_rate %>
+<% end %>
+
+ <% @sort_post.each do |stadium_id, average|  %>
+<!--  average.to_f -->
+ <%# @sort_post.each do {|k, v| puts v.to_f} %>
+
+    <%= stadium_id %>
+	<%#= average.name %>
+	 <%#= average  %>
+	<%#= average.post.gouremet_rate %>
+
+<% end %>

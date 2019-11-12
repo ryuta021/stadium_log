@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
 
- root :to => 'public/posts#index_top'
+  #root :to => 'public/posts#index_top'
+  root :to => 'public/stadium#index'
 
   namespace :admin do
     resources :users, only: [:edit, :update, :show, :index, :destroy]
@@ -21,12 +22,10 @@ Rails.application.routes.draw do
 
    scope module: :public do
      resources :users, only: [:show, :update, :edit, ]
+     resources :stadium, only: [:show, :create, :destroy, ]
      resources :posts do
      resource :favorites, only: [:create, :destroy]
      end
-      # resources :stadium do
-      #   resources :posts
-      # end
   end
 
 # only: [:index, :create, :show, :new, :destroy]
