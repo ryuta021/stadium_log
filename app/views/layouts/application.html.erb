@@ -5,8 +5,8 @@
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track':'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track':'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.full.min.js" defer></script>
@@ -15,35 +15,46 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script>
-    $(document).ready(function(){
-    $('select').formSelect();
-    });
-    </script>
+
 
 
  <body>
-  <%= link_to "スタログ", root_path  %>
+
   <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Logo</a>
+      <%= link_to "スタログ", root_path %>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
          <% if user_signed_in? %>
         <li>こんにちは!<%= current_user.name %> 様</li>
+
         <li><%= link_to "投稿", new_post_path %></li>
+
         <li><%= link_to "球場別投稿",  posts_path %></li>
+
         <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+
         <li><%= link_to "ログアウト", user_registration_path, method: :delete %></li>
+
         <% elsif admin_user_signed_in? %>
+
         <li><%= link_to "球場登録 一覧",admin_stadium_index_path %></li>
+
         <li><%= link_to "チーム登録 一覧",admin_team_index_path %></li>
+
         <li><%= link_to "ユーザー一覧",admin_users_path %></li>
+
         <li><%= link_to "投稿一覧",admin_posts_path %></li>
+
         <li> <%= link_to "ログアウト", user_registration_path, method: :delete %></li>
+
         <% else %>
+
         <li><%= link_to "新規登録" ,  new_user_registration_path %></li>
+
         <li><% link_to "管理者新規登録" ,  new_admin_user_registration_path %></li>
+
         <li><% link_to "ログイン",new_user_session_path %></li>
+
         <li><% link_to "管理者ログイン",new_admin_user_session_path %></li>
       </ul>
        <% end %>
@@ -51,7 +62,14 @@
   </nav>
           <ul>
                 　　　　　　　　　
-                　
+        
+    <script>
+    $(document).ready(function(){
+    $('select').formSelect();
+    });
+    </script>
+    <script defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXVVA0A41o5mRG_hSO9KrzOp73q5ES91c&callback=initMap"></script>
+    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>        　
  </body>
 </html>
 <%= yield %>

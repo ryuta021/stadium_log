@@ -2,6 +2,8 @@
 
 </div>
 
+<div id=map></div>
+
 <laber><%#= attachment_image_tag @posted, :image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></laber>
 <div class='form-group'>
 <laber><h3><%= @posted.stadium.name %></h3></laber>
@@ -12,34 +14,29 @@
 <div class='col-lg-5'>
   <div class='form-group'>
     <label>アクセス採点</label>
-    <label><%= @access %></label>
+    <span class="blue-text text-darken-2"><%= @access %></span>
     <br>
     <div id='star-rate'></div>
     <label>グルメ採点</label>
-    <label><%= @gouremet %></label>
+     <span class="blue-text text-darken-2"><%= @gouremet %></span>
     <br>
     <div id='star2-rate'></div>
     <label>ムード採点</label>
-    <label><%= @mood %></label>
+    <span class="blue-text text-darken-2"><%= @mood %></span>
     <br>
     <div id='star3-rate'></div>
     <label>キャパシティ採点</label>
-    <label><%=@capacity   %></label>
+    <span class="blue-text text-darken-2"><%=@capacity %></span>
     <br>
     <div id='star4-rate'></div>
     <label>観光採点</label>
-    <label><%= @gouremet %></label>
+    <span class="blue-text text-darken-2"><%= @gouremet %></span>
     <br>
     <div id='star5-rate'></div>
   </div>
   <br>
+
 </div>
-
-<%# @post_ranks.each do |post| %>
-
-<%#= post.stadium.name %>
-<%#= post.gouremet_rate %>
-<%# end %>
 
 <div class='col-lg-7'>
   <h5>ユーザー投稿一覧</h5>
@@ -59,25 +56,25 @@
       <tr>
           <td><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></td>
           <td><%= post.stadium.name %></td>
-          <td><%= post.user.name %></td>
+          <td><%#= post.user.name %></td>
           <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
           <td><%= post.post_content %></td>
           <td><%= link_to "ユーザー詳細", post_path(post.id) ,class: "label label-primary" %></td>
       </tr>
-         <% if user_signed_in? %>
-            <%if post.favorited_by?(current_user) %>
+         <%# if user_signed_in? %>
+            <%#if post.favorited_by?(current_user) %>
                       <td><span> いいね:</span>
-                     <%= link_to post.favorites.count, post_favorites_path(post.id), method: :delete %></td>
-                     <% else %>
+                     <%#= link_to post.favorites.count, post_favorites_path(post.id), method: :delete %></td>
+                     <%# else %>
                   <td>
                       <span> いいね:</span>
-                      <%= link_to post.favorites.count,  post_favorites_path(post.id), method: :post %></td>
-                      <% end %>
-                     <% else %>
+                      <%#= link_to post.favorites.count,  post_favorites_path(post.id), method: :post %></td>
+                      <%# end %>
+                     <%# else %>
                 <td>
                   <span> いいね:</span>
-                  <%= post.favorites.count %></td>
-           <% end %>
+                  <%#= post.favorites.count %></td>
+           <%# end %>
 
   </tbody>
 <% end %>
@@ -143,6 +140,87 @@
             score: '<%= @sightseeing  %>',
           });
           </script>
+
+        <script type="text/javascript">
+          function initMap() {
+
+            var test = {lat: <%= @posted.latitude %>, lng: <%= @posted.longitude %>};
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: test
+            });
+
+            var transitLayer = new google.maps.TransitLayer();
+            transitLayer.setMap(map);
+
+            var contentString = '住所：<%= @posted.address %>';
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+
+            var marker = new google.maps.Marker({
+              position:test,
+              map: map,
+              title: contentString
+            });
+
+            marker.addListener('click', function() {
+              infowindow.open(map, marker);
+            });
+          }
+        </script>
+        <script async defer
+          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBXVVA0A41o5mRG_hSO9KrzOp73q5ES91c&callback=initMap">
+        </script>
+
+<!-- ------------------------------------------------------------------------ -->
+<!-- <script>
+    function initMap() {
+
+      //初期表示位置
+      var latlng = new google.maps.LatLng(36.30, 139.5);
+      //デザイン
+      var styles = [
+           {
+            stylers: [
+             { "saturation": -95 },
+             { "lightness": -20 }
+            ]
+           }
+          ];
+
+      var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          styles: styles,
+          center: latlng
+      });
+      var transitLayer = new google.maps.TransitLayer();
+      transitLayer.setMap(map);
+
+      //複数マーカー ここから
+      <% @posts.each do |posted| %>
+      (function(){
+        var contentString = "住所：<%=  posted.address %>"; 
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        var marker = new google.maps.Marker({
+            position:{lat: <%= posted.latitude %>, lng: <%= posted.longitude %>},
+            map: map,
+            title: contentString, //お好みのアイコンが無ければ、左のカンマを削除
+            icon: 'お好みのアイコンのパス（ない場合はこの行と真上の行のカンマを削除）'
+        });
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker, content);
+        });
+       })();
+      <% end %>
+      //複数マーカー ここまで
+  }
+</script>
+ -->
 
 
 

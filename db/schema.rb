@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_08_131849) do
+ActiveRecord::Schema.define(version: 2019_11_12_193333) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -54,6 +54,9 @@ ActiveRecord::Schema.define(version: 2019_11_08_131849) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.string "address"
   end
 
   create_table "stadia", force: :cascade do |t|
@@ -64,7 +67,7 @@ ActiveRecord::Schema.define(version: 2019_11_08_131849) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "address"
-    t.float "latitube"
+    t.float "latitude"
     t.float "longitude"
   end
 

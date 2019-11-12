@@ -31,7 +31,7 @@
     %tbody
       - @stadiums.each do |s|
         %tr
-          %td= attachment_image_tag s, :image, :fill, 250, 250, fallback: "no_image.png", size:'100x100'
+          %td= attachment_image_tag s, :image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'
           %td= s.name
           %td= s.information
           %td= s.address

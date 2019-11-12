@@ -1,9 +1,6 @@
 class Admin::StadiumController < ApplicationController
   def index
-    @stadium = Stadium.new(
-                 latitube: 0,
-                 longitude: 0
-               )
+    @stadium = Stadium.new
     @stadiums = Stadium.all
   end
 
@@ -36,7 +33,7 @@ class Admin::StadiumController < ApplicationController
 
     private
     def stadium_params
-      params.require(:stadium).permit(:name, :image, :information, :position, :address, :latitube, :longitude)
+      params.require(:stadium).permit(:name, :image, :information, :position, :address, :latitude, :longitude)
     end
 
 

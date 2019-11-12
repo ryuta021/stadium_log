@@ -1,19 +1,161 @@
-<div class='col-lg-12'>
+
 <h3>球場一覧画面</h3>
 
-<% @posts.each do |post| %>
 
-<%= post.stadium.name %>
-<%= post.gouremet_rate %>
+<div class="col-md-2">
+  <h6>球場一覧</h6>
+ <ul class="collection">
+   <% @stadiums.each do |stadium|  %>
+      <li class="collection-item"><%= link_to  stadium_path(stadium.id) do %><%=stadium.name %><% end %></li>
+       <% end %>
+    </ul>
+</div>
+
+
+
+<div class='col-lg-10'>
+<script async defer
+ src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBXVVA0A41o5mRG_hSO9KrzOp73q5ES91c&callback=initMap">
+</script>
+
+
+<div id="map"></div>
+
+</div>
+
+
+<div class="col-md-2">
+	<h5>グルメランキング</h5>
+ <ul class="collection">
+ 	  <% @sort_posts.each.with_index do |sort_post, i|  %>
+      <% stadium_id = sort_post[0] %>
+      <% average = sort_post[1].to_f %>
+      <li class="collection-item"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %>   <%= average %></li>
+       <% end %>
+    </ul>
+</div>
+
+
+
+
+
+
+<div class="col-md-2">
+<h5>ムードランキング</h5>
+<ul class="collection">
+<% @sort_moods.each.with_index do |sort_post, i|  %>
+<% stadium_id = sort_post[0] %>
+      <% average = sort_post[1].to_f %>
+ 	 <li class="collection-item"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %>
+    <%= average %></li>
 <% end %>
+ </ul>
+</div>
 
- <% @sort_post.each do |stadium_id, average|  %>
-<!--  average.to_f -->
- <%# @sort_post.each do {|k, v| puts v.to_f} %>
 
-    <%= stadium_id %>
-	<%#= average.name %>
+<div class="col-md-2">
+<h5>アクセスランキング</h5>
+<ul class="collection">
+<% @sort_accesses.each.with_index do |sort_post, i|  %>
+<% stadium_id = sort_post[0] %>
+<% average = sort_post[1].to_f %>
+<li class="collection-item"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %>
+    <%= average %></li>
+ 	<% end %>
+</ul>
+</div>
+
+
+
+
+<div class="col-md-2">
+<h5>観光ランキング</h5>
+<ul class="collection">
+  <% @sort_sightseeings.each.with_index do |sort_post, i|  %>
+<% stadium_id = sort_post[0] %>
+<% average = sort_post[1].to_f %>
+<li class="collection-item"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %>
+    <%= average %></li>
+<% end %>
+</ul>
+</div>
+
+
+<div class="col-md-2">
+<h5>キャパランキング</h5>
+<ul class="collection">
+    <% @sort_sightseeings.each.with_index do |sort_post, i|  %>
+<% stadium_id = sort_post[0] %>
+<% average = sort_post[1].to_f %>
+<li class="collection-item"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %>
+<% end %>
+</ul>
+</div>
+
+
+
+
+
+<tr>
+     <td><%#= stadium_id %></td>
+	<%#= average %>
 	 <%#= average  %>
 	<%#= average.post.gouremet_rate %>
+</tr>
 
-<% end %>
+<script>
+    function initMap() {
+
+      //初期表示位置
+      var latlng = new google.maps.LatLng(36.30, 139.5);
+      //デザイン
+      var styles = [
+           {
+            stylers: [
+             { "saturation": -95 },
+             { "lightness": -20 }
+            ]
+           }
+          ];
+
+      var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          styles: styles,
+          center: latlng
+      });
+      var transitLayer = new google.maps.TransitLayer();
+      transitLayer.setMap(map);
+
+      //複数マーカー ここから
+      <% @stadiums.each do |stadium| %>
+        <%# unless stadium.latitude.nil? && stadium.longitude.nil? %>
+          (function(){
+            var contentString = "住所：<%= stadium.address %>"; 
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            console.log("stadium", <%= stadium %>)
+            console.log("lat","<%= stadium.latitude %>")
+            console.log("lng","<%= stadium.longitude %>")
+           var marker = new google.maps.Marker({
+                position: {lat: <%= stadium.latitude %>, lng: <%= stadium.longitude %>},
+                map: map,
+                title: contentString, //お好みのアイコンが無ければ、左のカンマを削除
+                icon: 'お好みのアイコンのパス（ない場合はこの行と真上の行のカンマを削除）'
+            });
+
+            marker.addListener('click', function() {
+              infowindow.open(map, marker, content);
+            });
+           })();
+          <%# end %>
+      <% end %>
+      //複数マーカー ここまで
+  }
+</script>
+
+
+
+
+
+

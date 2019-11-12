@@ -2,11 +2,10 @@ class Public::StadiumController < ApplicationController
 
 
   def show
-    #@stadium = Stadium.find(params[:id])
-    @post =Post.find(params[:id])
+    @stadium = Stadium.all
+    #@post =Post.find(params[:id])
     @posted =Post.find_by ("stadium_id = 2 ")
-     @posts = Post.where("stadium_id = 2 ")
-
+    @posts = Post.where("stadium_id = 2 ")
      @access = Post.where(stadium_id: 2).average(:access_rate)
      @gouremet = Post.where(stadium_id: 2).average(:gouremet_rate)
      @mood = Post.where(stadium_id: 2).average(:mood_rate)
@@ -17,8 +16,15 @@ class Public::StadiumController < ApplicationController
 
   def index
   	 #binding.pry
-  	 @sort_post = Hash[ Post.group(:stadium_id).average(:gouremet_rate).sort_by{ |_, v| -v } ]
-    @posts = Post.find(Post.group(:stadium_id).order(:gouremet_rate).pluck(:stadium_id))
+  	@stadiums = Stadium.all
+  	@sort_posts = Hash[ Post.group(:stadium_id).average(:gouremet_rate).sort_by{ |_, v| -v } ]
+  	@sort_accesses = Hash[ Post.group(:stadium_id).average(:access_rate).sort_by{ |_, v| -v } ]
+  	@sort_moods = Hash[ Post.group(:stadium_id).average(:mood_rate).sort_by{ |_, v| -v } ]
+  	@sort_sightseeings = Hash[ Post.group(:stadium_id).average(:sightseeing_rate).sort_by{ |_, v| -v } ]
+  	@sort_capacities = Hash[ Post.group(:stadium_id).average(:capacity_rate).sort_by{ |_, v| -v } ]
+    #@posts = Post.find(Post.group(:stadium_id).order(:gouremet_rate).pluck(:stadium_id))
+
+
 
   end
 
@@ -31,7 +37,7 @@ class Public::StadiumController < ApplicationController
 
    private
     def stadium_params
-      params.require(:stadium).permit(:name, :image, :information, :position, :address, :latitube, :longitude)
+      params.require(:stadium).permit(:name, :image, :information, :position, :address, :latitude, :longitude)
     end
 
 

@@ -3,26 +3,11 @@
 
 
 
-
+<div id=map></div>
 
 </div>
 
-<div class='col-lg-5'>
 
-  <ul class="collapsible">
-    <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-  </ul>
 
 <a id="menu" class="waves-effect waves-light btn btn-floating" ><i class="material-icons">menu</i></a>
 
@@ -56,7 +41,7 @@
     <br>
     <div id='star2-rate'></div>
     <label>ムード採点</label>
-    <label><%= @mood %></label>
+     <span class="blue-text text-darken-2"><%= @mood %></span>
     <br>
     <div id='star3-rate'></div>
     <label>キャパシティ採点</label>
@@ -95,25 +80,25 @@
       <tr>
           <td><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></td>
           <td><%= post.stadium.name %></td>
-          <td><%= post.user.name %></td>
+          <td><%#= post.user.name %></td>
           <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
           <td><%= post.post_content %></td>
-          <td><%= link_to "ユーザー詳細", post_path(post.id) ,class: "label label-primary" %></td>
+          <td><p class="flow-text"><%= link_to "ユーザー詳細", post_path(post.id) ,class: "label label-primary" %></td>
       </tr>
-         <% if user_signed_in? %>
-            <%if post.favorited_by?(current_user) %>
+         <%# if user_signed_in? %>
+            <%#if post.favorited_by?(current_user) %>
                       <td><span> いいね:</span>
-                     <%= link_to post.favorites.count, post_favorites_path(post.id), method: :delete %></td>
-                     <% else %>
+                     <%#= link_to post.favorites.count, post_favorites_path(post.id), method: :delete %></td>
+                     <%# else %>
                   <td>
                       <span> いいね:</span>
-                      <%= link_to post.favorites.count,  post_favorites_path(post.id), method: :post %></td>
-                      <% end %>
-                     <% else %>
+                      <%#= link_to post.favorites.count,  post_favorites_path(post.id), method: :post %></td>
+                      <%# end %>
+                     <%# else %>
                 <td>
                   <span> いいね:</span>
-                  <%= post.favorites.count %></td>
-           <% end %>
+                  <%#= post.favorites.count %></td>
+           <%# end %>
 
   </tbody>
 <% end %>
@@ -179,6 +164,40 @@
             score: '<%= @sightseeing  %>',
           });
           </script>
+
+
+            <script type="text/javascript">
+          function initMap() {
+        <%# @posted.each do |posted| %>
+            var test = {lat: <%=  @posted.latitude %>, lng: <%=  @posted.longitude %>};
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: test
+            });
+
+            var transitLayer = new google.maps.TransitLayer();
+            transitLayer.setMap(map);
+
+            var contentString = '住所：<%= @posted.address %>';
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+
+            var marker = new google.maps.Marker({
+              position:test,
+              map: map,
+              title: contentString
+            });
+
+            marker.addListener('click', function() {
+              infowindow.open(map, marker);
+            });
+          }
+          <%# end %>
+        </script>
+        <script async defer
+          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBXVVA0A41o5mRG_hSO9KrzOp73q5ES91c&callback=initMap">
+        </script>
 
 
 
