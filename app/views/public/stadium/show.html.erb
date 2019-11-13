@@ -1,60 +1,49 @@
-<div class='col-lg-12'>
-<h2>球場詳細画面</h2>
-
-
-
-<div id=map></div>
-
-</div>
-
-
-
-<a id="menu" class="waves-effect waves-light btn btn-floating" ><i class="material-icons">menu</i></a>
-
-  <!-- Tap Target Structure -->
-  <div class="tap-target" data-target="menu">
-    <div class="tap-target-content">
-      <h5>Title</h5>
-      <p>A bunch of text</p>
-    </div>
+<div class="row">
+  <div class='col s12 center-align'>
+    <h3><%= @posted.stadium.name %></h3>
+    <div id='map' data-posteds=<%= @posteds %>></div>
   </div>
 
-</div>
+  <div class='col s4'>
+    <ul class="collapsible">
+        <li>
+          <laber><%#= attachment_image_tag @posted.stadium.image, :image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></laber>
+          <div class="collapsible-header"><h4><%= @posted.stadium.name %></h4></div>
+          <div class="collapsible-body"></span></div>
+        </li>
+        <li>
+          <div class="collapsible-header"><h4>球場紹介</h4></div>
+          <div class="collapsible-body"></span><%= @posted.stadium.information %></div>
+        </li>
+        <li>
+          <div class="collapsible-header"><h4>球場詳細</h4></div>
+          <div class="collapsible-body"></span></div>
+        </li>
+      </ul>
 
-
-
-<laber><%#= attachment_image_tag @posted, :image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></laber>
-<div class='form-group'>
-<laber><h3><%= @posted.stadium.name %></h3></laber>
-</div>
-<div class='form-group'>
-<laber><%= @posted.stadium.information %></laber>
-</div>
-<div class='col-lg-5'>
-  <div class='form-group'>
-    <label>アクセス採点</label>
-    <label><%= @access %></label>
-    <br>
-    <div id='star-rate'></div>
-    <label>グルメ採点</label>
-    <label><%= @gouremet %></label>
-    <br>
-    <div id='star2-rate'></div>
-    <label>ムード採点</label>
-     <span class="blue-text text-darken-2"><%= @mood %></span>
-    <br>
-    <div id='star3-rate'></div>
-    <label>キャパシティ採点</label>
-    <label><%=@capacity   %></label>
-    <br>
-    <div id='star4-rate'></div>
-    <label>観光採点</label>
-    <label><%= @gouremet %></label>
-    <br>
-    <div id='star5-rate'></div>
+      <div class='form-group'>
+        <label>アクセス採点</label>
+         <span class="blue-text text-darken-2"><%= @access %></span>
+        <br>
+        <div id='star-rate'></div>
+        <label>グルメ採点</label>
+        <span class="blue-text text-darken-2"><%= @gouremet %></span>
+        <br>
+        <div id='star2-rate'></div>
+        <label>ムード採点</label>
+         <span class="blue-text text-darken-2"><%= @mood %></span>
+        <br>
+        <div id='star3-rate'></div>
+        <label>キャパシティ採点</label>
+        <span class="blue-text text-darken-2"><%=@capacity   %></span>
+        <br>
+        <div id='star4-rate'></div>
+        <label>観光採点</label>
+         <span class="blue-text text-darken-2"><%= @gouremet %></span>
+        <div id='star5-rate'></div>
+      </div>
+      <br>
   </div>
-  <br>
-</div>
 
 <%# @post_ranks.each do |post| %>
 
@@ -64,41 +53,18 @@
 <div class='col-lg-7'>
 
   <h5>ユーザー投稿一覧</h5>
-  <table class='table table-hover'>
-    <thead>
-      <tr>
-        <th>画像</th>
-        <th>球場名</th>
-        <th>投稿者</th>
-        <th>観戦日</th>
-        <th>投稿内容</th>
-        <th>投稿詳細</th>
-      </tr>
-       </thead>
-  <tbody>
+  <table class="striped">
+    <tbody>
     <% @posts.each do |post| %>
       <tr>
           <td><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></td>
           <td><%= post.stadium.name %></td>
-          <td><%#= post.user.name %></td>
-          <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
+          <td><%= post.user.name %></td>
+          <td><%= post.watching_date.strftime("%m月%d日") %></td>
           <td><%= post.post_content %></td>
-          <td><p class="flow-text"><%= link_to "ユーザー詳細", post_path(post.id) ,class: "label label-primary" %></td>
+          <td><%= post.favorite_count %>
+          <td><%= link_to "詳細", post_path(post.id) ,class: "btn-floating btn-large " %></td>
       </tr>
-         <%# if user_signed_in? %>
-            <%#if post.favorited_by?(current_user) %>
-                      <td><span> いいね:</span>
-                     <%#= link_to post.favorites.count, post_favorites_path(post.id), method: :delete %></td>
-                     <%# else %>
-                  <td>
-                      <span> いいね:</span>
-                      <%#= link_to post.favorites.count,  post_favorites_path(post.id), method: :post %></td>
-                      <%# end %>
-                     <%# else %>
-                <td>
-                  <span> いいね:</span>
-                  <%#= post.favorites.count %></td>
-           <%# end %>
 
   </tbody>
 <% end %>
@@ -168,7 +134,6 @@
 
             <script type="text/javascript">
           function initMap() {
-        <%# @posted.each do |posted| %>
             var test = {lat: <%=  @posted.latitude %>, lng: <%=  @posted.longitude %>};
             var map = new google.maps.Map(document.getElementById('map'), {
               zoom: 15,
@@ -178,22 +143,29 @@
             var transitLayer = new google.maps.TransitLayer();
             transitLayer.setMap(map);
 
-            var contentString = '住所：<%= @posted.address %>';
-            var infowindow = new google.maps.InfoWindow({
-              content: contentString
-            });
+            var posteds = $('#map').data('posteds')
+            posteds.forEach(function(posted){
+            //posteds.each do |posted|
+              var hoge = {lat: posted.latitude, lng: posted.longitude};
+              console.log(hoge)
+              var contentString = '住所：' + posted.address;
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
 
-            var marker = new google.maps.Marker({
-              position:test,
-              map: map,
-              title: contentString
-            });
+              var marker = new google.maps.Marker({
+                position:hoge,
+                map: map,
+                title: contentString
+              });
 
-            marker.addListener('click', function() {
-              infowindow.open(map, marker);
-            });
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+            })
+
           }
-          <%# end %>
+
         </script>
         <script async defer
           src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBXVVA0A41o5mRG_hSO9KrzOp73q5ES91c&callback=initMap">

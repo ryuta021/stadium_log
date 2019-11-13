@@ -3,6 +3,7 @@
   <head>
     <title>Sutarog'</title>
 
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
@@ -12,24 +13,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.full.min.js" defer></script>
     <script src="https://js.pay.jp/" type="text/javascript"></script>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+　          <!-- select表示に必要 -->
+<script>
+$(document).ready(function(){
+$('select').formSelect();
+});
+</script>
 
 
 
  <body>
-
   <nav>
-    <div class="nav-wrapper">
-      <%= link_to "スタログ", root_path %>
+    <div class="nav-wrapper light-blue darken-1">
+          <%= link_to "スタログ", root_path ,class: "brand-logo" %></h5>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
          <% if user_signed_in? %>
         <li>こんにちは!<%= current_user.name %> 様</li>
 
         <li><%= link_to "投稿", new_post_path %></li>
-
-        <li><%= link_to "球場別投稿",  posts_path %></li>
 
         <li><%= link_to "マイページ", user_path(current_user.id) %></li>
 
@@ -62,14 +64,7 @@
   </nav>
           <ul>
                 　　　　　　　　　
-        
-    <script>
-    $(document).ready(function(){
-    $('select').formSelect();
-    });
-    </script>
-    <script defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXVVA0A41o5mRG_hSO9KrzOp73q5ES91c&callback=initMap"></script>
-    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>        　
+        　
  </body>
 </html>
 <%= yield %>

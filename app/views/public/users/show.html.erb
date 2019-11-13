@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col s3">
+     <div class="left-align">
+        <ul class="collection with-header">
+          <li class="collection-header">ユーザー画像</li>
+          <li class="collection-item"><h5><%= @user.name %></h5></li>
+          <li class="collection-item">好きなチーム　　<%= @user.team.team %></li>
+          <li class="collection-item"> <%= @user.introduction %></li>
+          <li class="collection-item">Alvin</li>
+          <li class="collection-item">Alvin</li>
+        </ul>
+
+        <%= link_to "マイページ編集" ,edit_user_path(@user.id), class: "btn btn-primary col s5" %>
+    </div>
+  </div>
+    <h5> ユーザー投稿一覧</h5>
+    <table class="table table-hover col s5">
+          <% if @post.present? %>
+            <% @users.each do |post| %>
+              <tbody>
+                <tr>
+                  <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100'  %> </td>
+                  <td><%= post.user.name %></td>
+                  <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
+                  <td><%= post.post_content %></td>
+                  <td>
+                    <%= link_to "投稿詳細",admin_post_path(post.id) %></td>
+                  </tr>
+                  <% end %>
+                  <% end %>
+                </tbody>
+      </table>
+</div>

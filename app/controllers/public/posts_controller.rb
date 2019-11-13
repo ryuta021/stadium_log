@@ -25,6 +25,11 @@ class Public::PostsController < ApplicationController
 
    def show
       @post =Post.find(params[:id])
+      @access = Post.where(stadium_id: 2).average(:access_rate)
+     @gouremet = Post.where(stadium_id: 2).average(:gouremet_rate)
+     @mood = Post.where(stadium_id: 2).average(:mood_rate)
+     @sightseeing = Post.where(stadium_id: 2).average(:sightseeing_rate)
+     @capacity = Post.where(stadium_id: 2).average(:capacity_rate)
      #@posts = @user.post
      #@favorite_post = @user.favorite_post
    end

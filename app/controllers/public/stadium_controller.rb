@@ -2,10 +2,19 @@ class Public::StadiumController < ApplicationController
 
 
   def show
-    @stadium = Stadium.all
-    #@post =Post.find(params[:id])
-    @posted =Post.find_by ("stadium_id = 2 ")
-    @posts = Post.where("stadium_id = 2 ")
+    # binding.pry
+    @posted =Post.find(params[:id])
+    @posteds =Post.all.to_json
+    @posts = Post.group(params[:id])
+     # @access = Post.where(:stadium_id).average(:access_rate)
+     # @gouremet = Post.where(:stadium_id).average(:gouremet_rate)
+     # @mood = Post.where(:stadium_id).average(:mood_rate)
+     # @sightseeing = Post.where(:stadium_id).average(:sightseeing_rate)
+     # @capacity = Post.where(:stadium_id).average(:capacity_rate)
+
+
+    # @posted =Post.find_by ("stadium_id = 2 ")
+    # @posts = Post.where("stadium_id = 2 ")
      @access = Post.where(stadium_id: 2).average(:access_rate)
      @gouremet = Post.where(stadium_id: 2).average(:gouremet_rate)
      @mood = Post.where(stadium_id: 2).average(:mood_rate)
@@ -17,6 +26,8 @@ class Public::StadiumController < ApplicationController
   def index
   	 #binding.pry
   	@stadiums = Stadium.all
+    @stadium =Post.find_by ("stadium_id = 2 ")
+    #@stadiums =Stadium.find(params[:id])
   	@sort_posts = Hash[ Post.group(:stadium_id).average(:gouremet_rate).sort_by{ |_, v| -v } ]
   	@sort_accesses = Hash[ Post.group(:stadium_id).average(:access_rate).sort_by{ |_, v| -v } ]
   	@sort_moods = Hash[ Post.group(:stadium_id).average(:mood_rate).sort_by{ |_, v| -v } ]
