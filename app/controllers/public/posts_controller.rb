@@ -20,34 +20,39 @@ class Public::PostsController < ApplicationController
 
 
   def edit
-
+      @post = Post.find(params[:id])
   end
 
 
    def show
+    @access = Post.where(stadium_id: params[:id]).average(:access_rate)
+    @gouremet = Post.where(stadium_id: params[:id]).average(:gouremet_rate)
+    @mood = Post.where(stadium_id: params[:id]).average(:mood_rate)
+    @sightseeing = Post.where(stadium_id: params[:id]).average(:sightseeing_rate)
+    @capacity = Post.where(stadium_id: params[:id]).average(:capacity_rate)
      @post =Post.find(params[:id])
-     @access = Post.where(stadium_id: 2).average(:access_rate)
-     @gouremet = Post.where(stadium_id: 2).average(:gouremet_rate)
-     @mood = Post.where(stadium_id: 2).average(:mood_rate)
-     @sightseeing = Post.where(stadium_id: 2).average(:sightseeing_rate)
-     @capacity = Post.where(stadium_id: 2).average(:capacity_rate)
+
+     # @access = Post.where(stadium_id: 2).average(:access_rate)
+     # @gouremet = Post.where(stadium_id: 2).average(:gouremet_rate)
+     # @mood = Post.where(stadium_id: 2).average(:mood_rate)
+     # @sightseeing = Post.where(stadium_id: 2).average(:sightseeing_rate)
+     # @capacity = Post.where(stadium_id: 2).average(:capacity_rate)
      #@posts = @user.posts
      #@favorite_post = @user.favorite_post
    end
 
 
   def create
-    p "---------------------------------------"
       @post = Post.new(post_params)
       @post.user_id = current_user.id
-      @post.save!
+      @post.save
       redirect_to  posts_path
   end
 
 
 
   def destroy
-     post = Post.find(params[:id])
+      post = Post.find(params[:id])
       post.destroy
       redirect_to user_path(@post.id), danger: "投稿情報を削除しました。"
   end

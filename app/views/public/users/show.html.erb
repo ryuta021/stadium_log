@@ -2,42 +2,45 @@
 <div class="row">
   <h3>マイページ</h3>
   <h5>現在まで行ってきた場所が表示されます</h5>
+
   <div id='map' data-posteds=<%= @posteds %>></div>
-  <div class="col s3">
-    <div class="left-align">
-      <ul class="collection with-header">
-        <li class="collection-header"><%= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'  %></li>
-        <li class="collection-item"><h5><%= @user.name %></h5></li>
-        <li class="collection-item">好きなチーム　　<%= @user.team.team %></li>
-        <li class="collection-item">自己紹介</li>
-        <li class="collection-item"> <%= @user.introduction %></li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item"><%= link_to "マイページ編集" ,edit_user_path(@user.id), class: "btn btn-primary col s12" %></li>
-      </ul>
+
+      <div class="col s3">
+        <div class="left-align">
+          <ul class="collection with-header">
+            <li class="collection-header"><%= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'  %></li>
+            <li class="collection-item"><h5><%= @user.name %></h5></li>
+            <li class="collection-item">好きなチーム　　<%= @user.team.team %></li>
+            <li class="collection-item">自己紹介</li>
+            <li class="collection-item"> <%= @user.introduction %></li>
+            <li class="collection-item">Alvin</li>
+            <li class="collection-item"><%= link_to "マイページ編集" ,edit_user_path(@user.id), class: "btn btn-primary col s12" %></li>
+          </ul>
+        </div>
+      </div>
+        <h5> ユーザー投稿一覧</h5>
+        <table class="table table-hover col s5">
+            <% @posts.each do |post| %>
+              <tbody>
+                  <tr>
+                    <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'  %> </td>
+                    <td><%= post.user.name %></td>
+                    <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
+                    <td><%= post.post_content %></td>
+                    <td> <%= link_to "詳細",post_path(post.id) ,class: "btn-floating btn-large "%></td>
+                  </tr>
+              </tbody>
+          <% end %>
+        </table>
+          <%= paginate @posts %>
     </div>
-  </div>
-    <h5> ユーザー投稿一覧</h5>
-    <table class="table table-hover col s5">
-        <% @posts.each do |post| %>
-          <tbody>
-              <tr>
-                <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'  %> </td>
-                <td><%= post.user.name %></td>
-                <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
-                <td><%= post.post_content %></td>
-                <td> <%= link_to "詳細",admin_post_path(post.id) ,class: "btn-floating btn-large "%></td>
-              </tr>
-          </tbody>
-      <% end %>
-    </table>
-      <%= paginate @posts %>
-</div>
-</main>
+    </main>
 
 
             <script type="text/javascript">
           function initMap() {
-            var test = {lat: <%=  @posted.latitude %>, lng: <%=  @posted.longitude %>};
+            // var test = {lat: <%=  @posted.latitude %>, lng: <%=  @posted.longitude %>};
+             var test = { lat: 36.096863, lng: 140.160550};
             var map = new google.maps.Map(document.getElementById('map'), {
               zoom: 15,
               center: test

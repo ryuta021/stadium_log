@@ -29,8 +29,7 @@
         <ul class="collapsible">
           <li>
               <div class="collapsible-header"><h5 class="blue-text text-darken-2">総合ランキング</h5></div>
-              <div class="collapsible-body"></div>
-           <% @sort_posts.each.with_index do |sort_post, i|  %>
+              <% @sort_posts.each.with_index do |sort_post, i|  %>
                <% stadium_id = sort_post[0] %>
                <% average = sort_post[1].to_f %>
               <div class="collapsible-body"><span><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %><%= average %></span></div>

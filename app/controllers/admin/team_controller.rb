@@ -21,7 +21,7 @@ class Admin::TeamController < ApplicationController
 
   def destroy
     team = Team.find(params[:id])
-      team.destroy
+    team.destroy
     redirect_to admin_team_index_path, danger: "チーム情報を削除しました。"
   end
 

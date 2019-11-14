@@ -7,11 +7,11 @@ class Public::StadiumController < ApplicationController
     @posts = Post.where(stadium_id: params[:id])
     @posteds = Post.where(stadium_id: params[:id]).to_json
 
-    #@access = Post.where(stadium_id: params[:id]).average(:access_rate)
-    #@gouremet = Post.where(stadium_id: params[:id]).average(:gouremet_rate)
-    #@mood = Post.where(stadium_id: params[:id]).average(:mood_rate)
-    #@sightseeing = Post.where(stadium_id: params[:id]).average(:sightseeing_rate)
-    #@capacity = Post.where(stadium_id: params[:id]).average(:capacity_rate)
+    @access = Post.where(stadium_id: params[:id]).average(:access_rate)
+    @gouremet = Post.where(stadium_id: params[:id]).average(:gouremet_rate)
+    @mood = Post.where(stadium_id: params[:id]).average(:mood_rate)
+    @sightseeing = Post.where(stadium_id: params[:id]).average(:sightseeing_rate)
+    @capacity = Post.where(stadium_id: params[:id]).average(:capacity_rate)
      #@post =Post.find(params[:id])
   end
 

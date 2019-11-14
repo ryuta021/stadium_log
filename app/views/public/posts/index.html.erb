@@ -1,70 +1,42 @@
 <main>
-<div id=map></div>
-
-<div class='col-lg-5'>
-</div>
-<div class='col-lg-7'>
-  <h5>ユーザー投稿一覧</h5>
-  <table class='table table-hover'>
-      <thead>
-        <tr>
-          <th>画像</th>
-          <th>球場名</th>
-          <th>投稿者</th>
-          <th>観戦日</th>
-          <th>投稿内容</th>
-          <th>投稿詳細</th>
-        </tr>
-      </thead>
-    <% @posts.each do |post| %>
-     <tbody>
-        <tr>
-            <td><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></td>
-            <td><%= post.stadium.name %></td>
-            <td><%#= post.user.name %></td>
-            <td><%#= post.watching_date.strftime("%Y年%m月%d日") %></td>
-            <td><%= post.post_content %></td>
-            <td><%= link_to "ユーザー詳細", post_path(post.id) ,class: "label label-primary" %></td>
-        </tr>
-     </tbody>
-    <% end %>
-    <%= paginate @posts %>
-  </table>
-</div>
+<h3 class="center-align">投稿一覧</h3>
+ <div class="col s12">
+  <div class="col s12 m4 l2"></div>
+    <div class="col s12 m4 l8">
+      <table class="table-hover">
+        <thead>
+          <tr>
+            <th> 球場画像</th>
+            <th> 投稿者</th>
+            <th> 球場名</th>
+            <th> 観戦日</th>
+            <th> 投稿内容</th>
+            <th> アクセス</th>
+            <th> グルメ</th>
+            <th> 雰囲気</th>
+            <th> キャパシティ</th>
+            <th> 観光場所</th>
+          </tr>
+        </thead>
+          <% @posts.each do |post| %>
+            <tbody>
+              <tr>
+                <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %></td>
+                <td><%= post.user.name %></td>
+                <td><%= post.stadium.name %></td>
+                <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
+                <td><%= post.post_content %></td>
+                <td><%= post.access_rate %>点</td>
+                <td><%= post.gouremet_rate %>点</td>
+                <td><%= post.mood_rate %>点</td>
+                <td><%= post.capacity_rate %>点</td>
+                <td><%= post.sightseeing_rate %>点</td>
+              </tr>　
+               <%= paginate @posts %>
+               <% end %>
+             </tbody>
+       </table>
+     </div>
+   </div>
 </main>
 
-
-
-        <script type="text/javascript">
-          function initMap() {
-
-            var test = {lat: <%#= @posted.latitude %>, lng: <%#= @posted.longitude %>};
-            var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 15,
-              center: test
-            });
-
-            var transitLayer = new google.maps.TransitLayer();
-            transitLayer.setMap(map);
-
-            var contentString = '住所：<%#= @posted.address %>';
-            var infowindow = new google.maps.InfoWindow({
-              content: contentString
-            });
-
-            var marker = new google.maps.Marker({
-              position:test,
-              map: map,
-              title: contentString
-            });
-
-            marker.addListener('click', function() {
-              infowindow.open(map, marker);
-            });
-          }
-        </script>
-        <script async defer
-          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBXVVA0A41o5mRG_hSO9KrzOp73q5ES91c&callback=initMap">
-        </script>
-
-<
