@@ -22,7 +22,7 @@
             <td><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></td>
             <td><%= post.stadium.name %></td>
             <td><%#= post.user.name %></td>
-            <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
+            <td><%#= post.watching_date.strftime("%Y年%m月%d日") %></td>
             <td><%= post.post_content %></td>
             <td><%= link_to "ユーザー詳細", post_path(post.id) ,class: "label label-primary" %></td>
         </tr>

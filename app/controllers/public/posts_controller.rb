@@ -18,6 +18,12 @@ class Public::PostsController < ApplicationController
       @post =Post.new
   end
 
+
+  def edit
+
+  end
+
+
    def show
      @post =Post.find(params[:id])
      @access = Post.where(stadium_id: 2).average(:access_rate)
@@ -30,9 +36,8 @@ class Public::PostsController < ApplicationController
    end
 
 
-
-
   def create
+    p "---------------------------------------"
       @post = Post.new(post_params)
       @post.user_id = current_user.id
       @post.save!
@@ -42,6 +47,9 @@ class Public::PostsController < ApplicationController
 
 
   def destroy
+     post = Post.find(params[:id])
+      post.destroy
+      redirect_to user_path(@post.id), danger: "投稿情報を削除しました。"
   end
 
 

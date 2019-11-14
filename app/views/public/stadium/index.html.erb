@@ -1,98 +1,140 @@
 
 <main>
-  <div class="row">
-    <div class='col-lg-12'>
-       <div class="col s12 m3">
-         <ul class="collection with-header">
-          <li class="collection-header"><h4>球場一覧</h4></li>
-              <% @stadiums.each do |stadium|  %>
-                <li class="collection-item"><%= link_to  stadium_path(stadium.id) do %><%=stadium.name %><% end %></li>
-             <% end %>
-        　</ul>
-      </div>
+<div class="row">
+   <div class="col s2 ">
 
-　　　　　<div class="grid-example col s12 m9">
-          <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDgRNuMMQ26SbHwrGQmhxfrS4kjcuygGbI&callback=initMap">
-          </script>
-          <div id='map' data-posteds=<%= @posteds %>></div>
-  
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>球場一覧</h4></li>
+         <% @stadiums.each do |stadium|  %>
+        <li class="collection-item"><%= link_to  stadium_path(stadium.id) do %><%=stadium.name %><% end %></li>
+         <% end %>
+      </ul>
+    </div>
 
 
-        <div class='col-lg-3 center-align'>
-         <ul class="collapsible">
-            <li>
-              <div class="collapsible-header yellow-text text-darken-2 "><h6>総合得点</h6></div>
+
+
+
+
+
+
+
+
+  <div class="col s10">
+     <div id='map' data-posteds=<%= @posteds %>></div>
+
+
+
+     <div class="col s4">
+        <ul class="collapsible">
+          <li>
+              <div class="collapsible-header"><h5 class="blue-text text-darken-2">総合ランキング</h5></div>
               <div class="collapsible-body"></div>
-               <% @sort_posts.each.with_index do |sort_post, i|  %><% stadium_id = sort_post[0] %> <% average = sort_post[1].to_f %>
-                <div class="collapsible-body"><%= "第#{ i+1 }位" %><%= Stadium.find(stadium_id).name %><%= average %></div>
-                <% end %>
-            </li>
-          </ul>
-        </div>
+           <% @sort_posts.each.with_index do |sort_post, i|  %>
+               <% stadium_id = sort_post[0] %>
+               <% average = sort_post[1].to_f %>
+              <div class="collapsible-body"><span><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %><%= average %></span></div>
+          </li>
+          <% end %>
+        </ul>
+   </div>
+
+
+    <div class="col s4">
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header"><h5 class="green-text">グルメランキング</h5></div>
+          <div class="collapsible-body"></div>
+            <% @sort_posts.each.with_index do |sort_post, i|  %>
+              <% stadium_id = sort_post[0] %>
+              <% average = sort_post[1].to_f %>
+              <div class="collection-body"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %><%= average %></div>
+           <% end %>
+        </li>
+      </ul>
+   </div>
 
 
 
 
-         <div class='col-lg-3'>
-             <ul class="collection with-header ">
-               <li class=" yellow-text text-darken-2 collection-header"><h6>グルメランキング</h6></li>
-             	  <% @sort_posts.each.with_index do |sort_post, i|  %>
-                  <% stadium_id = sort_post[0] %>
-                  <% average = sort_post[1].to_f %>
-                  <li class="collection-item"><%= "第#{ i+1 }位" %><%= Stadium.find(stadium_id).name %><%= average %></li>
-                   <% end %>
-                </ul>
-              </div>
-             <div class='col-lg-3'>
-              <ul class="collection with-header">
-               <li class="green-text text-darken-2 collection-header"><h6>ムードランキング</h6></li>
-              　　<% @sort_moods.each.with_index do |sort_post, i|  %>
-              　　　　<% stadium_id = sort_post[0] %>
-                    <% average = sort_post[1].to_f %>
-               	    <li class="collection-item"><%= "第#{ i+1 }位" %><%= Stadium.find(stadium_id).name %><%= average %></li>
-              　　<% end %>
-               </ul>
-             </div>
+    <div class="col s4">
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header"><h5 class="yellow-text">ムードランキング</h5></div>
+          <div class="collapsible-body"></div>
+            <% @sort_moods.each.with_index do |sort_post, i|  %>
+              <% stadium_id = sort_post[0] %>
+              <% average = sort_post[1].to_f %>
+              <div class="collection-body"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %><%= average %></div>
+           <% end %>
+        </li>
+      </ul>
+   </div>
 
-          <div class='col-lg-3'>
-               <ul class="collection with-header">
-                  <li class="blue-text text-darken-2 collection-header"><h6>アクセスランキング</h6></li>
-            　　　　<% @sort_accesses.each.with_index do |sort_post, i|  %>
-            　　　　<% stadium_id = sort_post[0] %>
-            　　　　<% average = sort_post[1].to_f %>
-            　　　　<li class="collection-item"><%= "第#{ i+1 }位" %><%= Stadium.find(stadium_id).name %> <%= average %></li>
-             	　<% end %>
-            　</ul>
-          </div>
 
-         <div class='col-lg-3'>
-              <ul class="collection with-header">
-               <li class="orange-text text-darken-2 collection-header"><h6>観光ランキング</h6></li>
-                <% @sort_sightseeings.each.with_index do |sort_post, i|  %>
-                    <% stadium_id = sort_post[0] %>
-                    <% average = sort_post[1].to_f %>
-                    <li class="collection-item"><%= "第#{ i+1 }位" %><%= Stadium.find(stadium_id).name %><%= average %></li>
-                <% end %>
-              </ul>
-            </div>
 
-         <div class='col-lg-3'>
-              <ul class="collection with-header">
-                 <li class="red-text  collection-header"><h6>キャパランキング</h6></li>
-                  <% @sort_sightseeings.each.with_index do |sort_post, i|  %>
-                    <% stadium_id = sort_post[0] %>
-                    <% average = sort_post[1].to_f %>
-                    <li class="collection-item"><%= "第#{ i+1 }位" %><%= Stadium.find(stadium_id).name %><%= average %></li>
-                  <% end %>
-              </ul>
-            </div>
-            </div>
-          </div>
-        </main>
+    <div class="col s4">
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header"><h5>アクセスランキング</h5></div>
+          <div class="collapsible-body"></div>
+            <% @sort_accesses.each.with_index do |sort_post, i|  %>
+              <% stadium_id = sort_post[0] %>
+              <% average = sort_post[1].to_f %>
+              <div class="collection-body"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %><%= average %></div>
+           <% end %>
+        </li>
+      </ul>
+   </div>
 
-            <script type="text/javascript">
+<div class="col s4">
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header"><h5 class="red-text">観光ランキング</h5></div>
+          <div class="collapsible-body"></div>
+            <% @sort_sightseeings.each.with_index do |sort_post, i|  %>
+              <% stadium_id = sort_post[0] %>
+              <% average = sort_post[1].to_f %>
+              <div class="collection-body"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %><%= average %></div>
+           <% end %>
+        </li>
+      </ul>
+   </div>
+
+<div class="col s4">
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header"><h5 class="orange-text">キャパランキング</h5></div>
+          <div class="collapsible-body"></div>
+            <% @sort_capacities.each.with_index do |sort_post, i|  %>
+              <% stadium_id = sort_post[0] %>
+              <% average = sort_post[1].to_f %>
+              <div class="collection-body"><%= Stadium.find(stadium_id).name %><%= "第#{ i+1 }位" %><%= average %></div>
+           <% end %>
+        </li>
+      </ul>
+   </div>
+
+
+
+
+
+
+
+       
+</div>
+</div>
+</div>
+
+</main>
+
+
+
+
+
+ <script type="text/javascript">
           function initMap() {
-            var test = {lat: <%#=  @posted.latitude %>, lng: <%#=  @posted.longitude %>};
+            var test = {lat: <%=  @posted.latitude %>, lng: <%=  @posted.longitude %>};
             var map = new google.maps.Map(document.getElementById('map'), {
               zoom: 15,
               center: test
@@ -128,6 +170,11 @@
         </script>
         <script async defer
           src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDgRNuMMQ26SbHwrGQmhxfrS4kjcuygGbI&callback=initMap">
-
         </script>
+
+
+
+
+
+
 
