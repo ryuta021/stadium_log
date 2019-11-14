@@ -3,7 +3,7 @@
     <%= button_to post_favorites_path(favorite, post_id: post.id), method: :delete, id: "like-button", remote: true do %>
       <%= image_tag("icon_red_heart.svg") %>
       <span>
-        <%= post.like_count %>
+        <%= post.favorite_count %>
       </span>
     <% end %>
   <% else %>

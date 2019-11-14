@@ -11,6 +11,14 @@ Rails.application.routes.draw do
     resources :posts, only: [:edit, :update, :show, :index, :destroy]
   end
 
+  devise_for :admin_users, controllers: {
+            sessions: 'admin/admin_user/sessions',
+            registrations: 'admin/admin_user/registrations',
+            passwords: 'admin/admin_user/passwords'
+      }
+
+
+
 
   devise_for :users,controllers: {
           sessions: 'public/users/sessions',
@@ -30,15 +38,9 @@ Rails.application.routes.draw do
 
 # only: [:index, :create, :show, :new, :destroy]
 
-# devise_for :admin_users, controllers: {
-#           sessions: 'admin/admin_users/sessions',
-#           registrations: 'admin/admin_users/registrations',
-#           passwords: 'admin/admin_users/passwords'
-#     }
 
 
-
-   devise_for :admin_users
+   # devise_for :admin_users
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

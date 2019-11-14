@@ -1,0 +1,43 @@
+<main>
+<div class="row">
+  <h3 class="center-align">チーム一覧　作成画面</h3>
+   <div class="col s12">
+    <div class="col s12 m4 l2"><p></div>
+     <div class="col s12 m4 l8">
+          <% if @team.errors.any? %>
+              <%= @team.errors.count %>件のerrorが発生しました チーム名を入力してください
+              <% @team.errors.full_messages.each do |message| %>
+                  <%= message %>
+              <% end %>
+          <% end %>
+          <div class="divider"></div>
+
+          <%= form_for(@team, url: admin_team_index_path, method: :post) do |f| %>
+            <div class ="form-group">
+              <label> チーム名</label>
+             <%= f.text_field :team, class: "form-control", autocomplete: 'off',placeholder: "入力してください"%>
+            <%= f.submit "チーム登録" , class: "btn btn-success col s12" %>
+            <% end %>
+        　</div>
+      </div>
+
+      <table class="table-hover">
+        <thead>
+          <tr>
+           <th> チーム名</th>
+            <th> 編集</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @teams.each do |s| %>
+            <tr>
+              <td><%= s.team %></td>
+              <td><%= link_to "編集", edit_admin_team_path(s.id) ,class: "label label-primary"%></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
+</main>

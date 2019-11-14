@@ -1,19 +1,28 @@
+<main>
 <div class="row">
   <div class='col s12 center-align'>
-    <h3><%= @posted.stadium.name %></h3>
+    <h3><%= @posted.name %></h3>
     <div id='map' data-posteds=<%= @posteds %>></div>
+  </div>
+
+ <div class="carousel">
+    <a class="carousel-item" href="#one!"><img src="https://lorempixel.com/250/250/nature/1"></a>
+    <a class="carousel-item" href="#two!"><img src="https://lorempixel.com/250/250/nature/2"></a>
+    <a class="carousel-item" href="#three!"><img src="https://lorempixel.com/250/250/nature/3"></a>
+    <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/250/250/nature/4"></a>
+    <a class="carousel-item" href="#five!"><img src="https://lorempixel.com/250/250/nature/5"></a>
   </div>
 
   <div class='col s4'>
     <ul class="collapsible">
         <li>
           <laber><%#= attachment_image_tag @posted.stadium.image, :image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></laber>
-          <div class="collapsible-header"><h4><%= @posted.stadium.name %></h4></div>
+          <div class="collapsible-header"><h4><%= @posted.name %></h4></div>
           <div class="collapsible-body"></span></div>
         </li>
         <li>
           <div class="collapsible-header"><h4>球場紹介</h4></div>
-          <div class="collapsible-body"></span><%= @posted.stadium.information %></div>
+          <div class="collapsible-body"></span><%= @posted.information %></div>
         </li>
         <li>
           <div class="collapsible-header"><h4>球場詳細</h4></div>
@@ -45,31 +54,29 @@
       <br>
   </div>
 
-<%# @post_ranks.each do |post| %>
-
-<%#= post.stadium.name %>
-<%#= post.gouremet_rate %>
-<%# end %>
 <div class='col-lg-7'>
 
   <h5>ユーザー投稿一覧</h5>
   <table class="striped">
     <tbody>
     <% @posts.each do |post| %>
+    <%# binding.pry %>
       <tr>
           <td><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></td>
           <td><%= post.stadium.name %></td>
-          <td><%= post.user.name %></td>
+          <td><%#= post.user.name %></td>
           <td><%= post.watching_date.strftime("%m月%d日") %></td>
           <td><%= post.post_content %></td>
-          <td><%= post.favorite_count %>
+          <td><%= render 'public/favorites/favorite',post: post %></td>
+          <td><%= post.favorite_count %></td>
           <td><%= link_to "詳細", post_path(post.id) ,class: "btn-floating btn-large " %></td>
       </tr>
-
   </tbody>
 <% end %>
   </table>
 </div>
+</div>
+</main>
 
 
 
@@ -144,6 +151,7 @@
             transitLayer.setMap(map);
 
             var posteds = $('#map').data('posteds')
+                // JSのeach文
             posteds.forEach(function(posted){
             //posteds.each do |posted|
               var hoge = {lat: posted.latitude, lng: posted.longitude};
@@ -168,7 +176,7 @@
 
         </script>
         <script async defer
-          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBXVVA0A41o5mRG_hSO9KrzOp73q5ES91c&callback=initMap">
+          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBuW2zWs-ClIq4pbvIHrQvg5EOocXKn8C8&callback=initMap">
         </script>
 
 

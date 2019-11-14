@@ -5,11 +5,14 @@ class Admin::TeamController < ApplicationController
   end
 
   def create
-    @team = Team.new(team_params)
-    @team.save
-    redirect_to  admin_team_index_path
+       @team = Team.new(team_params)
+    if @team.save
+       redirect_to  admin_team_index_path
+    else
+      @team = Team.all
+      render :index
+    end
   end
-
 
 
   def edit

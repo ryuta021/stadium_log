@@ -2,7 +2,9 @@ class Post < ApplicationRecord
 	attachment :posted_image
 	belongs_to :user
 	belongs_to :stadium
-	 has_many :favorites, dependent: :destroy
+	has_many :favorites, dependent: :destroy
+
+
 
   def like_user(user_id)
    favorites.find_by(user_id: user_id)

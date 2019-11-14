@@ -1,0 +1,42 @@
+<main>
+<h3 class="center-align">投稿一覧</h3>
+ <div class="col s12">
+  <div class="col s12 m4 l2"></div>
+    <div class="col s12 m4 l8">
+      <table class="table-hover">
+        <thead>
+          <tr>
+            <th> 球場画像</th>
+            <th> 投稿者</th>
+            <th> 球場名</th>
+            <th> 観戦日</th>
+            <th> 投稿内容</th>
+            <th> アクセス</th>
+            <th> グルメ</th>
+            <th> 雰囲気</th>
+            <th> キャパシティ</th>
+            <th> 観光場所</th>
+            <th> 投稿詳細</th>
+          </tr>
+        </thead>
+          <% @post.each do |post| %>
+            <tbody>
+              <tr>
+                <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %></td>
+                <td><%#= post.name %></td>
+                <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
+                <td><%= post.post_content %></td>
+                <td><%= post.access_rate %>点</td>
+                <td><%= post.gouremet_rate %>点</td>
+                <td><%= post.mood_rate %>点</td>
+                <td><%= post.capacity_rate %>点</td>
+                <td><%= post.sightseeing_rate %>点</td>
+                <td><%= link_to "投稿詳細",admin_post_path(post.id) %></td>
+              </tr>　
+               <%= paginate @post %>
+               <% end %>
+             </tbody>
+       </table>
+     </div>
+   </div>
+</main>

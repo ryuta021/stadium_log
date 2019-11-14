@@ -1,0 +1,22 @@
+<% if user_signed_in? %>
+  <% if post.like_user(current_user.id) %>
+    <% favorite = Favorite.find_by(user_id: current_user,post_id: post.id) %>
+    <%= button_to post_favorites_path(post_id: post.id), method: :delete, id: "like-buttons-#{post.id}", remote: true do %>
+　　    ♡いいね解除
+      <span>
+        <%= post.favorites.count %>
+      </span>
+    <% end %>
+  <% else %>
+    <%= button_to post_favorites_path(post), id: "like-buttons-#{post.id }", remote: true do %>
+　　    ♡いいね
+      <span>
+        <%= post.favorites.count %>
+      </span>
+    <% end %>
+  <% end %>
+<% else %>
+    <span>
+     ♡いいね<%= post.favorites.count %>
+    </span>
+<% end %>
