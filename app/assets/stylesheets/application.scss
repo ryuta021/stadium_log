@@ -15,6 +15,15 @@
  *= require select2
  *= require select2-bootstrap
  */
- @import "bootstrap-sprockets";  /*ここを追加*/
- @import "bootstrap";            /*ここを追加*/
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ @import "materialize";
+ @import "material_icons";
 
+#map {
+  height: 400px;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:left;
+  width: 80%
+}

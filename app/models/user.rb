@@ -4,5 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   belongs_to :team
-# 　 attachment :image
+   has_many :post
+   has_many :favorites
+   has_many :favorite_post, through: :favorites, source: :post
 end

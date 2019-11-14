@@ -1,0 +1,39 @@
+%h1 球場一覧　作成画面
+.col-lg-10
+  = form_for(@stadium, url: admin_stadium_index_path, method: :post) do |f|
+    .form-group
+      %label 球場名
+      = f.text_field :name, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
+    %br/
+    .form-group
+      %label 球場紹介文
+      %br/
+      = f.text_field :information, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
+    %br/
+    .form-group
+      %label 住所登録
+      %br/
+      = f.text_field :address, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
+    %br/
+    .form-group
+      %label 球場画像
+      = f.attachment_field :image
+    %br/
+    = f.submit "球場登録" , class: "btn btn-success col-lg-7"
+  %table.table.table-hover
+    %thead
+      %tr
+        %th 球場画像
+        %th 球場名
+        %th 球場紹介文
+        %th 住所
+        %th 編集
+    %tbody
+      - @stadiums.each do |s|
+        %tr
+          %td= attachment_image_tag s, :image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'
+          %td= s.name
+          %td= s.information
+          %td= s.address
+          %td= link_to "編集", edit_admin_stadium_path(s.id) ,class: "label label-primary"
+          　　　　

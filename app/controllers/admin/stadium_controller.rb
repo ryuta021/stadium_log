@@ -33,7 +33,7 @@ class Admin::StadiumController < ApplicationController
 
     private
     def stadium_params
-      params.require(:stadium).permit(:name, :image, :information, :position, :address, :latitube, :longitude)
+      params.require(:stadium).permit(:name, :image, :information, :position, :address, :latitude, :longitude)
     end
 
 

@@ -1,2 +1,148 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<div class='col-lg-12'>
+<h2>球場詳細画面</h2>
+</div>
+
+<laber><%#= attachment_image_tag @posted, :image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></laber>
+<div class='form-group'>
+<laber><h3><%= @posted.stadium.name %></h3></laber>
+</div>
+<div class='form-group'>
+<laber><%= @posted.stadium.information %></laber>
+</div>
+<div class='col-lg-5'>
+  <div class='form-group'>
+    <label>アクセス採点</label>
+    <label><%= @access %></label>
+    <br>
+    <div id='star-rate'></div>
+    <label>グルメ採点</label>
+    <label><%= @gouremet %></label>
+    <br>
+    <div id='star2-rate'></div>
+    <label>ムード採点</label>
+    <label><%= @mood %></label>
+    <br>
+    <div id='star3-rate'></div>
+    <label>キャパシティ採点</label>
+    <label><%=@capacity   %></label>
+    <br>
+    <div id='star4-rate'></div>
+    <label>観光採点</label>
+    <label><%= @gouremet %></label>
+    <br>
+    <div id='star5-rate'></div>
+  </div>
+  <br>
+</div>
+
+<%# @post_ranks.each do |post| %>
+
+<%#= post.stadium.name %>
+<%#= post.gouremet_rate %>
+<%# end %>
+
+<div class='col-lg-7'>
+  <h5>ユーザー投稿一覧</h5>
+  <table class='table table-hover'>
+    <thead>
+      <tr>
+        <th>画像</th>
+        <th>球場名</th>
+        <th>投稿者</th>
+        <th>観戦日</th>
+        <th>投稿内容</th>
+        <th>投稿詳細</th>
+      </tr>
+       </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+          <td><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></td>
+          <td><%= post.stadium.name %></td>
+          <td><%= post.user.name %></td>
+          <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
+          <td><%= post.post_content %></td>
+          <td><%= link_to "ユーザー詳細", post_path(post.id) ,class: "label label-primary" %></td>
+      </tr>
+         <% if user_signed_in? %>
+            <%if post.favorited_by?(current_user) %>
+                      <td><span> いいね:</span>
+                     <%= link_to post.favorites.count, post_favorites_path(post.id), method: :delete %></td>
+                     <% else %>
+                  <td>
+                      <span> いいね:</span>
+                      <%= link_to post.favorites.count,  post_favorites_path(post.id), method: :post %></td>
+                      <% end %>
+                     <% else %>
+                <td>
+                  <span> いいね:</span>
+                  <%= post.favorites.count %></td>
+           <% end %>
+
+  </tbody>
+<% end %>
+  </table>
+</div>
+
+
+
+    <script>
+          $('#star-rate').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: '<%=@access  %>'
+          });
+          </script>
+          <script>
+          $('#star2-rate').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: '<%=  @gouremet %>'
+          });
+          </script>
+
+          <script>
+          $('#star3-rate').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: '<%= @mood %>',
+          });
+          </script>
+
+          <script>
+          $('#star4-rate').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: '<%=  @capacity %>',
+          });
+          </script>
+          <script>
+          $('#star5-rate').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: '<%= @sightseeing  %>',
+          });
+          </script>
+
+
+

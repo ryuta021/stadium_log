@@ -14,8 +14,7 @@
     <div class="form-row">
     <div class="col-md-12 form-group">
       <div class="col-sm-3"></div>
-      <label class="col-sm-1" for="name">名前</label>
-      <!-- <input class="col-sm-9 form-control" id="lastname_kana" /> -->
+      <laber class="col-sm-1">名前</laber>
       <div class="col-sm-5">
       <%= f.text_field :name, placeholder: "名前", class:"form-control" %>
       </div>
@@ -23,17 +22,17 @@
     </div>
 
          <div class="form-group">
-            <label>ユーザー画像</label>
-            <%= f.attachment_field :image %>
+            <label></label>
+            <%#= f.attachment_field :image %>
         </div><br>
 
 
   <div class="form-row">
       <div class="col-md-12 form-group">
         <div class="col-sm-3"></div>
+          <label class="col-sm-1">好きなチーム</label><br>
           <div class="col-sm-5">
             <%= f.collection_select :team_id, Team.all, :id, :team, include_blank: '選択して下さい' %><br>
-        <label class="col-sm-1">好きなチーム</label>
         </div>
       </div>
     </div>
