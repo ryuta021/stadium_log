@@ -20,13 +20,9 @@
 
 
 
- <div class="col s9">
-
-
-<div id='map' data-posteds=<%= @posteds %>></div>
-
-
-        <h5> ユーザー投稿一覧</h5>
+ <div class="col s9 center-align">
+   <div id='map' data-posteds=<%= @posteds %>></div>
+     <h5> ユーザー投稿一覧</h5>
         <table class="table table-hover col s9">
             <% @posts.each do |post| %>
               <tbody>
@@ -42,7 +38,7 @@
         </table>
           <%= paginate @posts %>
     </div>
-    </main>
+</main>
 
 
             <script type="text/javascript">

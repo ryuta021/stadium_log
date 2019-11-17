@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-  PER = 8
+  PER = 6
   def index
      #binding.pry
       @posts = Post.page(params[:page]).per(PER)

@@ -32,11 +32,12 @@
                 <td><%= post.mood_rate %>点</td>
                 <td><%= post.capacity_rate %>点</td>
                 <td><%= post.sightseeing_rate %>点</td>
+                <td><%= link_to "詳細", post_path(post.id) ,class: "btn-floating btn-large waves-effect waves-light red" %></td>
               </tr>　
-               <%= paginate @posts %>
                <% end %>
              </tbody>
        </table>
+       <%= paginate @posts %>
      </div>
    </div>
 </main>
