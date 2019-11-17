@@ -14,6 +14,7 @@
     <script src="https://js.pay.jp/" type="text/javascript"></script>
 
 
+
     　          <!-- select表示に必要 -->
     <script>
     $(document).ready(function(){
@@ -23,47 +24,65 @@
 
   <body>
     <header>
-    <nav>
-      <div class="nav-wrapper light-blue darken-1">
-        <%= link_to 'スタログ', root_path ,class: "brand-logo"  %><%#= image_tag 'logo.png'%><%# end %>
+       <nav> 
+         <div class="nav-wrapper light-blue darken-1">
+            <%= link_to 'スタログ', root_path ,class: "brand-logo"  %><%#= image_tag 'logo.png'%><%# end %>
 
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <% if user_signed_in? %>
-              <li>こんにちは!<%= current_user.name %> 様</li>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <% if user_signed_in? %>
+                  <li>ようこそ!<%= current_user.name %> 様</li>
 
-              <li><%= link_to "投稿する", new_post_path %></li>
+                  <li><%= link_to "投稿する", new_post_path %></li>
 
-              <li><%= link_to "投稿一覧", posts_path %></li>
+                  <li><%= link_to "投稿一覧", posts_path %></li>
 
-              <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+                  <li><%= link_to "マイページ", user_path(current_user.id) %></li>
 
-              <li><%= link_to "ログアウト", user_registration_path, method: :delete %></li>
+                  <li><%= link_to "ログアウト", user_registration_path, method: :delete %></li>
 
-              <% elsif admin_user_signed_in? %>
+                  <% elsif admin_user_signed_in? %>
 
-              <li><%= link_to "球場登録 一覧",admin_stadium_index_path %></li>
+                  <li><%= link_to "球場登録 一覧",admin_stadium_index_path %></li>
 
-              <li><%= link_to "チーム登録 一覧",admin_team_index_path %></li>
+                  <li><%= link_to "チーム登録 一覧",admin_team_index_path %></li>
 
-              <li><%= link_to "ユーザー一覧",admin_users_path %></li>
+                  <li><%= link_to "ユーザー一覧",admin_users_path %></li>
 
-              <li><%= link_to "投稿一覧",admin_posts_path %></li>
+                  <li><%= link_to "投稿一覧",admin_posts_path %></li>
 
-              <li><%= link_to "ログアウト", user_registration_path, method: :delete %></li>
+                  <li><%= link_to "管理者ログアウト",  destroy_user_session_path, method: :delete %></li>
 
-              <% else %>
+                  <% else %>
 
-               <li><%= link_to "ログイン",new_user_session_path %></li>
+                   <li><%= link_to "ログイン",new_user_session_path %></li>
 
-              <li><%= link_to "新規登録" ,  new_user_registration_path %></li>
+                  <li><%= link_to "新規登録" ,  new_user_registration_path %></li>
 
-              <li><%= link_to "管理者新規登録" ,  new_admin_user_registration_path %></li>
+                  <li><%= link_to "管理者新規登録" ,  new_admin_user_registration_path %></li>
 
-              <li><%= link_to "管理者ログイン", new_admin_user_session_path %></li>
-           <% end %>
-          </ul>
-        </div>
-      </nav>
+                  <li><%= link_to "管理者ログイン", new_admin_user_session_path %></li>
+               <% end %>
+            </ul>
+          </div>
+       </nav>
+
+  <ul id="slide-out" class="sidenav">
+    <li><div class="user-view">
+      <div class="background">
+      </div>
+      <a href="#user"><%#= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'200x200'  %></a>
+      <span class="black-text name center-align"><h4><%#= current_user.name %></h4></span>
+      <span class="black-text email center-align"><h5><%#= current_user.email %></h5></span>
+      <span class="black-text email center-align">好きなチーム</span>
+      <span class="black-text email center-align"><%#= current_user.team.team %></span>
+    </div></li>
+    <li><div class="divider "></div></li>
+    <li class="center-align"><h5><%#= link_to "マイページ", user_path(current_user.id) %></h5></li>
+    <li class="center-align"><h5><%#= link_to "投稿する", new_post_path %></h5></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul>
+  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </header><!-- /header -->
 
 <%= yield %>

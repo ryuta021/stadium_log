@@ -23,7 +23,7 @@
             <tbody>
               <tr>
                 <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %></td>
-                <td><%#= post.name %></td>
+                <td><%= post.user %></td>
                 <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
                 <td><%= post.post_content %></td>
                 <td><%= post.access_rate %>点</td>

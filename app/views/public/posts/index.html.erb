@@ -3,6 +3,7 @@
  <div class="col s12">
   <div class="col s12 m4 l2"></div>
     <div class="col s12 m4 l8">
+       <div id='map' data-posteds=<%= @posteds %>></div>
       <table class="table-hover">
         <thead>
           <tr>
@@ -22,7 +23,7 @@
             <tbody>
               <tr>
                 <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %></td>
-                <td><%= post.user.name %></td>
+                <td><%#= post.user.name %></td>
                 <td><%= post.stadium.name %></td>
                 <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
                 <td><%= post.post_content %></td>
@@ -39,4 +40,53 @@
      </div>
    </div>
 </main>
+
+
+<script type="text/javascript">
+          function initMap() {
+
+ var test = { lat:  35.6804, lng:139.769017 };
+ 
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: test
+            });
+
+
+
+
+
+            var transitLayer = new google.maps.TransitLayer();
+            transitLayer.setMap(map);
+
+            var posteds = $('#map').data('posteds')
+                // JSのeach文
+            posteds.forEach(function(posted){
+            //posteds.each do |posted|
+              var hoge = {lat: posted.latitude, lng: posted.longitude};
+              console.log(hoge)
+              var contentString = '住所：' + posted.address;
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+
+              var marker = new google.maps.Marker({
+                position:hoge,
+                map: map,
+                title: contentString
+              });
+
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+            })
+
+          }
+
+        </script>
+        <script async defer
+          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDgRNuMMQ26SbHwrGQmhxfrS4kjcuygGbI&callback=initMap">
+        </script>
+
+
 

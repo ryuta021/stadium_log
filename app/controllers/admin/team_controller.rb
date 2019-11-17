@@ -9,7 +9,7 @@ class Admin::TeamController < ApplicationController
     if @team.save
        redirect_to  admin_team_index_path
     else
-      @team = Team.all
+      @teams = Team.all
       render :index
     end
   end
@@ -37,6 +37,8 @@ class Admin::TeamController < ApplicationController
     def team_params
       params.require(:team).permit(:team)
     end
+
+
 
 
 

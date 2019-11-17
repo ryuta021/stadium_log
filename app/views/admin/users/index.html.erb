@@ -17,7 +17,7 @@
               <tr>
                 <td></td>
                 <td><%= user.name %></td>
-                <td><%= user.team %></td>
+                <td><%= user.team.team %></td>
                 <td><%= user.introduction %></td>
                 <td><%= link_to "ユーザー詳細", edit_admin_user_path(user.id) ,class: "label label-primary" %></td><% end %>
               </tr>

@@ -2,15 +2,10 @@ class Public::PostsController < ApplicationController
   PER = 8
   def index
      #binding.pry
-     # @posted =Post.find_by ("stadium_id = 2 ")
       @posts = Post.page(params[:page]).per(PER)
-     # @access = Post.where(stadium_id: 2).average(:access_rate)
-     # @gouremet = Post.where(stadium_id: 2).average(:gouremet_rate)
-     # @mood = Post.where(stadium_id: 2).average(:mood_rate)
-     # @sightseeing = Post.where(stadium_id: 2).average(:sightseeing_rate)
-     # @capacity = Post.where(stadium_id: 2).average(:capacity_rate)
-     # @post = Post.all
-     #@post =Post.find(params[:id])
+      #@posteds = Post.where(stadium_id: params[:id]).to_json
+      @posteds =Post.all.to_json
+
   end
 
 
@@ -45,8 +40,12 @@ class Public::PostsController < ApplicationController
   def create
       @post = Post.new(post_params)
       @post.user_id = current_user.id
-      @post.save
+   if @post.save
       redirect_to  posts_path
+       else
+      @posts = Post.all
+      render :new
+    end
   end
 
 

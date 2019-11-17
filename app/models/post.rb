@@ -1,4 +1,8 @@
 class Post < ApplicationRecord
+
+   validates :post_content, presence: true
+   validates :watching_date, presence: true
+   validates :stadium_id, presence: true
 	attachment :posted_image
 	belongs_to :user
 	belongs_to :stadium

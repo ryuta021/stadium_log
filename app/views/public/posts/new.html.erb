@@ -1,5 +1,12 @@
 <h1>投稿画面</h1>
 
+ <% if @post.errors.any? %>
+            <%= @post.errors.count %>件のerrorが発生しました 空欄を入力してください
+              <% @post.errors.full_messages.each do |message| %>
+                  <%= message %>
+              <% end %>
+          <% end %>
+
 
   <div class="col-lg-10">
     <%= form_for(@post, url:  posts_path, method: :post) do |f| %>
@@ -14,6 +21,8 @@
          <label>観戦した日にちを選択</label><br>
          <%= f.date_field :watching_date, class: 'form-control' %>
        </div><br>
+
+
 
     <div class="form-group">
 　　　   <label>投稿本文</label>

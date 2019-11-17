@@ -5,7 +5,7 @@
     <div class="col s12 m4 l2"><p></div>
      <div class="col s12 m4 l8">
           <% if @team.errors.any? %>
-              <%= @team.errors.count %>件のerrorが発生しました チーム名を入力してください
+            <%= @team.errors.count %>件のerrorが発生しました チーム名を入力してください
               <% @team.errors.full_messages.each do |message| %>
                   <%= message %>
               <% end %>

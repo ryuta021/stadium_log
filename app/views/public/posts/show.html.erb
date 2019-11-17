@@ -1,29 +1,40 @@
-<div class="col-lg-5 col-lg-offset-3">
-  <h1>ユーザーの投稿詳細</h1>
+<div class="row">
+    <div class="col s12 ">
+      <div class="card blue-grey grey lighten-2">
+        <div class="card-image">
+          <label><%= attachment_image_tag @post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'200x200' %></label>
+          <span class="card-title"></span>
+        </div>
+        <div class="card-content white-text">
+          <span class="card-titlecol "><h5>投稿詳細</h5></span>
+           <h5><%= @post.stadium.name %></h5>
+          <h5><%= @post.watching_date.strftime("%Y年%m月%d日") %></h5>
+          <h5>投稿内容</h5>
+          <p><%= @post.post_content %></p>
+          <label><%= link_to user_path(@post.id) do %><%= @post.user.name %><% end %></label>
+        </div>
+         <div class="card-action">
+            <%= link_to "edit", edit_post_path(@post.id) ,class: "btn btn-default col s5 btn btn-default " %>
+            <div class="col s2"></div>
+            <%= link_to "削除",  post_path(@post.id), method: :delete ,class: "btn btn-primary col s5" %>
+         </div>
+       </div>
+      </div>
+    </div>
+ </div>
 
 
-  <div class="form-group">
-     <label>投稿画像</label><br>
-     <%= attachment_image_tag @post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'200x200' %>
-  </div><br>
-
-   <div class="form-group">
-      <label>球場名</label><br>
-      <%= @post.stadium.name %>
-   </div><br>
-   <div class="form-group">
-      <label>ユーザー名</label><br>
-  　　<%= link_to user_path(@post.id) do %><%= @post.user.name %><% end %>
-  </div><br>
-       <div class="form-group">
-      <label>観戦日</label><br>
-      <%= @post.watching_date.strftime("%Y年%m月%d日") %>
-  </div><br>
- <div class="container-fluid bg-info">
-      <label>投稿内容</label><br>
-      <%= @post.post_content %>
-  </div><br>
-  <div class='form-group'>
+  <div class="row">
+    <div class="col s12 ">
+      <div class="card">
+        <div class="card-image">
+          <img src="images/sample-1.jpg">
+          <span class="card-title">Card Title</span>
+          <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+        </div>
+        <div class="card-content">
+          <div class="card large">
+         <div class='form-group'>
                 <label>アクセス採点</label>
                  <span class="blue-text text-darken-2"><%= @access %></span>
                 <br>
@@ -44,9 +55,18 @@
                  <span class="blue-text text-darken-2"><%= @gouremet %></span>
                 <div id='star5-rate'></div>
             </div>
+          </div>
 </div>
-<%= link_to "edit", edit_post_path(@post.id) ,class: "btn btn-default col-xs-12 btn btn-default glyphicon glyphicon-wrench" %>
-<%= link_to "削除",  post_path(@post.id), method: :delete ,class: "btn btn-primary col-lg-5" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
 
           <!--アクセス星評価-->
           <script>
