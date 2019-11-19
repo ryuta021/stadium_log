@@ -49,7 +49,7 @@
 
 
  <div class='col s9 center-align'>
-                      <div id='map' data-posteds=<%= @posteds %>></div>
+                      <div id='map' data-posteds='<%= @posteds %>'></div>
 
       <h5>ユーザー投稿一覧</h5>
           <table class="striped">
@@ -144,7 +144,8 @@
             var transitLayer = new google.maps.TransitLayer();
             transitLayer.setMap(map);
 
-            var posteds = $('#map').data('posteds')
+            var posteds = 
+            $('#map').data('posteds')
                 // JSのeach文
             posteds.forEach(function(posted){
             //posteds.each do |posted|
@@ -159,6 +160,7 @@
                 position:hoge,
                 map: map,
                 title: contentString
+
               });
 
               marker.addListener('click', function() {
@@ -170,7 +172,7 @@
 
         </script>
         <script async defer
-          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDgRNuMMQ26SbHwrGQmhxfrS4kjcuygGbI&callback=initMap">
+          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=&callback=initMap">
         </script>
 
 

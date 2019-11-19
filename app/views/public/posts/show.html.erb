@@ -10,6 +10,7 @@
 
         <div class="card">
           <div class="card-content">
+            <h5><%= @post.user.id %></h5>
             <h5><%= @post.user.name %></h5>
             <h7><%= @post.watching_date.strftime("%Y年%m月%d日") %></h7>
             <p><%= @post.post_content %></p>
@@ -50,9 +51,9 @@
 
      <div class="col s12 ">
        <div class="col s2 "></div>
-       <%= link_to "投稿を編集する", edit_post_path(@post.id) ,class:  "waves-effect waves-light btn-large col s3" %>
+       <%= link_to "投稿を編集する", edit_public_post_path(@post.id) ,class:  "waves-effect waves-light btn-large col s3" %>
        <div class="col s1 "></div>
-       <%= link_to "削除",  post_path(@post.id), method: :delete ,class:  "waves-effect waves-light btn-large col s3" %></p>
+       <%= link_to "削除",  public_post_path(@post.id), method: :delete ,class:  "waves-effect waves-light btn-large col s3" %></p>
      </div>
     </div>
 </main>

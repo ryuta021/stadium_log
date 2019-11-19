@@ -1,74 +1,87 @@
 <main>
-  <% if @post.errors.any? %>
-    <%= @post.errors.count %>件のerrorが発生しました 空欄を入力してください
-    <% @post.errors.full_messages.each do |message| %>
-    <%= message %>
+    <% if @post.errors.any? %>
+      <%= @post.errors.count %>件のerrorが発生しました 空欄を入力してください
+      <% @post.errors.full_messages.each do |message| %>
+      <%= message %>
+      <% end %>
     <% end %>
-  <% end %>
+  <input type="text" class="datepicker">
+  <div class="row">
+   <div class="col s2"></div>
+   <div class="col s4 center-align">
+      <div class="card">
+        <div class="card-content ">
+          <%= form_for(@post, url:  posts_path, method: :post) do |f| %>
+            <h5>投稿画面</h5>
+             <div class="form-group">
+               <label>球場選択</label><br>
+                 <%= f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control" %>
+             </div><br>
 
-<div class="row">
- <div class="col s3"></div>
-  <div class="col s6 center-align">
-    <div class="card">
-      <div class="card-content ">
-        <%= form_for(@post, url:  posts_path, method: :post) do |f| %>
-              <h5>投稿画面</h5>
-                <div class="form-group">
-                   <label>球場選択</label><br>
-                   <%= f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control" %>
-                 </div><br>
+        　   <div class="form-group">
+              <label>観戦した日にちを選択</label><br>
+              <%= f.date_field :watching_date, class: 'form-control' %>
+            </div><br>
 
-            　   <div class="form-group">
-                  <label>観戦した日にちを選択</label><br>
-                  <%= f.date_field :watching_date, class: 'form-control' %>
-                </div><br>
+            <div class="form-group">
+        　　　   <label>投稿本文</label>
+                <%= f.text_field :post_content, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
+            </div><br>
 
-                <div class="form-group">
-            　　　   <label>投稿本文</label>
-                    <%= f.text_field :post_content, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
-                </div><br>
+            <div class="form-group">
+              <label>投稿画像</label>
+              <%= f.attachment_field :posted_image, class: "file-field input-field"  %>
+            </div><br>
 
-               <div class="form-group">
-                  <label>投稿画像</label>
-                  <%= f.attachment_field :posted_image, class: "file-field input-field"  %>
-               </div><br>
+            <div class="input-field ">
+              <%= f.label :行った飲食店や宿泊施設などのお店の名前または住所を入力してください %>
+              <%= f.text_field :address, class: "materialize-textarea" %>
+            </div>
+               <!-- 評価 -->
+                <div class="form-group row star" id="star1">
+                  <%= f.label :access_rate,'アクセス ', class:'col-md-3 col-form-label' %>
+                  <%= f.hidden_field :access_rate, id: :review_star %>
+                </div>
 
-              <div class="input-field ">
-                <%= f.label :行った飲食店や宿泊施設などのお店の名前または住所を入力してください %>
-                <%= f.text_field :address, class: "materialize-textarea" %>
+               <div class="form-group row star" id="star2">
+                  <%= f.label :gouremet_rate,'グルメ ', class:'col-md-3 col-form-label' %>
+                  <%= f.hidden_field :gouremet_rate, id: :review_star, value: 3 %>
+                </div>
+
+                 <div class="form-group row star" id="star3">
+                  <%= f.label :mood_rate,'雰囲気 ', class:'col-md-3 col-form-label' %>
+                  <%= f.hidden_field :mood_rate, id: :review_star %>
+                </div>
+
+                 <div class="form-group row star" id="star4">
+                  <%= f.label :capacity_rate,'キャパシティ ', class:'col-md-3 col-form-label' %>
+                  <%= f.hidden_field :capacity_rate, id: :review_star %>
+                </div>
+
+                 <div class="form-group row star" id="star5">
+                  <%= f.label :sightseeing_rate,'観光 ', class:'col-md-3 col-form-label' %>
+                  <%= f.hidden_field :sightseeing_rate, id: :review_star %>
+                </div>
+            </div>
+          </div>
+        </div>
+         <div class="col s4 center-align">
+          <div class="card">
+            <div class="card-content ">
+              <h4>プランを計画する</h4>
+                <div class="plans">
+                   <%= f.fields_for :plans do |f| %>
+                    <%= render 'plan_fields', f: f %>
+                   <% end %>
+                  <div class="links">
+                     <%= link_to_add_association 'プランを追加', f, :plans %>
+                 </div>
               </div>
-
-
-             <!-- 評価 -->
-              <div class="form-group row star" id="star1">
-                <%= f.label :access_rate,'アクセス ', class:'col-md-3 col-form-label' %>
-                <%= f.hidden_field :access_rate, id: :review_star %>
-              </div>
-
-             <div class="form-group row star" id="star2">
-                <%= f.label :gouremet_rate,'グルメ ', class:'col-md-3 col-form-label' %>
-                <%= f.hidden_field :gouremet_rate, id: :review_star, value: 3 %>
-              </div>
-
-               <div class="form-group row star" id="star3">
-                <%= f.label :mood_rate,'雰囲気 ', class:'col-md-3 col-form-label' %>
-                <%= f.hidden_field :mood_rate, id: :review_star %>
-              </div>
-
-               <div class="form-group row star" id="star4">
-                <%= f.label :capacity_rate,'キャパシティ ', class:'col-md-3 col-form-label' %>
-                <%= f.hidden_field :capacity_rate, id: :review_star %>
-              </div>
-
-               <div class="form-group row star" id="star5">
-                <%= f.label :sightseeing_rate,'観光 ', class:'col-md-3 col-form-label' %>
-                <%= f.hidden_field :sightseeing_rate, id: :review_star %>
-              </div>
-
+           </div>
+         </div>
+       </div>
             <%= f.submit "投稿する" , class: "btn btn-success col-lg-12" %>
          <% end %>
-       </div>
-      </div>
    </div>
   </div>
 </main>

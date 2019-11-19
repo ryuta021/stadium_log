@@ -17,7 +17,7 @@
 //= require bootstrap-sprockets
 //= require_tree .
 //= require materialize
-
+//= require cocoon
 
 /*!
  * jQuery Raty - A Star Rating Plugin

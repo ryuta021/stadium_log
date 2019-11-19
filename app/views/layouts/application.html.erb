@@ -21,6 +21,27 @@
     $('select').formSelect();
     });
     </script>
+ <style>
+    header, main, footer {
+      padding-left: 300px;
+    }
+
+    @media only screen and (max-width : 992px) {
+      header, main, footer {
+        padding-left: 0;
+      }
+    }
+
+    /* 追加 */
+    .sidenav .collapsible>.active .collapsible-header .chevron {
+        transform: rotate(-90deg);
+    }
+  </style>
+
+
+
+
+
 
   <body>
     <header>
@@ -28,17 +49,18 @@
          <div class="nav-wrapper light-blue darken-1">
             <%= link_to 'スタログ', root_path ,class: "brand-logo"  %><%#= image_tag 'logo.png'%><%# end %>
 
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <ul id="nav-mobile" class="right hide-on-med-and-down light-blue darken-1">
+
               <% if user_signed_in? %>
                   <li>ようこそ!<%= current_user.name %> 様</li>
 
-                  <li><%= link_to "投稿する", new_post_path %></li>
+                  <li><%= link_to "投稿する", new_public_post_path %></li>
 
-                  <li><%= link_to "投稿一覧", posts_path %></li>
+                  <li><%= link_to "投稿一覧", public_posts_path %></li>
 
-                  <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+                  <li><%= link_to "マイページ", public_user_path(current_user.id) %></li>
 
-                  <li><%= link_to "ログアウト", user_registration_path, method: :delete %></li>
+                  <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
 
                   <% elsif admin_user_signed_in? %>
 
@@ -61,47 +83,89 @@
                   <li><%= link_to "管理者新規登録" ,  new_admin_user_registration_path %></li>
 
                   <li><%= link_to "管理者ログイン", new_admin_user_session_path %></li>
+                   <li><a href="badges.html"><i class="material-icons right">view_module</i>Link with Right Icon</a></li>
                <% end %>
-            </ul>
-          </div>
-       </nav>
+             </ul>
+           </div>
+         </nav>
+
+
+<ul id="slide-out" class="sidenav sidenav-fixed">
+  <li><div class="user-view">
+      <div class="background">
+       <%= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'100x100'  %>
+      </div>
+      <a href="#user"><%= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'100x100'  %></a>
+      <a href="#name"><span class="white-text name"><%= current_user.name %></span></a>
+      <a href="#email"><span class="white-text email"><%= current_user.email %></span></a>
+    </div></li>
+          <li class="black-text email center-align">好きなチーム</li>
+          <li class="black-text email center-align"><%= current_user.team.team %></li>
+      <li>
+        <%= link_to "マイページ", public_user_path(current_user.id) %>First Sidebar Link<i class="material-icons left">person</i></a>
+      </li>
+      <li><a href="#!">Second Sidebar Link<i class="material-icons left">local_post_office</i></a></li>
+
+      <li>
+        <ul class="collapsible">
+          <li>
+            <a class="collapsible-header">ユーザー情報<i class="material-icons chevron right">chevron_left</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li class="center-align"><h5><%= link_to "マイページ", public_user_path(current_user.id) %></h5></li>
+                <li class="center-align"><h5><%= link_to "投稿する", new_public_post_path %></h5></li>
+                <li><a class="subheader">Subheader</a></li>
+                <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+                <li><a href="#">Dashboard<i class="material-icons">web</i></a></li>
+                <li><a href="#">Fixed Chart<i class="material-icons">list</i></a></li>
+                <li><a href="#">Grid<i class="material-icons">dashboard</i></a></li>
+                <li><a href="#">Chat<i class="material-icons">chat</i></a></li>
+              </ul>
+            </div>
+            </li>
+          </li>
+
+
+
+      <li>
+        <ul class="collapsible">
+          <li>
+            <a class="collapsible-header">球場情報<i class="material-icons chevron right">chevron_left</i></a>
+             <div class="collapsible-body">
+                <ul>
+                    <%# @stadiums.each do |stadium|  %>
+                       <li class="collection-item"><%#= link_to  stadium_path(stadium.id) do %><%#=stadium.name %><%# end %></li>
+                    <%# end %>
+                </ul>
+             </div>
+          </li>
+        </ul>
+      </li>
+</ul>
+    <!-- マークアップ追記 -->
+
 
   <ul id="slide-out" class="sidenav">
-    <li><div class="user-view">
-      <div class="background">
-      </div>
-      <a href="#user"><%#= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'200x200'  %></a>
-      <span class="black-text name center-align"><h4><%#= current_user.name %></h4></span>
-      <span class="black-text email center-align"><h5><%#= current_user.email %></h5></span>
-      <span class="black-text email center-align">好きなチーム</span>
-      <span class="black-text email center-align"><%#= current_user.team.team %></span>
-    </div></li>
-    <li><div class="divider "></div></li>
-    <li class="center-align"><h5><%#= link_to "マイページ", user_path(current_user.id) %></h5></li>
-    <li class="center-align"><h5><%#= link_to "投稿する", new_post_path %></h5></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-  </ul>
-  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+   <% if user_signed_in? %>
+        <div class="background">
+          </div>
+          <a href="#user"><%= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'200x200'  %></a>
+          <li class="black-text name center-align"><h4><%= current_user.name %></h4></li>
+          <li class="black-text email center-align"><h5><%= current_user.email %></h5></li>
+          <li class="black-text email center-align">好きなチーム</li>
+          <li class="black-text email center-align"><%= current_user.team.team %></li>
+        </div></li>
+        <li><div class="divider "></div></li>
+        <li class="center-align"><h5><%= link_to "マイページ", public_user_path(current_user.id) %></h5></li>
+        <li class="center-align"><h5><%= link_to "投稿する", new_public_post_path %></h5></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+      </ul>
+  <% end %>
   </header><!-- /header -->
-
 <%= yield %>
 
 <footer class="page-footer light-blue darken-1">
-    <!-- <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Footer Content</h5>
-          <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-        </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Links</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a>
-
-          </ul>
-        </div>
-      </div> -->
     </div>
     <div class="footer-copyright">
       <div class="container">

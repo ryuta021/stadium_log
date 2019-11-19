@@ -1,0 +1,34 @@
+<div class="nested-fields field">
+    <div>スポット</div>
+
+<!-- 
+    <div class=" form-group">
+          <label class="control-label">スポット名</label> -->
+          <%#= f.collection_select :plan_id, Plan.all, :id, :name %>
+   <!--  </div> -->
+
+    <div class="form-group">
+         <label class="control-label">スポットNo</label>
+         <%= f.text_field :spot_number %>
+
+    <div class=" form-group">
+         <label class="control-label">滞在場所</label>
+         <%= f.text_field :spot_content %>
+
+     <div class=" form-group">
+         <label class="control-label">スポット滞在時間</label>
+         <%= f.text_field :spot_time %>
+
+ <div class="form-group">
+         <label class="control-label">スポット金額</label>
+         <%= f.text_field :spot_place %>
+
+
+    </div>
+    <%= link_to_remove_association '削除', f, class: 'btn btn-danger' %>
+</div>
+
+
+
+
+

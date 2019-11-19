@@ -1,22 +1,35 @@
 class Public::PostsController < ApplicationController
   PER = 6
   def index
-     #binding.pry
+      @q = Post.ransack(params[:q])
       @posts = Post.page(params[:page]).per(PER)
-      #@posteds = Post.where(stadium_id: params[:id]).to_json
       @posteds =Post.all.to_json
-
+      #@posteds = Post.where(stadium_id: params[:id]).to_json
   end
 
-
   def new
-      @post =Post.new
+       @post =Post.new
+       @plan = @post.plans.build
+       @spot = @plan.spots.build
   end
 
 
   def edit
       @post = Post.find(params[:id])
   end
+
+  def detail_search
+     @search_product = Post.ransack(params[:q])
+     @posts = @search_product.result.page(params[:page])
+  end
+
+
+   def search_location
+        latitude = params[:latitude].to_f
+        longitude = params[:longitude].to_f
+        @locations = Post.within_box(0.310686, latitude, longitude)
+   end
+
 
 
    def show
@@ -27,13 +40,6 @@ class Public::PostsController < ApplicationController
     @capacity = Post.where(stadium_id: params[:id]).average(:capacity_rate)
      @post =Post.find(params[:id])
 
-     # @access = Post.where(stadium_id: 2).average(:access_rate)
-     # @gouremet = Post.where(stadium_id: 2).average(:gouremet_rate)
-     # @mood = Post.where(stadium_id: 2).average(:mood_rate)
-     # @sightseeing = Post.where(stadium_id: 2).average(:sightseeing_rate)
-     # @capacity = Post.where(stadium_id: 2).average(:capacity_rate)
-     #@posts = @user.posts
-     #@favorite_post = @user.favorite_post
    end
 
 
@@ -59,6 +65,7 @@ class Public::PostsController < ApplicationController
 
   private
    def post_params
-      params.require(:post).permit(:user_id, :stadium_id, :watching_date, :posted_image, :post_content, :access_rate, :gouremet_rate, :sightseeing_rate, :mood_rate, :capacity_rate, :latitude, :longitude, :address )
+      params.require(:post).permit(:user_id, :stadium_id, :watching_date, :posted_image, :post_content, :access_rate, :gouremet_rate, :sightseeing_rate, :mood_rate, :capacity_rate, :latitude, :longitude, :address ,plan_attributes: [:id, :title, :_destroy,
+                                   spot_attributes: [:id, :spot_number, :spot_content, :spot_place, :spot_time, :plan_id, :_destroy]])
    end
 end

@@ -8,9 +8,8 @@ PER = 6
    @posts = current_user.post.page(params[:page]).per(PER)
    @posteds = current_user.post.all.to_json
    @posted = Post.find_by(user_id: params[:id])
-   #@favorite_posts = @user.favorite_posts
- end
 
+ end
 
  def edit
  	@user = User.find(params[:id])

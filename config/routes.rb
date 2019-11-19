@@ -27,11 +27,20 @@ Rails.application.routes.draw do
     }
 
 
+   #resources :relationships, only: [:create, :destroy]
 
-   scope module: :public do
-     resources :users, only: [:show, :update, :edit, ]
-     resources :stadium, only: [:show, :create, :destroy, ]
+
+
+
+  namespace :public do
+     resources :users, only: [:show, :update, :edit ]do 
+      resources :relationships, only: [:create, :destroy]
+     end
+
+     resources :stadium, only: [:show, :create, :destroy ]
+      get 'search_location'
      resources :posts do
+       get 'detail_search'
      resource :favorites, only: [:create, :destroy]
      end
   end
