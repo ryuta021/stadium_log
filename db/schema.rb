@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_12_193333) do
+ActiveRecord::Schema.define(version: 2019_11_18_033252) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -40,6 +40,13 @@ ActiveRecord::Schema.define(version: 2019_11_12_193333) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer "user_id"
     t.integer "stadium_id"
@@ -57,6 +64,27 @@ ActiveRecord::Schema.define(version: 2019_11_12_193333) do
     t.float "latitude"
     t.float "longitude"
     t.string "address"
+    t.integer "favorite_count"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "follow_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follow_id"], name: "index_relationships_on_follow_id"
+    t.index ["user_id", "follow_id"], name: "index_relationships_on_user_id_and_follow_id", unique: true
+    t.index ["user_id"], name: "index_relationships_on_user_id"
+  end
+
+  create_table "spots", force: :cascade do |t|
+    t.string "spot_number"
+    t.text "spot_content"
+    t.integer "spot_place"
+    t.integer "spot_time"
+    t.integer "plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stadia", force: :cascade do |t|

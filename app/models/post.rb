@@ -1,21 +1,35 @@
 class Post < ApplicationRecord
+
+   validates :post_content, presence: true
+   validates :watching_date, presence: true
+   validates :stadium_id, presence: true
 	attachment :posted_image
+
 	belongs_to :user
 	belongs_to :stadium
-	 has_many :favorites
+	has_many :favorites, dependent: :destroy
 
-    geocoded_by :address
-    after_validation :geocode
+  has_many :plans, dependent: :destroy
+  accepts_nested_attributes_for :plans, reject_if: :all_blank, allow_destroy: true
+
+  geocoded_by :address
+  after_validation :geocode
 
 
+ def total_rate
+  access_rate + gouremet_rate+sightseeing_rate+mood_rate+capacity_rate
+ end
 
+  def like_user(user_id)
+   favorites.find_by(user_id: user_id)
+  end
 
-
- private
-	 def favorited_by?(user)
-        favorites.where(user_id: user.id).exists?
-     end
-
+  def within_box(distance, latitude, longitude)
+      distance = distance
+      center_point = [latitude, longitude]
+      box = Geocoder::Calculations.bounding_box(center_point, distance)
+      self.within_bounding_box(box)
+  end
 
 
   # def geocode

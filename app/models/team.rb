@@ -1,3 +1,4 @@
 class Team < ApplicationRecord
-	has_many :user
+	validates :team, presence: true
+	 has_many :user
 end

@@ -1,16 +1,15 @@
 class Public::UsersController < ApplicationController
 
+
+PER = 6
  def show
-
-
-
  	#binding.pry
- 	@user = User.find(params[:id])
-   @users = Post.find(params[:id])
-   @posts = @user.post
-   @favorite_post = @user.favorite_post
- end
+   @user = User.find_by(id: params[:id])
+   @posts = current_user.post.page(params[:page]).per(PER)
+   @posteds = current_user.post.all.to_json
+   @posted = Post.find_by(user_id: params[:id])
 
+ end
 
  def edit
  	@user = User.find(params[:id])

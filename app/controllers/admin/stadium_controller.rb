@@ -6,10 +6,13 @@ class Admin::StadiumController < ApplicationController
 
   def create
     @stadium = Stadium.new(stadium_params)
-    @stadium.save
-    redirect_to admin_stadium_index_path
+    if @stadium.save
+      redirect_to  admin_stadium_index_path
+    else
+      @stadiums = Stadium.all
+      render :index
   end
-
+end
 
   def edit
     @stadium = Stadium.find(params[:id])

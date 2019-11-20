@@ -5,11 +5,14 @@ class Admin::TeamController < ApplicationController
   end
 
   def create
-    @team = Team.new(team_params)
-    @team.save
-    redirect_to  admin_team_index_path
+       @team = Team.new(team_params)
+    if @team.save
+       redirect_to  admin_team_index_path
+    else
+      @teams = Team.all
+      render :index
+    end
   end
-
 
 
   def edit
@@ -18,7 +21,7 @@ class Admin::TeamController < ApplicationController
 
   def destroy
     team = Team.find(params[:id])
-      team.destroy
+    team.destroy
     redirect_to admin_team_index_path, danger: "チーム情報を削除しました。"
   end
 
@@ -34,6 +37,8 @@ class Admin::TeamController < ApplicationController
     def team_params
       params.require(:team).permit(:team)
     end
+
+
 
 
 

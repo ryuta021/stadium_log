@@ -21,9 +21,11 @@
       </div>
     </div>
 
-         <div class="form-group">
-            <label></label>
-            <%#= f.attachment_field :image %>
+　　　<div class="form-row">
+         <div class="col-md-12 form-group">
+           <div class="col-sm-3"></div>
+            <label class="col-sm-1">プロフィール画像選択</label>
+            <%= f.attachment_field :image %>
         </div><br>
 
 
@@ -36,7 +38,6 @@
         </div>
       </div>
     </div>
-
 
 
 <div class="form-row">
@@ -72,11 +73,13 @@
       </div>
     </div>
 
-<div class="form-row">
-      <div class="col-md-12 form-group">
-        <div class="col-xs-5"></div>
+  <div class="form-row">
+    <div class="col-md-12 form-group">
+     <div class="col-xs-4"></div>
       <div class="actions">
-        <%= f.submit "アカウントを作成" , class: "col-xs-2 btn btn-success" %>
+        <%= f.submit "アカウントを作成" , class: "col-xs-2 btn green accent-3" %>
+         <div class="col-xs-1"></div>
+        <%= link_to "ログイン", new_session_path(resource_name) , class: "col-xs-2 btn btn-success" %>
       </div>
       </div>
     </div>

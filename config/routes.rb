@@ -11,6 +11,14 @@ Rails.application.routes.draw do
     resources :posts, only: [:edit, :update, :show, :index, :destroy]
   end
 
+  devise_for :admin_users, controllers: {
+            sessions: 'admin/admin_users/sessions',
+            registrations: 'admin/admin_users/registrations',
+            passwords: 'admin/admin_users/passwords'
+      }
+
+
+
 
   devise_for :users,controllers: {
           sessions: 'public/users/sessions',
@@ -19,26 +27,29 @@ Rails.application.routes.draw do
     }
 
 
+   #resources :relationships, only: [:create, :destroy]
 
-   scope module: :public do
-     resources :users, only: [:show, :update, :edit, ]
-     resources :stadium, only: [:show, :create, :destroy, ]
+
+
+
+  namespace :public do
+     resources :users, only: [:show, :update, :edit ]do 
+      resources :relationships, only: [:create, :destroy]
+     end
+
+     resources :stadium, only: [:show, :create, :destroy ]
+      get 'search_location'
      resources :posts do
+       get 'detail_search'
      resource :favorites, only: [:create, :destroy]
      end
   end
 
 # only: [:index, :create, :show, :new, :destroy]
 
-# devise_for :admin_users, controllers: {
-#           sessions: 'admin/admin_users/sessions',
-#           registrations: 'admin/admin_users/registrations',
-#           passwords: 'admin/admin_users/passwords'
-#     }
 
 
-
-   devise_for :admin_users
+   # devise_for :admin_users
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

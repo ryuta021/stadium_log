@@ -1,9 +1,15 @@
 class Stadium < ApplicationRecord
+
+	validates :name, presence: true
+	 # validates :image_id, presence: true
+	 validates :information, presence: true
+	validates :address, presence: true
 	 has_many :post
 	 attachment :image
-   geocoded_by :address
-   # after_validation :geocode
-   after_validation :geocode, if: :address_changed?
+    geocoded_by :address
+    after_validation :geocode
+
+
 
 
 
@@ -16,3 +22,4 @@ class Stadium < ApplicationRecord
 #     self.longitude = response["results"][0]["geometry"]["location"]["lng"]
 #   end
 end
+

@@ -1,13 +1,21 @@
 class Public::FavoritesController < ApplicationController
- def create
-  	 favorite = current_user.favorites.build(post_id: params[:post_id])
-    favorite.save
-    redirect_to posts_path
- end
+	def create
+		@post = Post.find(params[:post_id])
+		@favorite = Favorite.create(user_id: current_user.id, post_id: @post.id)
+		@favorites = Favorite.where(post_id: params[:post_id])
+		@posts = Post.all
 
-  def destroy
-  	favorite = Favorite.find_by(post_id: params[:post_id], user_id: current_user.id)
-    favorite.destroy
-    redirect_to posts_path
-  end
+
+	end
+
+	def destroy
+	 @post = Post.find(params[:post_id])
+	@favorite = Favorite.find_by(user_id: current_user.id, post_id: @post.id)
+	@favorite.destroy
+	@favorites = Favorite.where(post_id: params[:post_id])
+	@posts = Post.all
+
+
+	end
 end
+

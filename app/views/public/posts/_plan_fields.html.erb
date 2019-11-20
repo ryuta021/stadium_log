@@ -1,0 +1,23 @@
+
+<div class="nested-fields ">
+
+  <div class="field form-group">
+    <%= f.label :title, "title" %>
+    <%= f.text_field :title %>
+    <%= link_to_remove_association 'プランを削除', f %>
+  </div>
+
+  	<div class="spots form-group">
+	<%= f.fields_for :spots do |spot| %>
+	    <div class="field">
+	        <%= render 'spot_fields', f: spot %>
+	    </div>
+	<%- end %>
+	<div class="links">
+        <%= link_to_add_association 'スポットを追加', f, :spots %>
+    </div>
+	</div>
+</div>
+
+
+
