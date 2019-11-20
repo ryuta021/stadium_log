@@ -1,0 +1,94 @@
+<div class="col-lg-12">
+  <div class="text-center">
+<h2>アカウントを作成</h2>
+  </div>
+</div>
+
+
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+
+    <div class="form-row">
+    <div class="col-md-12 form-group">
+      <div class="col-sm-3"></div>
+      <laber class="col-sm-1">名前</laber>
+      <div class="col-sm-5">
+      <%= f.text_field :name, placeholder: "名前", class:"form-control" %>
+      </div>
+      </div>
+    </div>
+
+　　　<div class="form-row">
+         <div class="col-md-12 form-group">
+           <div class="col-sm-3"></div>
+            <label class="col-sm-1">プロフィール画像選択</label>
+            <%= f.attachment_field :image %>
+        </div><br>
+
+
+  <div class="form-row">
+      <div class="col-md-12 form-group">
+        <div class="col-sm-3"></div>
+          <label class="col-sm-1">好きなチーム</label><br>
+          <div class="col-sm-5">
+            <%= f.collection_select :team_id, Team.all, :id, :team, include_blank: '選択して下さい' %><br>
+        </div>
+      </div>
+    </div>
+
+
+<div class="form-row">
+      <div class="col-md-12 form-group">
+        <div class="col-sm-3"></div>
+        <label class="col-sm-1">メールアドレス</label>
+        <div class="col-sm-5">
+        <%= f.text_field :email, placeholder:"kobaba@kokoko", class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+<div class="form-row">
+      <div class="col-md-12 form-group">
+        <div class="col-sm-3"></div>
+        <label class="col-sm-1">パスワード</label>
+        <div class="col-sm-5">
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "パスワード", class:"form-control" %><br>
+        </div>
+      </div>
+    </div>
+
+<div class="form-row">
+      <div class="col-md-12 form-group">
+        <div class="col-sm-3"></div>
+        <label class="col-sm-1">パスワード<br>（確認用）</label>
+        <div class="col-sm-5">
+          <%= f.password_field :password_confirmation, autocomplete: "パスワード確認用", class:"form-control" %>
+        </div>
+      </div>
+    </div>
+
+  <div class="form-row">
+    <div class="col-md-12 form-group">
+     <div class="col-xs-4"></div>
+      <div class="actions">
+        <%= f.submit "アカウントを作成" , class: "col-xs-2 btn green accent-3" %>
+         <div class="col-xs-1"></div>
+        <%= link_to "ログイン", new_session_path(resource_name) , class: "col-xs-2 btn btn-success" %>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+<% end %>
+
+</div>
+</div>
+<%= render "public/users/shared/links" %>
+</div>
