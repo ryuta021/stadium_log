@@ -1,51 +1,38 @@
 <main>
   <div class="row">
-      <div class="col s3">
-          <ul class="collection with-header">
-            <li class="collection-header center-align"><%= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'100x100'  %></li>
-            <li class="collection-item center-align">名前<h6><%= @user.name %></h6></li>
-             <li class="collection-item center-align">好きなチーム<h6><%= @user.team.team %></h6></li>
-               <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header center-align"><h5>プロフィール</h5></div>
-                  <div class="collapsible-body"><span><%= @user.introduction %></span></div>
-                </li>
-              </ul>
-          <% if @user == current_user %>
-           <%= link_to "マイページ編集" ,edit_user_path(@user.id), class: "btn btn-primary col s12" %>
-          <% end %>
-          </ul>
-         <div class="carousel carousel-slider">
-           <% @posts.each do |post| %>
-             <a class="carousel-item" >
-               <%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'150x150'  %>
-             </a>
-           <% end %>
-        </div>
+    <h5>マイページ</h5>
+    <div class="col s12">
+        <div id='map' data-posteds=<%= @posteds %>></div>
       </div>
-
-
-
-
- <div class="col s9 center-align">
-   <div id='map' data-posteds=<%= @posteds %>></div>
-     <h5> ユーザー投稿一覧</h5>
-        <table class="table table-hover col s9">
-            <% @posts.each do |post| %>
-              <tbody>
-                  <tr>
-                    <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'  %> </td>
-                    <td><%= post.user.name %></td>
-                    <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
-                    <td><%= post.post_content %></td>
-                    <td> <%= link_to "詳細",public_post_path(post.id) ,class: "btn-floating btn-large "%></td>
-                  </tr>
-              </tbody>
-          <% end %>
-        </table>
-          <%= paginate @posts %>
-    </div>
-</main>
+    <%# if @user == current_user %>
+      <div class="col s4">
+        <ul class="collection with-header">
+          <li class="collection-header center-align"><%= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'100x100'  %></li>
+          <li class="collection-item center-align">名前<h5><%= @user.name %></h5></li>
+          <li class="collection-item center-align">好きなチーム<h6><%= @user.team.team %></h6></li>
+          <li class="collection-item center-align">プロフィール<%= @user.introduction %></li>
+        </ul>
+     <% if @user == current_user %>
+            <%= link_to "マイページ編集" ,edit_public_user_path(@user.id), class: "btn btn-primary col s12" %>
+    <% end %>
+   </div>
+   <div class="col s8 center-align">
+          <table class="table table-hover col s12">
+              <% @posts.each do |post| %>
+                <tbody>
+                    <tr>
+                      <td><%= link_to public_post_path(post.id) do %><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'  %><% end %></td>
+                      <td><%= post.user.name %></td>
+                      <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
+                      <td><%= post.post_content %></td>
+                      <td> <%= link_to "詳細",public_post_path(post.id) ,class: "btn-floating btn-large "%></td>
+                    </tr>
+                </tbody>
+            <% end %>
+          </table>
+            <%= paginate @posts %>
+      </div>
+  </main>
 
 
             <script type="text/javascript">
@@ -86,7 +73,7 @@
 
         </script>
         <script async defer
-          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap">
         </script>
 
 

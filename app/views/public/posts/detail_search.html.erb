@@ -32,7 +32,7 @@
                 <td><%= post.sightseeing_rate %>点</td>
                 <td><%= render 'public/favorites/favorite',post: post %></td>
                 <td>いいね数<%= post.favorite_count %></td>
-                <td><%= link_to "詳細", post_path(post.id) ,class: "btn-floating btn-large waves-effect waves-light red" %></td>
+                <td><%= link_to "詳細", public_post_path(post.id) ,class: "btn-floating btn-large waves-effect waves-light red" %></td>
                 <td><%#= render 'relationships/follow_button', user: @user %></td>
               </tr>　
                <% end %>

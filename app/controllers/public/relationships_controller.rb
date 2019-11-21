@@ -4,7 +4,8 @@ class Public::RelationshipsController < ApplicationController
 	def create
     user = User.find(params[:user_id])
     following = current_user.follow(user)
-    if following.save
+    if  user == current_user
+      following.save
       flash[:success] = 'ユーザーをフォローしました'
       redirect_to public_user_path(user)
     else

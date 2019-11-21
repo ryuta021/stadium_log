@@ -9,8 +9,8 @@ class Public::PostsController < ApplicationController
 
   def new
        @post =Post.new
-       @plan = @post.plans.build
-       @spot = @plan.spots.build
+       # @plan = @post.plans.build
+       # @spot = @plan.spots.build
   end
 
 
@@ -24,10 +24,8 @@ class Public::PostsController < ApplicationController
   end
 
 
-   def search_location
-        latitude = params[:latitude].to_f
-        longitude = params[:longitude].to_f
-        @locations = Post.within_box(0.310686, latitude, longitude)
+   def favorite_post
+        @favorite = Favorite.all
    end
 
 
@@ -46,8 +44,9 @@ class Public::PostsController < ApplicationController
   def create
       @post = Post.new(post_params)
       @post.user_id = current_user.id
+      #binding.pry
    if @post.save
-      redirect_to  posts_path
+      redirect_to  public_posts_path
        else
       @posts = Post.all
       render :new
@@ -56,16 +55,19 @@ class Public::PostsController < ApplicationController
 
 
 
+
+
   def destroy
       post = Post.find(params[:id])
       post.destroy
-      redirect_to user_path(@post.id), danger: "投稿情報を削除しました。"
+      redirect_to public_user_path(@post.id), danger: "投稿情報を削除しました。"
   end
 
 
   private
    def post_params
-      params.require(:post).permit(:user_id, :stadium_id, :watching_date, :posted_image, :post_content, :access_rate, :gouremet_rate, :sightseeing_rate, :mood_rate, :capacity_rate, :latitude, :longitude, :address ,plan_attributes: [:id, :title, :_destroy,
-                                   spot_attributes: [:id, :spot_number, :spot_content, :spot_place, :spot_time, :plan_id, :_destroy]])
+      params.require(:post).permit(:user_id, :stadium_id, :watching_date, :posted_image, :post_content, :access_rate, :gouremet_rate, :sightseeing_rate, :mood_rate, :capacity_rate, :latitude, :longitude, :address,
+                                   plans_attributes: [:id, :title, :_destroy,
+                                   spots_attributes: [:id, :spot_title, :spot_number, :spot_content, :spot_place, :spot_time,  :address, :latitude, :longitude, :spots_image_id, :_destroy]])
    end
 end

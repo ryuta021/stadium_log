@@ -1,15 +1,11 @@
 <main>
-     <%= search_form_for(@q, url: public_post_detail_search_path(current_user) ) do |f| %>
-        <%= f.label :post_content, "投稿内容" %>
-        <%= f.search_field :post_content_cont %>
-        <%= f.submit "検索" %>
-      <% end %>
 
-<h6 class="center-align">投稿一覧</h6>
+
+<h6 class="center-align">新着投稿一覧</h6>
  <div class="col s12">
   <div class="col s12 m4 l2"></div>
     <div class="col s12 m4 l8">
-        <div id='map' data-posteds='<%= @posteds %>'></div>
+      <!--   <div id='map' data-posteds='<%= @posteds %>'></div> -->
       <table class="table-hover">
         <thead>
           <tr>
@@ -18,35 +14,24 @@
             <th> 球場名</th>
             <th> 観戦日</th>
             <th> 投稿内容</th>
-            <th> アクセス</th>
-            <th> グルメ</th>
-            <th> 雰囲気</th>
-            <th> キャパシティ</th>
-            <th> 観光場所</th>
-            <th>合計得点</th>
           </tr>
         </thead>
           <% @posts.each do |post| %>
             <tbody>
               <tr>
-                <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %></td>
-                <td><%= post.user.name %></td>
-                <td><%= post.stadium.name %></td>
+                <td> <%= link_to  public_post_path(post.id) do %><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'50x50' %><% end %></td>
+                 <td><%= link_to  public_user_path(post.user.id) do %>
+                 <%= post.user.name %> <% end %></td>
+                <td><%= link_to  public_stadium_path(post.stadium.id) do %>
+                  <%= post.stadium.name %><% end %>
                 <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
                 <td><%= post.post_content %></td>
-                <td><%= post.access_rate %>点</td>
-                <td><%= post.gouremet_rate %>点</td>
-                <td><%= post.mood_rate %>点</td>
-                <td><%= post.capacity_rate %>点</td>
-                <td><%= post.sightseeing_rate %>点</td>
-                 <td><%= post.total_rate %>点</td>
                 <td><%= render 'public/favorites/favorite',post: post %></td>
                 <td>いいね数<%= post.favorite_count %></td>
-                <td><%= link_to "詳細", public_post_path(post.id) ,class: "btn-floating btn-large waves-effect waves-light red" %></td>
-                <td><%= render 'public/relationships/follow_button', user: post.user %></td>
-              </tr>　
-               <% end %>
-             </tbody>
+                  <td><%= render 'public/relationships/follow_button', user: post.user %></td>
+            </tr>　
+         </tbody>
+         <% end %>
        </table>
        <%= paginate @posts %>
      </div>
@@ -97,7 +82,7 @@
 
         </script>
         <script async defer
-          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key==initMap">
+          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>=initMap">
         </script>
 
 

@@ -1,6 +1,10 @@
 <main>
 <div class="row">
-  <div class="col s3 ">
+  <div class='col s12 center-align'>
+    <div id='map' data-posteds='<%= @posteds %>'></div>
+  </div>
+
+  <div class="col s4 ">
     <ul class="collapsible popout">
         <li>
           <laber><%= attachment_image_tag @posted.image, :image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></laber>
@@ -16,54 +20,49 @@
           <div class="collapsible-body"></div>
         </li>
         <li>
-          <div class="collapsible-header"><h6>球場評価</h6></div>
-          <div class="collapsible-body">
-              <div class='form-group'>
-                <label>アクセス採点</label>
-                 <span class="blue-text text-darken-2"><%= @access %></span>
-                <br>
-                <div id='star-rate'></div>
-                <label>グルメ採点</label>
-                <span class="blue-text text-darken-2"><%= @gouremet %></span>
-                <br>
-                <div id='star2-rate'></div>
-                <label>ムード採点</label>
-                 <span class="blue-text text-darken-2"><%= @mood %></span>
-                <br>
-                <div id='star3-rate'></div>
-                <label>キャパシティ採点</label>
-                <span class="blue-text text-darken-2"><%=@capacity   %></span>
-                <br>
-                <div id='star4-rate'></div>
-                <label>観光採点</label>
-                 <span class="blue-text text-darken-2"><%= @gouremet %></span>
-                <div id='star5-rate'></div>
-            </div>
+        <div class="collapsible-header"><h6>球場評価</h6></div>
+        <div class="collapsible-body">
+          <div class='form-group'>
+            <label>アクセス採点</label>
+             <span class="blue-text text-darken-2"><%= @access %>.floor(2</span>
+            <br>
+            <div id='star-rate'></div>
+            <label>グルメ採点</label>
+            <span class="blue-text text-darken-2"><%= @gouremet %>.floor(2</span>
+            <br>
+            <div id='star2-rate'></div>
+            <label>ムード採点</label>
+             <span class="blue-text text-darken-2"><%= @mood %></span>
+            <br>
+            <div id='star3-rate'></div>
+            <label>キャパシティ採点</label>
+            <span class="blue-text text-darken-2"><%=@capacity   %></span>
+            <br>
+            <div id='star4-rate'></div>
+            <label>観光採点</label>
+             <span class="blue-text text-darken-2"><%= @gouremet %></span>
+            <div id='star5-rate'></div>
           </div>
-        </li>
-      </ul>
-
+        </div>
+      </li>
+    </ul>
   </div>
 
 
-
-
- <div class='col s9 center-align'>
-                      <div id='map' data-posteds='<%= @posteds %>'></div>
-
-      <h5>ユーザー投稿一覧</h5>
+   <div class='col s8 center-align'>
+      <h7>ユーザー投稿一覧</h7>
           <table class="striped">
             <tbody>
                <% @posts.each do |post| %>
                 <tr>
-                    <td><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %></td>
+                    <td><%= link_to public_post_path(post.id) do %><%= attachment_image_tag post, :posted_image, :fill, 100, 100, fallback: "no_image.png", size:'50x50' %><% end %></td>
                     <td><%= post.stadium.name %></td>
-                    <td><%#= post.user.name %></td>
+                    <td><%= post.user.name %></td>
                     <td><%= post.watching_date.strftime("%m月%d日") %></td>
                     <td><%= post.post_content %></td>
                     <td><%= render 'public/favorites/favorite',post: post %></td>
                     <td><%= post.favorite_count %></td>
-                    <td><%= link_to "詳細", post_path(post.id) ,class: "btn-floating btn-large " %></td>
+                    <td><%= link_to "詳細", public_post_path(post.id) ,class: "btn-floating btn-large " %></td>
                 </tr>
              </tbody>
            <% end %>
@@ -172,7 +171,8 @@
 
         </script>
         <script async defer
-          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=&callback=initMap">
+         
+           src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap">
         </script>
 
 

@@ -1,71 +1,29 @@
 
 <main>
   <div class="row">
-    <div class="col s2 ">
-      <ul class="collection with-header">
-        <li class="collection-header"><h4>球場一覧</h4></li>
-         <% @stadiums.each do |stadium|  %>
-        <li class="collection-item"><%= link_to stadium_path(stadium.id) do %><%= stadium.name %><% end %></li>
-         <% end %>
-      </ul>
-    </div>
-    <div class="col s10">
-
-
-
-
-       <button onclick="getPosition();">Find!!</button>
- <% if user_signed_in? %>
-　　　<%= search_form_for(@q, url: post_detail_search_path(current_user) ) do |f| %>
-       <%= f.label :post_content, "投稿内容を検索する　調べたいキーワードを入力してください"  %>
-        <ul class="collection">
-          <li class="collection-item">
-            <%= f.search_field :post_content_cont ,class: "input-field" %>
-          </li>
-        </ul>
-      <%= f.submit "検索" ,class: "waves-effect waves-light btn-large" %>
-    <% end %>
-  <% end %>
-
-
-
-
-
-
-
+    <div class="col s12">
 
        <div id='map' data-posteds='<%= @posteds %>'></div>
 
-
-
         <div class="col s4">
-                      <ul class="collapsible ">
-                        <li>
-                          <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">いいねランキング</h5></div>
-                            <div class="collapsible-body">
-                              <table class="striped">
-                                 <% @post.each.with_index(1) do |rank, i| %>
-                                 <tr>
-                                 <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                                 <td><h6><%= rank.post_content %></h6></td>
-                                 <td><h7><%#= (average).floor(2) %>点</td><h7>
-                                 </tr>
-                             </tbody>
-                          <% end %>
-                        </table>
-                      </div>
-                  </li>
-              </ul>
-           </div>
-
-
-
-
-
-
-
-
-
+          <ul class="collapsible ">
+            <li>
+              <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">いいねランキング</h5></div>
+                      <div class="collapsible-body">
+                        <table class="striped">
+                        <% @post.each.with_index(1) do |rank, i| %>
+                          <tr>
+                           <td><h6><%= "第#{ i+1 }位" %></td><h6>
+                           <td><h6><%= rank.post_content %></h6></td>
+                           <td><h7><%= rank.favorite_count %>いいね</td><h7>
+                          </tr>
+                       </tbody>
+                    <% end %>
+                  </table>
+                </div>
+              </li>
+            </ul>
+          </div>
 
            <div class="col s4">
               <ul class="collapsible ">
@@ -79,7 +37,7 @@
                             <tbody>
                               <tr>
                                 <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                                <td><h6><%= link_to  stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                                <td><h6><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                                 <td><h7><%= (average).floor(2) %>点</td><h7>
                               </tr>
                            </tbody>
@@ -94,7 +52,7 @@
            <div class="col s4">
               <ul class="collapsible">
                 <li>
-                  <div class="collapsible-header card-panel  light-blue accent-4"><h5 class="white-text text-darken-2">グルメランキング</h5></div>
+                  <div class="collapsible-header card-panel  light-blue accent-4"><h5 class="white-text text-darken-2">球場グルメランキング</h5></div>
                     <div class="collapsible-body">
                       <table class="striped">
                         <% @sort_posts.each.with_index do |sort_post, i|  %>
@@ -103,7 +61,7 @@
                             <tbody>
                               <tr>
                                 <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                                <td><h6><%= link_to  stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                                <td><h6><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                                 <td><h7><%= (average).floor(2) %>点</td><h7>
                               </tr>
                            </tbody>
@@ -118,7 +76,7 @@
            <div class="col s4">
               <ul class="collapsible">
                 <li>
-                  <div class="collapsible-header card-panel green accent-4"><h5 class="white-text text-darken-2">ムードランキング</h5></div>
+                  <div class="collapsible-header card-panel green accent-4"><h5 class="white-text text-darken-2">球場ムードランキング</h5></div>
                     <div class="collapsible-body">
                       <table class="striped">
                         <% @sort_moods.each.with_index do |sort_post, i|  %>
@@ -127,7 +85,7 @@
                             <tbody>
                               <tr>
                                 <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                                <td><h6><%= link_to  stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                                <td><h6><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                                 <td><h7><%= (average).floor(2) %>点</td><h7>
                               </tr>
                            </tbody>
@@ -152,7 +110,7 @@
                             <tbody>
                               <tr>
                                 <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                                <td><h6><%= link_to  stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                                <td><h6><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                                 <td><h7><%= (average).floor(2) %>点</td><h7>
                               </tr>
                            </tbody>
@@ -176,7 +134,7 @@
                             <tbody>
                               <tr>
                                 <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                                <td><h6><%= link_to  stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                                <td><h6><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                                 <td><h7><%= (average).floor(2) %>点</td><h7>
                               </tr>
                            </tbody>
@@ -200,7 +158,7 @@
                             <tbody>
                               <tr>
                                 <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                                <td><h6><%= link_to  stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                                <td><h6><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                                 <td><h7><%= (average).floor(2) %>点</td><h7>
                               </tr>
                            </tbody>
@@ -256,49 +214,9 @@
           }
 
         </script>
-<!-- -------------------------------------------------------------------------------------- -->
-
-         <script>
-
-    // 現在地取得処理
-    function getPosition() {
-      // 現在地を取得
-      navigator.geolocation.getCurrentPosition(
-        // 取得成功した場合
-        function(position) {
-            window.location.href = "/posts/#{@post.id}/search_location?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude
-
-            // $.ajax({
-            //   url: "/shops/search_location",
-            //   type: "GET",
-            //   dataType: 'html',
-            //   data: {latitude : position.coords.latitude,
-            //         longitude : position.coords.longitude},
-            // });
-        },
-        // 取得失敗した場合
-        function(error) {
-          switch(error.code) {
-            case 1: //PERMISSION_DENIED
-              alert("位置情報の利用が許可されていません");
-              break;
-            case 2: //POSITION_UNAVAILABLE
-              alert("現在位置が取得できませんでした");
-              break;
-            case 3: //TIMEOUT
-              alert("タイムアウトになりました");
-              break;
-            default:
-              alert("その他のエラー(エラーコード:"+error.code+")");
-              break;
-          }
-        }
-      );
-    }
-  </script>
 
         <script async defer
-          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=&callback=initMap">
+          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap">
         </script>
 
 

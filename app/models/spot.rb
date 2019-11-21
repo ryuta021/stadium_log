@@ -1,4 +1,6 @@
 class Spot < ApplicationRecord
-	 belongs_to :spot
+	 belongs_to :plan
+	 attachment :spots_image
 end
+
 

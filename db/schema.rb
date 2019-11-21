@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_18_033252) do
+ActiveRecord::Schema.define(version: 2019_11_19_150934) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -85,6 +85,11 @@ ActiveRecord::Schema.define(version: 2019_11_18_033252) do
     t.integer "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "spots_image_id"
+    t.string "spot_title"
   end
 
   create_table "stadia", force: :cascade do |t|
