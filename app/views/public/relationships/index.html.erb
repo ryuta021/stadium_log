@@ -1,0 +1,17 @@
+<main>
+	<div class="contents_like">
+	 <h5 class="center-align">フォロ一覧</h5>
+	 <% @user.each do |user| %>
+	 <% user = User.find_by(id: user.follow_id) %>
+	 <table class="striped">
+	 	<tbody>
+			<tr>
+			  <td><%= user.name %> </td>
+			  <td><%= link_to '詳細', public_user_path(user) %></td>
+			  <td><%= render 'public/relationships/follow_button', user: user %></td>
+			</tr>
+	    </tbody>
+	   <% end %>
+	</table>
+</div>
+</main>

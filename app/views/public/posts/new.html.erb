@@ -1,56 +1,56 @@
 <main>
-    <% if @post.errors.any? %>
-      <%= @post.errors.count %>件のerrorが発生しました 空欄を入力してください
-      <% @post.errors.full_messages.each do |message| %>
-      <%= message %>
-      <% end %>
+  <%= flash[:notice] %>
+  <% if @post.errors.any? %>
+    <%= @post.errors.count %>件のerrorが発生しました 空欄を入力してください
+    <% @post.errors.full_messages.each do |message| %>
+    <%= message %>
     <% end %>
-<%= form_for(@post, url:  public_posts_path, method: :post) do |f| %>
-  <!-- <input type="text" class="datepicker"> -->
-  <div class="row">
-    <div class="col s6 center-align">
-      <div class="card">
-        <div class="card-content ">
-          <h5>投稿画面</h5>
-           <div class="form-group">
-              <label>観戦した日にちを選択</label><br>
-              <%= f.date_field :watching_date, class: 'form-control' %>
-            </div><br>
+  <% end %>
+  <%= form_for(@post, url:  public_posts_path, method: :post) do |f| %>
+    <div class="row">
+      <div class="col s6 center-align">
+        <div class="card grey lighten-4">
+          <div class="card-content ">
+            <h5>投稿画面</h5>
+             <div class="form-group">
+                <label>観戦した日にちを選択</label><br>
+                <%= f.date_field :watching_date, class: 'form-control' %>
+              </div><br>
 
-            <div class="form-group">
-         <label>投稿本文</label>
-              <%= f.text_field :post_content, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
-            </div><br>
+              <div class="form-group">
+                <label>投稿本文</label>
+                <%= f.text_area :post_content, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
+              </div><br>
 
-            <div class="form-group">
-              <label>投稿画像</label>
-              <%= f.attachment_field :posted_image, class: "file-field input-field"  %>
-            </div><br>
+              <div class="form-group">
+                <label>投稿画像</label>
+                <%= f.attachment_field :posted_image, class: "file-field input-field"  %>
+              </div><br>
 
-              <!-- <div class="input-field "> -->
-                <%#= f.label :行った飲食店や宿泊施設などのお店の名前または住所を入力してください %>
-                <%#= f.text_field :address, class: "materialize-textarea" %>
-             <!--  </div> -->
+              <div class="input-field ">
+                <%= f.label :行った飲食店や宿泊施設などのお店の名前または住所を入力してください %>
+                <%= f.text_field :address, class: "materialize-textarea" %>
+              </div>
+          </div>
         </div>
       </div>
-    </div>
-     <div class="col s6 center-align">
-       <div class="card">
+      <div class="col s6 center-align">
+       <div class="card grey lighten-4">
         <div class="card-content ">
           <h5>採点項目</h5>
-         <div class="form-group">
-           <label>球場選択</label><br>
-           <%= f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control" %>
-         </div><br>
+           <div class="form-group">
+             <label>球場選択</label><br>
+             <%= f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control" %>
+           </div>
 
             <div class="form-group row star" id="star1">
               <%= f.label :access_rate,'アクセス ', class:'col-md-3 col-form-label' %>
               <%= f.hidden_field :access_rate, id: :review_star %>
             </div>
 
-           <div class="form-group row star" id="star2">
+            <div class="form-group row star" id="star2">
               <%= f.label :gouremet_rate,'グルメ ', class:'col-md-3 col-form-label' %>
-              <%= f.hidden_field :gouremet_rate, id: :review_star, value: 3 %>
+              <%= f.hidden_field :gouremet_rate, id: :review_star %>
             </div>
 
              <div class="form-group row star" id="star3">
@@ -67,30 +67,30 @@
               <%= f.label :sightseeing_rate,'観光 ', class:'col-md-3 col-form-label' %>
               <%= f.hidden_field :sightseeing_rate, id: :review_star %>
             </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <h4 class="center-align">プラン作成画面</h4>
+
+         </div>
+       </div>
+     </div>
+   </div>
+  <h6 class="center-align">プラン作成画面</h6>
+  <label>野球を見に行くまでのおすすめのプランがあったら教えてください<br>
+  (例)タイトル　大阪旅行　スポット金額　2000円　スポット滞在時間　30分　スポット場所　千代崎イオン　投稿内容　試合前に買い物</label>
+
   <div class="plans">
      <%= f.fields_for :plans do |plan| %>
        <%= render 'plan_fields', f: plan %>
      <% end %>
-
+<div class="row">
+ <div class="col s12 center-align">
     <div class="links">
-         <%= link_to_add_association 'プランを追加', f, :plans %>
-         <%#= link_to_remove_association 'スポットを削除', f %>
+       <%= link_to_add_association 'プランを追加', f, :plans  , class: "btn  amber accent-4 col s12" %>
     </div>
-
-
-        <%= f.submit "投稿する" , class: "btn btn-success col-lg-12" %>
+       <%= f.submit "投稿する" , class: "btn light-blue accent-4 col s12" %>
   </div>
-
+</div>
   <% end %>
-
 </main>
-<!-- ----------------------------------------------------------------------------->
-  <!-- 評価javascript -->
+
   <script>
   $('#star1').raty({
     size     : 36,

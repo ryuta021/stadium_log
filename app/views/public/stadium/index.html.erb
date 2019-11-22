@@ -4,17 +4,19 @@
     <div class="col s12">
 
        <div id='map' data-posteds='<%= @posteds %>'></div>
-
+　　　　　<label class="center-align"><h5>クリックするとランキングが見れます!</h5></label>
+</div>
+      <div class="row">
         <div class="col s4">
           <ul class="collapsible ">
             <li>
-              <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">いいねランキング</h5></div>
+              <div class="collapsible-header card-panel  cyan accent-"><h5 class="white-text text-darken-2">いいね投稿ランキング</h5></div>
                       <div class="collapsible-body">
                         <table class="striped">
-                        <% @post.each.with_index(1) do |rank, i| %>
+                        <% @post.each.with_index(0) do |rank, i| %>
                           <tr>
                            <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                           <td><h6><%= rank.post_content %></h6></td>
+                           <td><h6><%= link_to public_post_path(rank.id) do %><%= rank.post_content %></h6></td><% end %>
                            <td><h7><%= rank.favorite_count %>いいね</td><h7>
                           </tr>
                        </tbody>
@@ -31,7 +33,7 @@
                   <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">総合ランキング</h5></div>
                     <div class="collapsible-body">
                       <table class="striped">
-                        <% @sort_posts.each.with_index do |sort_post, i|  %>
+                        <% @sort_total.each.with_index do |sort_post, i|  %>
                          <% stadium_id = sort_post[0] %>
                          <% average = sort_post[1].to_f %>
                             <tbody>
@@ -181,7 +183,7 @@
           function initMap() {
             var test = {lat: <%=  @posted.latitude %>, lng: <%=  @posted.longitude %>};
             var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 15,
+              zoom: 5,
               center: test
             });
 
@@ -196,6 +198,9 @@
               console.log(hoge)
 
               var contentString = '住所：' + posted.address;
+
+
+
               var infowindow = new google.maps.InfoWindow({
                 content: contentString
               });

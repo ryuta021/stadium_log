@@ -1,21 +1,22 @@
-%h1 球場編集画面
-= form_for(@stadium, url: admin_stadium_path) do |f|
-  .form-group
-    %label 球場名
-    = f.text_field :name, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
-  %br/
-  .form-group
-    %label 球場紹介文
-    = f.text_field :information, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
-  %br/
-  .form-group
-    %label 住所登録
+%main
+  %h1 球場編集画面
+  = form_for(@stadium, url: admin_stadium_path) do |f|
+    .form-group
+      %label 球場名
+      = f.text_field :name, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
     %br/
-    = f.text_field :address, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
-  %br/
-  .form-group
-    %label 球場画像
-    = f.attachment_field :image
-  %br/
-  = f.submit "球場登録" , class: "btn btn-success col-lg-5"
-= link_to "削除",  admin_stadium_path(@stadium.id), method: :delete ,class: "btn btn-primary col-lg-5"
+    .form-group
+      %label 球場紹介文
+      = f.text_field :information, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
+    %br/
+    .form-group
+      %label 住所登録
+      %br/
+      = f.text_field :address, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
+    %br/
+    .form-group
+      %label 球場画像
+      = f.attachment_field :image
+    %br/
+    = f.submit "球場登録" , class: "btn btn-success col-lg-5"
+  = link_to "削除",  admin_stadium_path(@stadium.id), method: :delete ,class: "btn btn-primary col-lg-5"

@@ -1,25 +1,42 @@
-<div class="nested-fields form-inline">
-    <div class="form-group">
-      <label class="control-label">スポットNo</label>
-      <%= f.text_field :spot_number %>
-    </div>
-    <div class="form-group">
-      <label class="control-label">スポット金額</label>
-      <%= f.text_field :spot_place %>
-    </div>
-    <div class="form-group">
-      <label class="control-label">スポット滞在時間</label>
-      <%= f.text_field :spot_time %>
-    </div>
-    <div class="form-group">
+<div class="nested-fields form-inline grey lighten-4">
+  <div class="card">
+    <div class="card-content col s12 ">
+      <div class="row">
+      <form class="col s12">
+        <div class="input-field col s3">
+          <i class="material-icons prefix"> crop_free</i>
+          <%= f.text_field :address %>
+          <label for="icon_prefix">スポット場所</label>
+        </div>
+         <div class="input-field col s3">
+            <i class="material-icons prefix">attach_money</i>
+            <%= f.text_field :spot_place %>
+            <label for="icon_prefix">金額</label>
+        </div>
+        <div class="input-field col s3">
+            <i class="material-icons prefix">access_time</i>
+            <%= f.text_field :spot_time %>
+            <label for="icon_prefix">滞在時間</label>
+        </div>
+        <div class="input-field col s3">
+           <label for="icon_prefix">画像を追加してください</label><br>
+            <%= f.attachment_field :spots_image, class: "file-field input-field"  %>
+            <!-- <label for="icon_prefix">画像</label> -->
+        </div>
 
-        <label class="control-label">スポット場所</label>
-        <%= f.text_field :address %>
+
+      </form>
+      <form class="col s12">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <%= f.text_field :spot_content %>
+          <label for="icon_prefix">スポット内容</label>
+        </div>
+      </form>
     </div>
-    <div class="form-group">
-      <label class="control-label">投稿内容</label>
-      <%= f.text_field :spot_content %>
+
+          <%= link_to_remove_association 'スポットを削除', f %>
     </div>
-    <%= link_to_remove_association 'プランを削除', f %>
+  </div>
 </div>
 

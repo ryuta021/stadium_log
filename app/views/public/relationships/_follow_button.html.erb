@@ -1,13 +1,15 @@
+  <% if user.id != current_user.id %>
   <% if current_user.following?(user) %>
+
     <% relationship = current_user.relationships.find_by(follow_id: user.id) %>
     <%= form_for(relationship ,url:  public_user_relationship_path(user.id,relationship.id), html: { method: :delete }) do |f| %>
       <%= hidden_field_tag :follow_id, user.id %>
       <%= f.submit 'フォローをやめる' %>
     <% end %>
   <% else %>
-
     <%= form_for(user.relationships.build,url:  public_user_relationships_path(user)) do |f| %>
       <%= hidden_field_tag :follow_id, user.id %>
-      <%= f.submit 'フォローする' %>
+      <%= f.submit 'フォローする' %> 
     <% end %>
+  <% end %>
   <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_150934) do
+ActiveRecord::Schema.define(version: 2019_11_21_091739) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2019_11_19_150934) do
     t.float "longitude"
     t.string "address"
     t.integer "favorite_count"
+    t.float "total_rate"
   end
 
   create_table "relationships", force: :cascade do |t|
