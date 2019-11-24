@@ -2,14 +2,51 @@
 <main>
   <div class="row">
     <div class="col s12">
+      <h4 class="center-align"><%= link_to  "スタログとは!" ,public_stadium_about_path(current_user) %></h4>
 
+
+  </div>
        <div id='map' data-posteds='<%= @posteds %>'></div>
-　　　　　<label class="center-align"><h5>クリックするとランキングが見れます!</h5></label>
+　　　　　
+  </div>
+
+
+
+
+
+
+  <div class="col s7">
+<div class="carousel carousel-slider center ">
+    <div class="carousel-fixed-item center">
+      <a class="btn waves-effect white grey-text darken-text-2">button</a>
+    </div>
+　　　<% @stadiums.each do |stadiums| %>
+    <div class="carousel-item grey lighten-3 white-text" href="#one!">
+      <li>
+        <%= link_to public_stadium_path(stadiums) do %>
+            <%= attachment_image_tag stadiums, :image, :fill, 250, 250, fallback: "no_image.png", size:'300x300' %>
+            <% end %>
+          <h4><%= stadiums.name %></h4>
+      </li>
+    </div>
+    <% end %>
+  </div>
 </div>
-      <div class="row">
-        <div class="col s4">
-          <ul class="collapsible ">
-            <li>
+
+　<label class="center-align"><h5>クリックするとランキングが見れます!</h5></label>
+
+
+
+
+
+
+
+
+
+          <div class="row">
+            <div class="col s4">
+              <ul class="collapsible ">
+                <li>
               <div class="collapsible-header card-panel  cyan accent-"><h5 class="white-text text-darken-2">いいね投稿ランキング</h5></div>
                       <div class="collapsible-body">
                         <table class="striped">
@@ -198,7 +235,6 @@
               console.log(hoge)
 
               var contentString = '住所：' + posted.address;
-
 
 
               var infowindow = new google.maps.InfoWindow({

@@ -1,6 +1,8 @@
 class Public::StadiumController < ApplicationController
 
 PER = 6
+
+
   def show
      #binding.pry
 
@@ -9,11 +11,7 @@ PER = 6
     @posteds = Post.where(stadium_id: params[:id]).to_json
     #@total = @posts.average(:total_rate)
 
-   
-
-
     @access = @posts.average(:access_rate).blank? ? 0 : @posts.average(:access_rate).floor(2)
-    #@access = @posts.average(:access_rate)
     @gouremet = @posts.average(:gouremet_rate).blank? ? 0 : @posts.average(:gouremet_rate).floor(2)
     @mood = @posts.average(:mood_rate).blank? ? 0 : @posts.average(:mood_rate).floor(2)
     @sightseeing = @posts.average(:sightseeing_rate).blank? ? 0 :  @posts.average(:sightseeing_rate).floor(2)
@@ -25,7 +23,6 @@ PER = 6
   end
 
   def index
-     @q = Post.ransack(params[:q])
   	 #binding.pry
     @post = Post.find(Favorite.group(:post_id).order('count(post_id) desc').limit(5).pluck(:post_id))
     @posted =Stadium.find_by(params[:id])
@@ -42,14 +39,12 @@ PER = 6
   end
 
 
-  def create
+  def about
   end
 
   def destroy
   end
 
-  def about
-  end
 
    private
     def stadium_params

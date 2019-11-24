@@ -164,7 +164,7 @@
         <h6>プラン名から検索</h6>
       　　 <%= search_form_for(@p, url: public_post_detail_search_path(current_user) ) do |f| %>
            <label>調べたいキーワードから調べてください　(例) 大阪旅行　</label>
-            <%#= f.label :title, "プランを検索する　調べたいキーワードを入力してください"  %>
+            <%= f.label :title, "プランを検索する　調べたいキーワードを入力してください"  %>
              <ul class="collection">
                <li class="collection-item">
                   <%= f.search_field :title ,class: "input-field" %>

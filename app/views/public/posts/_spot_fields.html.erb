@@ -1,8 +1,11 @@
+
+
+
+
 <div class="nested-fields form-inline grey lighten-4">
   <div class="card">
     <div class="card-content col s12 ">
       <div class="row">
-      <form class="col s12">
         <div class="input-field col s3">
           <i class="material-icons prefix"> crop_free</i>
           <%= f.text_field :address %>
@@ -25,18 +28,14 @@
         </div>
 
 
-      </form>
-      <form class="col s12">
         <div class="input-field col s12">
           <i class="material-icons prefix">mode_edit</i>
           <%= f.text_field :spot_content %>
           <label for="icon_prefix">スポット内容</label>
         </div>
-      </form>
     </div>
 
           <%= link_to_remove_association 'スポットを削除', f %>
     </div>
   </div>
 </div>
-

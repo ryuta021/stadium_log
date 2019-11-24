@@ -12,12 +12,16 @@
 // about supported directives.
 //
 //= require rails-ujs
+//= require bxslider
 //= require activestorage
 //= require jquery
 //= require bootstrap-sprockets
 //= require_tree .
 //= require materialize
 //= require cocoon
+
+
+
 
 /*!
  * jQuery Raty - A Star Rating Plugin
@@ -49,18 +53,33 @@
 
   // Or with jQuery
 
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems, options);
-  });
+// document.addEventListener('DOMContentLoaded', function() {
+//     var elems = document.querySelectorAll('.modal');
+//     var instances = M.Modal.init(elems, options);
+//   });
 
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.fixed-action-btn');
-    var instances = M.FloatingActionButton.init(elems, options);
-  });
+// var instance = M.Tabs.init(el, options);
 
   // Or with jQuery
+
+  // $(document).ready(function(){
+  //   $('.tabs').tabs();
+  // });
+
+  // document.addEventListener('DOMContentLoaded', function() {
+  //   var elems = document.querySelectorAll('.fixed-action-btn');
+  //   var instances = M.FloatingActionButton.init(elems, options);
+  // });
+
+  // Or with jQuery
+
+
+
+
+
+
+
 
   $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
@@ -68,12 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.tap-target');
-    var instances = M.TapTarget.init(elems, options);
-  });
 
-  // Or with jQuery
 
   $(document).ready(function(){
     $('.tap-target').tapTarget();

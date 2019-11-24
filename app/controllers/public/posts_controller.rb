@@ -29,17 +29,15 @@ class Public::PostsController < ApplicationController
    def show
     # @rate = Post.where(stadium_id: params[:id])
     @rate = Post.where(stadium_id: params[:id])
-    @access = @rate.average(:access_rate)
+    #@access = @rate.average(:access_rate)
     #@access = Post.where(stadium_id: params[:id]).average(:access_rate)
     @gouremet = Post.where(stadium_id: params[:id]).average(:gouremet_rate)
     @mood = Post.where(stadium_id: params[:id]).average(:mood_rate)
     @sightseeing = Post.where(stadium_id: params[:id]).average(:sightseeing_rate)
     @capacity = Post.where(stadium_id: params[:id]).average(:capacity_rate)
     @post =Post.find(params[:id])
-    @plan = Post.joins(:plans => :spots).select("posts.*,plans.*,spots.*").where(user_id: @post.user.id).where(stadium_id: @post.stadium_id)
-    #binding.pry
-    #@posteds =Post.all.to_json
-    @posteds =Post.find(params[:id]).to_json
+    @plan = Post.joins(:plans => :spots).select("posts.*,plans.*,spots.*").where(user_id: @post.user.id).where(stadium_id: @post.stadium_id).where(id: @post.id)
+    @posteds = Post.joins(:plans => :spots).select("posts.*,plans.*,spots.*").where(user_id: @post.user.id).where(stadium_id: @post.stadium_id).where(id: @post.id).to_json
    end
 
 
