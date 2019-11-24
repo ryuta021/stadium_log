@@ -1,23 +1,22 @@
+<div class="nested-fields well well-compac ">
 
-<div class="nested-fields ">
-
-  <div class="field form-group">
-    <%= f.label :title, "title" %>
+  <div class="form-group">
+    <%= f.label :title, "タイトルを入力する" %>
     <%= f.text_field :title %>
     <%= link_to_remove_association 'プランを削除', f %>
+     <%#= link_to_add_association 'スポットを追加', f, :spots %>
   </div>
-
-  	<div class="spots form-group">
-	<%= f.fields_for :spots do |spot| %>
-	    <div class="field">
-	        <%= render 'spot_fields', f: spot %>
-	    </div>
-	<%- end %>
-	<div class="links">
-        <%= link_to_add_association 'スポットを追加', f, :spots %>
-    </div>
-	</div>
+   <div class="spots">
+    	<%= f.fields_for :spots do |spot| %>
+    	    <div class="field">
+    	        <%= render 'spot_fields', f: spot %>
+    	    </div>
+    	<% end %>
+    	<div class="links">
+           <%= link_to_add_association 'スポットを追加', f, :spots %>
+           <%#= link_to_remove_association 'スポットを削除', f %>
+      </div>
+  </div>
 </div>
-
 
 

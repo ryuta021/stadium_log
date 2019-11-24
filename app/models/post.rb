@@ -1,14 +1,13 @@
 class Post < ApplicationRecord
 
-   validates :post_content, presence: true
-   validates :watching_date, presence: true
-   validates :stadium_id, presence: true
-	attachment :posted_image
+  #validates :post_content, presence: true
+  #validates :watching_date, presence: true
+  #validates :stadium_id, presence: true
+  attachment :posted_image
 
 	belongs_to :user
 	belongs_to :stadium
 	has_many :favorites, dependent: :destroy
-
   has_many :plans, dependent: :destroy
   accepts_nested_attributes_for :plans, reject_if: :all_blank, allow_destroy: true
 
@@ -17,7 +16,7 @@ class Post < ApplicationRecord
 
 
  def total_rate
-  access_rate + gouremet_rate+sightseeing_rate+mood_rate+capacity_rate
+  access_rate + gouremet_rate + sightseeing_rate + mood_rate + capacity_rate
  end
 
   def like_user(user_id)

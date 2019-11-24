@@ -1,4 +1,17 @@
+<main>
 <h2>ユーザーログイン画面</h2>
+
+
+
+
+  <%= form_for(:session, url: root_path) do |f| %>
+      <%= f.hidden_field :email, value: 'test@test.com' %>
+      <%= f.hidden_field :password, value: '111111' %>
+      <%= f.submit 'テストログイン', class: 'btn btn-default' %>
+  <% end %>
+
+
+
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
@@ -25,3 +38,4 @@
 
 <%= render "public/users/shared/links" %>
 © 2019 GitH
+</main>

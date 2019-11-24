@@ -1,34 +1,25 @@
-<div class="nested-fields field">
-    <div>スポット</div>
-
-<!-- 
-    <div class=" form-group">
-          <label class="control-label">スポット名</label> -->
-          <%#= f.collection_select :plan_id, Plan.all, :id, :name %>
-   <!--  </div> -->
-
+<div class="nested-fields form-inline">
     <div class="form-group">
-         <label class="control-label">スポットNo</label>
-         <%= f.text_field :spot_number %>
-
-    <div class=" form-group">
-         <label class="control-label">滞在場所</label>
-         <%= f.text_field :spot_content %>
-
-     <div class=" form-group">
-         <label class="control-label">スポット滞在時間</label>
-         <%= f.text_field :spot_time %>
-
- <div class="form-group">
-         <label class="control-label">スポット金額</label>
-         <%= f.text_field :spot_place %>
-
-
+      <label class="control-label">スポットNo</label>
+      <%= f.text_field :spot_number %>
     </div>
-    <%= link_to_remove_association '削除', f, class: 'btn btn-danger' %>
+    <div class="form-group">
+      <label class="control-label">スポット金額</label>
+      <%= f.text_field :spot_place %>
+    </div>
+    <div class="form-group">
+      <label class="control-label">スポット滞在時間</label>
+      <%= f.text_field :spot_time %>
+    </div>
+    <div class="form-group">
+
+        <label class="control-label">スポット場所</label>
+        <%= f.text_field :address %>
+    </div>
+    <div class="form-group">
+      <label class="control-label">投稿内容</label>
+      <%= f.text_field :spot_content %>
+    </div>
+    <%= link_to_remove_association 'プランを削除', f %>
 </div>
-
-
-
-
 

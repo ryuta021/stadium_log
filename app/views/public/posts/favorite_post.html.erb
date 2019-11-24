@@ -1,0 +1,11 @@
+<main>
+<h2>いいねユーザー一覧</h2>
+
+<div class="contents_like">
+  <% @favorite.each do |favorite| %>
+    <% post = Post.find_by(id: favorite.post_id) %>
+    <%= post.post_content %>
+  <% end %>
+</div>
+</main>
+

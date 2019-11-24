@@ -99,6 +99,9 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     enum_help (0.0.17)
       activesupport (>= 3.0.0)
     erb2haml (0.1.5)
@@ -328,6 +331,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   dotenv
+  dotenv-rails
   enum_help
   erb2haml
   font-awesome-rails

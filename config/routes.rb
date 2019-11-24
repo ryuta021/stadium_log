@@ -18,8 +18,6 @@ Rails.application.routes.draw do
       }
 
 
-
-
   devise_for :users,controllers: {
           sessions: 'public/users/sessions',
           registrations: 'public/users/registrations',
@@ -27,20 +25,17 @@ Rails.application.routes.draw do
     }
 
 
-   #resources :relationships, only: [:create, :destroy]
-
-
-
-
   namespace :public do
-     resources :users, only: [:show, :update, :edit ]do 
-      resources :relationships, only: [:create, :destroy]
+     resources :users, only: [:show, :update, :edit ]do
+      resources :relationships, only: [:create, :destroy, :index,]
      end
 
-     resources :stadium, only: [:show, :create, :destroy ]
-      get 'search_location'
+     resources :stadium, only: [:show, :create, :destroy ] do
+      get 'about'
+    end
      resources :posts do
        get 'detail_search'
+       get 'favorite_post'
      resource :favorites, only: [:create, :destroy]
      end
   end

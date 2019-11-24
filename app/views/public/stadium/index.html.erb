@@ -1,5 +1,8 @@
 <main>
   <div class="row">
+
+    <div class="col s12">
+
     <div class="col s2 ">
       <ul class="collection with-header">
         <li class="collection-header"><h4>球場一覧</h4></li>
@@ -10,9 +13,30 @@
     </div>
     <div class="col s10">
 
+
        <div id='map' data-posteds='<%= @posteds %>'></div>
 
         <div class="col s4">
+
+          <ul class="collapsible ">
+            <li>
+              <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">いいねランキング</h5></div>
+                      <div class="collapsible-body">
+                        <table class="striped">
+                        <% @post.each.with_index(1) do |rank, i| %>
+                          <tr>
+                           <td><h6><%= "第#{ i+1 }位" %></td><h6>
+                           <td><h6><%= rank.post_content %></h6></td>
+                           <td><h7><%= rank.favorite_count %>いいね</td><h7>
+                          </tr>
+                       </tbody>
+                    <% end %>
+                  </table>
+                </div>
+              </li>
+            </ul>
+          </div>
+
                       <ul class="collapsible ">
                         <li>
                           <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">いいねランキング</h5></div>
@@ -31,6 +55,7 @@
                   </li>
               </ul>
            </div>
+
 
            <div class="col s4">
               <ul class="collapsible ">
@@ -59,7 +84,7 @@
            <div class="col s4">
               <ul class="collapsible">
                 <li>
-                  <div class="collapsible-header card-panel  light-blue accent-4"><h5 class="white-text text-darken-2">グルメランキング</h5></div>
+                  <div class="collapsible-header card-panel  light-blue accent-4"><h5 class="white-text text-darken-2">球場グルメランキング</h5></div>
                     <div class="collapsible-body">
                       <table class="striped">
                         <% @sort_posts.each.with_index do |sort_post, i|  %>
@@ -83,7 +108,7 @@
            <div class="col s4">
               <ul class="collapsible">
                 <li>
-                  <div class="collapsible-header card-panel green accent-4"><h5 class="white-text text-darken-2">ムードランキング</h5></div>
+                  <div class="collapsible-header card-panel green accent-4"><h5 class="white-text text-darken-2">球場ムードランキング</h5></div>
                     <div class="collapsible-body">
                       <table class="striped">
                         <% @sort_moods.each.with_index do |sort_post, i|  %>
@@ -184,8 +209,49 @@
 
 
 
+
+ <script type="text/javascript">
+          function initMap() {
+            var test = {lat: <%=  @posted.latitude %>, lng: <%=  @posted.longitude %>};
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: test
+            });
+
+            var transitLayer = new google.maps.TransitLayer();
+            transitLayer.setMap(map);
+
+            var posteds = $('#map').data('posteds')
+                // JSのeach文
+            posteds.forEach(function(posted){
+            //posteds.each do |posted|
+              var hoge = {lat: posted.latitude, lng: posted.longitude};
+              console.log(hoge)
+
+              var contentString = '住所：' + posted.address;
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+
+              var marker = new google.maps.Marker({
+                position:hoge,
+                map: map,
+                title: contentString
+              });
+
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+            })
+
+          }
+
+        </script>
+
+
+
         <script async defer
-          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=&callback=initMap">
+          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap">
         </script>
 
 

@@ -2,7 +2,7 @@ class Public::StadiumController < ApplicationController
 
 
   def show
-    # binding.pry
+     #binding.pry
     @posted =Stadium.find(params[:id])
     @posts = Post.where(stadium_id: params[:id])
     @posteds = Post.where(stadium_id: params[:id]).to_json
@@ -12,7 +12,7 @@ class Public::StadiumController < ApplicationController
     @mood = Post.where(stadium_id: params[:id]).average(:mood_rate)
     @sightseeing = Post.where(stadium_id: params[:id]).average(:sightseeing_rate)
     @capacity = Post.where(stadium_id: params[:id]).average(:capacity_rate)
-
+    #@all = Post.where(stadium_id: params[:id]).average(:total_rate)
   end
 
   def index
