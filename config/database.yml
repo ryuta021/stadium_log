@@ -23,3 +23,14 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+
+production:
+  <<: *default
+  database: stadium_log
+  adapter: mysql2
+  encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
+  host: rds-mysql-server.cjwftaqjyxt0.us-east-2.rds.amazonaws.com
+  username: root
+  password: tsk214611
