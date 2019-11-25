@@ -49,50 +49,51 @@
 
    <div class="row">
       <div class="col s12 ">
-          <%# if @user == current_user %>
+          <% if @user == current_user %>
         <div class="col s2 "></div>
-        <%= link_to "投稿を編集する", edit_public_post_path(@post.id) ,class:  "waves-effect waves-light btn-large col s3" %>
+        <%= link_to "投稿を編集する", edit_public_post_path(@post.id),method: :patch ,class:  "waves-effect waves-light btn-large col s3" %>
         <div class="col s1 "></div>
          <%= link_to "削除",  public_post_path(@post.id), method: :delete ,class:  "waves-effect waves-light btn-large col s3" %></p>
-         <%# end %>
+         <% end %>
        </div>
       </div>
     </div>
-    <a class="waves-effect waves-light btn modal-trigger deep-orange darken-1" href="#modal1">プランを確認する</a>
 
+<div class="row">
+      <div class="col s12 m8">
+　<% @plan.each do |plan| %>
+<h4>プラン名</h4>
+<h5><%= plan.title %></h5>
+      <div class="card">
+        <div class="card-content left-align">
+            <h5>No</h5>
+            <span class="blue-text text-darken-2"><%= plan.spot_number %></span>
+            <h5><i class="fas fa-yen-sign"></i><%= plan.spot_place %></h5>
+
+            <h5 class="blue-text text-darken-2"><%= plan.spot_time %>分</h5>
+
+           <h5>スポット場所</h5>
+           <h5 class="blue-text text-darken-2"><%= plan.address %></h5>
+
+
+          <h5>投稿内容</h5>
+          <h6 class="blue-text text-darken-2"><%= plan.spot_content %></h6>
+
+
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>
 </main>
 
 
 
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal">
 
-    <div class="modal-content">
-       <h4>プラン名</h4>
-       <%# binding.pry %>
-      <h5><%#= @post.title %></h5>
-      <p></p>
-    </div>
-    <div class="modal-footer">
-      <% @plan.each do |plan| %>
-      <div class="card">
-        <div class="card-content left-align">
-          <div class="field col s6">
-            <label class="control-label"><h6>No<%= plan.spot_number %></h6></label>
-            <label class="control-label"><h6>金額<%= plan.spot_place %>円</h6></label>
-            <label class="control-label"><h6>滞在時間<%= plan.spot_time %>分</h6></label>
-          </div>
-          <div class="field col s6">
-           <label class="control-label"><h6>スポット場所</h6><%= plan.address %></label>
-         </div>
-         <div class="field col s6">
-          <label class="control-label"><h6>投稿内容</h6><%= plan.spot_content %></label>
-        </div>
-      </div>
-    </div>
-      <% end %>
-    </div>
-  </div>
+
+
+
+
 
 
 

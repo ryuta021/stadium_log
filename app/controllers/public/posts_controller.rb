@@ -4,7 +4,7 @@ class Public::PostsController < ApplicationController
       @q = Post.ransack(params[:q])
       @posts = Post.page(params[:page]).per(PER).order("created_at DESC")
       @posteds =Post.all.to_json
-      #@posteds = Post.where(stadium_id: params[:id]).to_json
+
   end
 
   def new
@@ -16,7 +16,8 @@ class Public::PostsController < ApplicationController
   end
 
   def detail_search
-     @posts = @search_product.result.page(params[:page])
+     @search_post = Post.ransack(params[:q])
+     @posts = @search_post.result.page(params[:page])
   end
 
 
@@ -29,12 +30,11 @@ class Public::PostsController < ApplicationController
    def show
     # @rate = Post.where(stadium_id: params[:id])
     @rate = Post.where(stadium_id: params[:id])
-    #@access = @rate.average(:access_rate)
-    #@access = Post.where(stadium_id: params[:id]).average(:access_rate)
-    @gouremet = Post.where(stadium_id: params[:id]).average(:gouremet_rate)
-    @mood = Post.where(stadium_id: params[:id]).average(:mood_rate)
-    @sightseeing = Post.where(stadium_id: params[:id]).average(:sightseeing_rate)
-    @capacity = Post.where(stadium_id: params[:id]).average(:capacity_rate)
+    @access = @rate.average(:access_rate)
+    @gouremet = @rate.average(:gouremet_rate)
+    @sightseeing = @rate.average(:sightseeing_rate)
+    @capacity = @rate.average(:capacity_rate)
+    @mood = @rate.average(:mood_rate)
     @post =Post.find(params[:id])
     @plan = Post.joins(:plans => :spots).select("posts.*,plans.*,spots.*").where(user_id: @post.user.id).where(stadium_id: @post.stadium_id).where(id: @post.id)
     @posteds = Post.joins(:plans => :spots).select("posts.*,plans.*,spots.*").where(user_id: @post.user.id).where(stadium_id: @post.stadium_id).where(id: @post.id).to_json
@@ -45,13 +45,11 @@ class Public::PostsController < ApplicationController
   def create
       @post = Post.new(post_params)
       @post.user_id = current_user.id
-
       access_rate = @post[:access_rate].present? ?  @post[:access_rate] : 0
       gouremet_rate = @post[:gouremet_rate].present? ?  @post[:gouremet_rate] : 0
       mood_rate = @post[:mood_rate].present? ?  @post[:mood_rate] : 0
       sightseeing_rate = @post[:sightseeing_rate].present? ?  @post[:sightseeing_rate] : 0
       capacity_rate = @post[:capacity_rate].present? ?  @post[:capacity_rate] : 0
-
       @post.total_rate =  access_rate + gouremet_rate + mood_rate + sightseeing_rate + capacity_rate
 
       if @post.save
@@ -60,8 +58,18 @@ class Public::PostsController < ApplicationController
           @posts = Post.all
           render :new
       end
-
   end
+
+  def update
+     @post = User.find(params[:id])
+    if @post.update(post_params)
+       redirect_to  public_post_path(@post.id)
+    else
+      render 'edit'
+    end
+ end
+
+
 
 
 

@@ -24,83 +24,79 @@
     $('select').formSelect();
     });
     </script>
-     <style>
-        header, main, footer {
-          padding-left: 320px;
-        }
-
-        @media only screen and (max-width : 992px) {
-          header, main, footer {
-            padding-left: 0;
-          }
-        }
-
-        /* 追加 */
-        .sidenav .collapsible>.active .collapsible-header .chevron {
-            transform: rotate(-90deg);
-        }
-      </style>
-
-
-
-
 
 
   <body>
     <header>
-       <nav>
-         <div class="nav-wrapper light-blue darken-1">
-            <%= link_to  root_path ,class: "brand-logo" do %><%= image_tag 'logo5.png'%><% end %>
-            <ul id="nav-mobile" class="right hide-on-med-and-down ">
 
-              <% if user_signed_in? %>
+<nav class="nav-extended light-blue darken-3">
+    <div class="nav-wrapper">
+      <%= link_to  root_path,class: "stadium_logo"  do %><%= image_tag 'stadium_log2.png', size: '150×150' %><% end %>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      </ul>
+    </div>
+    <div class="nav-content light-blue darken-4">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a href="#" data-target="slide-out" class="sidenav-trigger"><i class="fas fa-bars"></i></a></li>
 
-                  <li><%= link_to "投稿一覧", public_posts_path %></li>
+            <% if user_signed_in? %>
 
-                  <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+             <li class="tab"><%= link_to "投稿", new_public_post_path  %><i class="fas fa-pen"></i></li>
 
-                  <% elsif admin_user_signed_in? %>
+            <li class="tab"><%= link_to  "スタログとは!(初めての方はこちら)" ,about_path %><i class="fas fa-book-reader"></i><li>
 
-                  <li><%= link_to "球場登録 一覧",admin_stadium_index_path %></li>
+            <li class="tab"><a class=" modal-trigger " href="#modal1"><i class="fas fa-search"></i> 検索する</a></li>
 
-                  <li><%= link_to "チーム登録 一覧",admin_team_index_path %></li>
+            <li class="tab"><%= link_to "投稿一覧", public_posts_path %><i class="far fa-folder"></i></li>
 
-                  <li><%= link_to "ユーザー一覧",admin_users_path %></li>
+            <li class="tab"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %><i class="fas fa-sign-out-alt"></i></li>
 
-                  <li><%= link_to "投稿一覧",admin_posts_path %></li>
+            <% elsif admin_user_signed_in? %>
 
-                  <li><%= link_to "管理者ログアウト",  destroy_user_session_path, method: :delete %></li>
+            <li class="tab"><%= link_to "球場登録 一覧",admin_stadium_index_path %></li>
 
-                  <% else %>
+            <li class="tab"><%= link_to "チーム登録 一覧",admin_team_index_path %></li>
 
-                   <li><%= link_to "ログイン",new_user_session_path %></li>
+            <li class="tab"><%= link_to "ユーザー一覧",admin_users_path %></li>
 
-                  <li><%= link_to "新規登録" ,  new_user_registration_path %></li>
+            <li class="tab"><%= link_to "投稿一覧",admin_posts_path %></li>
 
-                  <li><%= link_to "管理者新規登録" ,  new_admin_user_registration_path %></li>
+            <li class="tab"><%= link_to "管理者ログアウト",  destroy_user_session_path, method: :delete %></li>
 
-                  <li><%= link_to "管理者ログイン", new_admin_user_session_path %></li>
+            <% else %>
 
-               <% end %>
-             </ul>
-           </div>
+             <li class="tab"><%= link_to  "スタログとは!(初めての方はこちら)" ,about_path %><i class="fas fa-book-reader"></i></h4>
 
-       </nav>
+             <li class="tab"><%= link_to "ログイン",new_user_session_path %><i class="fas fa-sign-in-alt"></i></li>
 
-　　<ul id="slide-out" class="sidenav sidenav-fixed blue-grey lighten-5">
-    <li><a class="waves-effect waves-light btn modal-trigger blue lighten-1" href="#modal1">検索する</a></li>
-　　　<% if user_signed_in? %>
-        <li>
-          <div class="user-view center-align">
-              <%= attachment_image_tag current_user, :image, :fill, 250, 250, fallback: "no_image.png", size:'150x150'  %>
-          </div>
-        </li>
-        <li class="black-text email center-align" ><a><%= current_user.name %><i class="material-icons left">person</i></a></li>
-        <li class="black-text email center-align" ><a><%= current_user.email %><i class="material-icons left">local_post_office</i></a></li>
-        <li class="black-text email center-align" ><a><%= current_user.team.team %><i class="material-icons left">favorite</i></a></h6></li>
-        <li>
+            <li class="tab"><%= link_to "新規登録" ,  new_user_registration_path %><i class="fas fa-user-plus"></i></li>
+
+            <li class="tab"><%= link_to "管理者新規登録" ,  new_admin_user_registration_path %></li>
+
+            <li class="tab"><%= link_to "管理者ログイン", new_admin_user_session_path %></li>
+
+         <% end %>
+
+      </ul>
+    </div>
+  </nav>
+
+
+
+ 
+  <ul id="slide-out" class="sidenav grey lighten-2">
+    <li>
+      <div class="user-view grey lighten-2">
+         <%= attachment_image_tag current_user, :image, :fill, 250, 250, fallback: "no_image.png", size:'150x150'  %>
+       </div>
+  </li>
+<% if user_signed_in? %>
+    <li class="waves-effect center-align" ><a><%= current_user.name %><i class="material-icons left">person</i></a></li>
+    <li class="waves-effect center-align" ><a><%= current_user.email %><i class="material-icons left">local_post_office</i></a></li>
+    <li class="waves-effect center-align" ><a><%= current_user.team.team %><i class="material-icons left">favorite</i></a></h6></li>
     <% end %>
-        <ul class="collapsible">
+    <ul class="collapsible">
           <li>
             <a class="collapsible-header">ユーザー情報<i class="material-icons chevron right">chevron_left</i></a>
             <div class="collapsible-body">
@@ -131,19 +127,14 @@
         </li>
       </ul>
   </ul>
-</header><
+
+
+</header>
 <%= yield %>
 
+
+
  <% if user_signed_in? %>
-   <div class="fixed-action-btn">
-      <%= link_to "投稿", new_public_post_path ,class: "btn-floating btn-large red" %>
-      <ul>
-        <li><a class="btn-floating btn-large red"><i class="material-icons">insert_chart</i></a></li>
-        <li><a class="btn-floating  btn-large yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-        <li><a class="btn-floating  btn-large green"><i class="material-icons">publish</i></a></li>
-        <li><a class="btn-floating  btn-large blue"><i class="material-icons">attach_file</i></a></li>
-      </ul>
-    </div>
 
   <div id="modal1" class="modal">
     <% if user_signed_in? %>
@@ -189,17 +180,25 @@
         </div>
      <% end %>
    </div>
-
 <% end %>
 
-<footer class="page-footer grey darken-4">
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-        © 2019 Copyright ryuta sasaki
-      </div>
-    </div>
-  </footer>
-</body>
+<footer class="page-footer light-blue darken-3">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2019 stadium_log
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
 
 </html>

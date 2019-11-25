@@ -1,19 +1,30 @@
 <main>
 　<div class="contents_like">
-	<h5 class="center-align">いいね済み投稿一覧</h5>
-    <table class="striped">
-      <tbody>
-   	　　　<tr>
-		   <% @favorite.each do |favorite| %>
-		     <% post = Post.find_by(id: favorite.post_id) %>
-		    <td><%= link_to  public_user_path(post.user.id) do %><%= post.user.name %><% end %></td>
-		    <td><%= link_to  public_post_path(post.id) do %><%= post.post_content %><% end %></td>
-		    <td><%= render 'public/favorites/favorite',post: post %></td>
-	        <td>いいね数<%= post.favorite_count %></td>
-	　　　</tr>
-	　　　<% end %>
-      </tbody>
-  </table>
-　</div>
+    <div class="row">
+	  <div class="col s3"></div>
+	    <div class=" col s7 ">
+	      <h5 class="center-align">いいね済み投稿一覧</h5>
+	       <div class="card grey lighten-4">
+            <div class="card-content ">
+		    <table class="striped">
+		      <tbody>
+				 <% @favorite.each do |favorite| %>
+				   <tr>
+				     <% post = Post.find_by(id: favorite.post_id) %>
+				    <td><%= link_to  public_user_path(post.user.id) do %><%= post.user.name %><% end %></td>
+				    <td><%= link_to  public_post_path(post.id) do %><%= post.post_content %><% end %></td>
+				    <td><%= render 'public/favorites/favorite',post: post %></td>
+			        <td>いいね数<%= post.favorite_count %></td>
+			　　　  </tr>
+			　　　<% end %>
+		      </tbody>
+		  </table>
+		  </div>
+	    </div>
+      </div>
+    </div>
+　 </div>
+ </div>
 </main>
+
 

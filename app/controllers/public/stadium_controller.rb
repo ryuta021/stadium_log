@@ -42,9 +42,6 @@ PER = 6
   def about
   end
 
-  def destroy
-  end
-
 
    private
     def stadium_params

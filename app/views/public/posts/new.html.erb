@@ -11,7 +11,7 @@
       <div class="col s6 center-align">
         <div class="card grey lighten-4">
           <div class="card-content ">
-            <h5>投稿画面</h5>
+            <h5 class="title">投稿画面</h5>
              <div class="form-group">
                 <label>観戦した日にちを選択</label><br>
                 <%= f.date_field :watching_date, class: 'form-control' %>
@@ -37,7 +37,7 @@
       <div class="col s6 center-align">
        <div class="card grey lighten-4">
         <div class="card-content ">
-          <h5>採点項目</h5>
+          <h5 class="title">採点項目</h5>
            <div class="form-group">
              <label>球場選択</label><br>
              <%= f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control" %>
@@ -72,23 +72,35 @@
        </div>
      </div>
    </div>
-  <h6 class="center-align">プラン作成画面</h6>
-  <label>野球を見に行くまでのおすすめのプランがあったら教えてください<br>
-  (例)タイトル　大阪旅行　スポット金額　2000円　スポット滞在時間　30分　スポット場所　千代崎イオン　投稿内容　試合前に買い物</label>
-
-  <div class="plans">
-     <%= f.fields_for :plans do |plan| %>
-       <%= render 'plan_fields', f: plan %>
-     <% end %>
-<div class="row">
- <div class="col s12 center-align">
-    <div class="links">
-       <%= link_to_add_association 'プランを追加', f, :plans  , class: "btn  amber accent-4 col s12" %>
+   <h6 class="center-align">プラン作成画面</h6>
+   <div class="row">
+    <div class="col s2 "></div>
+    <div class="card grey lighten-4 col s12 m7 ">
+       <div class="card-content ">
+        <h5>野球を見に行くまでのおすすめのプランがあったら教えてください</h5><br>
+              (例)タイトル　大阪旅行<br>
+            　スポット金額　2000円　<br>
+             スポット滞在時間　30分　<br>
+             スポット場所　千代崎イオン<br>　
+             投稿内容　試合前に買い物<br>
+       </label>
+       </div>
     </div>
-       <%= f.submit "投稿する" , class: "btn light-blue accent-4 col s12" %>
   </div>
-</div>
-  <% end %>
+
+    <div class="plans">
+       <%= f.fields_for :plans do |plan| %>
+         <%= render 'plan_fields', f: plan %>
+       <% end %>
+      <div class="row">
+       <div class="col s12 center-align">
+          <div class="links">
+             <%= link_to_add_association 'プランを追加', f, :plans  , class: "btn  amber accent-4 col s12" %>
+          </div>
+        </div>
+      </div>
+       <%= f.submit "投稿する" , class: "btn light-blue accent-4 col s12 " %>
+    <% end %>
 </main>
 
   <script>
