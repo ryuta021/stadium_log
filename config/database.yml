@@ -26,11 +26,11 @@ production:
 
 production:
   <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME") { "stadium_log" } %>
+  database: <%= ENV.("DATABASE_NAME") %>
   adapter: mysql2
   encoding: utf8mb4
   charset: utf8mb4
   collation: utf8mb4_general_ci
-  host: <%= ENV.fetch("DATABASE_HOST") { " rds-mysql-server.cjwftaqjyxt0.us-east-2.rds.amazonaws.com" } %>
-  username: <%= ENV.fetch("DATABASE_USER") { "root" } %>
-  password: <%= ENV.fetch("DATABASE_PASSWORD") { "tsk214611" } %>
+  host: <%= ENV.("DATABASE_HOST") %>
+  username: <%= ENV.("DATABASE_USER") %>
+  password: <%= ENV.("DATABASE_PASSWORD") %>
