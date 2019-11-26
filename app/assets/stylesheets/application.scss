@@ -10,6 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require bxslider
  *= require_tree .
  *= require_self
  *= require select2
@@ -19,6 +20,9 @@
  @import "bootstrap";
  @import "materialize";
  @import "material_icons";
+
+
+
 
 #map {
   height: 400px;
@@ -38,3 +42,49 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+
+
+.bold{
+font-weight: bold;
+
+}
+
+.nav-wrapper a img{
+    height: 70px;
+}
+
+
+.rank {
+  position: relative;
+  padding-left: 25px;
+}
+
+.rank:before {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: none;
+  border-left: solid 15px transparent;
+  border-bottom: solid 15px rgb(119, 195, 223);
+}
+.rank:after {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 10px;
+  width: 100%;
+  border-bottom: solid 3px rgb(119, 195, 223);
+}
+
+
+
+
+
+
+
+
+

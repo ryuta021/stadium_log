@@ -8,8 +8,9 @@ class ApplicationController < ActionController::Base
   end
 
   def get_ransack
-      @q = Post.ransack(params[:q])
-      @p = Plan.ransack(params[:p])
+    @q = Post.ransack(params[:q])
+    @p = Plan.ransack(params[:p])
+    @s = Spot.ransack(params[:s])
   end
 
 

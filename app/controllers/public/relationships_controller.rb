@@ -1,11 +1,16 @@
 class Public::RelationshipsController < ApplicationController
 	before_action :set_user
 
+  def index
+    @user = current_user.relationships
+    #@user.find(params[:Relationship_id])
+  end
+
+
 	def create
     user = User.find(params[:user_id])
     following = current_user.follow(user)
-    if  user == current_user
-      following.save
+     if following.save
       flash[:success] = 'ユーザーをフォローしました'
       redirect_to public_user_path(user)
     else
@@ -31,5 +36,4 @@ class Public::RelationshipsController < ApplicationController
   def set_user
     user = User.find(params[:user_id])
   end
-
-end
+ end

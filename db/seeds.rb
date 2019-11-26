@@ -11,5 +11,6 @@
 User.create!(
    email: 'test@test.com',
    password: '111111',
+   team_id: 1,
    name: 'テスト太郎',
 )

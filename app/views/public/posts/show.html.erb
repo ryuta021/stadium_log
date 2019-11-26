@@ -3,20 +3,17 @@
     <div class="col s3 ">
       <div class="card">
         <div class="card-content center-align">
-          <h5><%= @post.watching_date.strftime("%Y年%m月%d日") %></h5>
-          <h5><%= link_to  public_user_path(@post.id) do %><%= @post.user.name %><% end %></h5>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-content center-align">
-          <p><%= @post.post_content %></p>
+          <p><h5>観戦日</h5><%= @post.watching_date.strftime("%Y年%m月%d日") %></p>
+          <p><h5>ユーザー名<%= link_to  public_user_path(@post.id) do %></h5><%= @post.user.name %><% end %></p>
+           <p><%= render 'public/relationships/follow_button', user: @post.user %></p>
+
         </div>
       </div>
 
       <div class="card">
        <div class="card-content">
          <div class='form-group'>
-          <h5><%= link_to  public_stadium_path(@post.id) do %><%= @post.stadium.name %><% end %></h5>
+          <h5><%= link_to  public_stadium_path(@post.stadium.id) do %><%= @post.stadium.name %><% end %></h5>
             <label>アクセス採点</label>
              <span class="blue-text text-darken-2"><%= @access %></span>
             <br>
@@ -42,56 +39,116 @@
      </div>
 
     <div class="col s9 ">
-      <h5 class="center-align">プラン名</h5>
-      <div class="carousel carousel-slider center">
-        <div class="carousel-fixed-item center">
-          <a class="btn waves-effect white grey-text darken-text-2">button</a>
-          </div>
-            <%# @plan.each do |plan| %>
-              <div class="carousel-item red white-text" href="#one!">
-                <h2>プラン名</h2>
-                <div class="form-group">
-                <label class="control-label">スポットNo</label>
-                <%#= spot_number %>
-              </div>
-              <div class="form-group">
-                <label class="control-label">スポット金額</label>
-                <%#= spot_place %>
-              </div>
-              <div class="form-group">
-                <label class="control-label">スポット滞在時間</label>
-                <%#= spot_time %>
-              </div>
-              <div class="form-group">
-                <label class="control-label">スポット場所</label>
-                <%#= address %>
-              </div>
-              <div class="form-group">
-                <label class="control-label">投稿内容</label>
-                <%#= spot_content %>
-              </div>
-            <%# end %>
+        <div id='map' data-posteds='<%= @posteds %>'></div>
+        <div class="card">
+        <div class="card-content center-align">
+          <p><%= @post.post_content %></p>
         </div>
       </div>
-    </div>
 
 
    <div class="row">
-       <div class="col s12 ">
-         <div class="col s2 "></div>
-         <%= link_to "投稿を編集する", edit_public_post_path(@post.id) ,class:  "waves-effect waves-light btn-large col s3" %>
-         <div class="col s1 "></div>
+      <div class="col s12 ">
+          <% if @user == current_user %>
+        <div class="col s2 "></div>
+        <%= link_to "投稿を編集する", edit_public_post_path(@post.id),method: :patch ,class:  "waves-effect waves-light btn-large col s3" %>
+        <div class="col s1 "></div>
          <%= link_to "削除",  public_post_path(@post.id), method: :delete ,class:  "waves-effect waves-light btn-large col s3" %></p>
+         <% end %>
        </div>
       </div>
     </div>
+
+<div class="row">
+      <div class="col s12 m8">
+　<% @plan.each do |plan| %>
+<h4>プラン名</h4>
+<h5><%= plan.title %></h5>
+      <div class="card">
+        <div class="card-content left-align">
+            <h5>No</h5>
+            <span class="blue-text text-darken-2"><%= plan.spot_number %></span>
+            <h5><i class="fas fa-yen-sign"></i><%= plan.spot_place %></h5>
+
+            <h5 class="blue-text text-darken-2"><%= plan.spot_time %>分</h5>
+
+           <h5>スポット場所</h5>
+           <h5 class="blue-text text-darken-2"><%= plan.address %></h5>
+
+
+          <h5>投稿内容</h5>
+          <h6 class="blue-text text-darken-2"><%= plan.spot_content %></h6>
+
+
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>
 </main>
 
 
 
 
 
-          <!--アクセス星評価-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+          function initMap() {
+            var test = {lat:35.676192, lng:139.650311 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 6,
+              center: test
+            });
+
+            var transitLayer = new google.maps.TransitLayer();
+            transitLayer.setMap(map);
+
+            var posteds = $('#map').data('posteds')
+                // JSのeach文
+            posteds.forEach(function(posted){
+            //posteds.each do |posted|
+              var hoge = {lat: posted.latitude, lng: posted.longitude};
+              console.log(hoge)
+
+              var contentString = '住所：' + posted.address;
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+
+              var marker = new google.maps.Marker({
+                position:hoge,
+                map: map,
+                title: contentString
+              });
+
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+            })
+
+          }
+
+        </script>
+
+        <script async defer
+          src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap">
+        </script>
+
+
+
+
           <script>
           $('#star-rate').raty({
             size: 36,

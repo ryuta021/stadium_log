@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   #root :to => 'public/posts#index_top'
   root :to => 'public/stadium#index'
+  get 'about' => 'public/stadium#about'
 
   namespace :admin do
     resources :users, only: [:edit, :update, :show, :index, :destroy]
@@ -31,9 +32,10 @@ Rails.application.routes.draw do
      end
 
      resources :stadium, only: [:show, :create, :destroy ] do
-      get 'about'
+
     end
-     resources :posts do
+
+     resources :posts,  only: [:show, :index, :destroy, :edit, :new, :create, :update  ]do
        get 'detail_search'
        get 'favorite_post'
      resource :favorites, only: [:create, :destroy]

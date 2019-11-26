@@ -1,3 +1,24 @@
 // Place all the styles related to the public/posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+
+
+.bold{
+	font-weight: bold;
+}
+
+
+  .title {
+  background: linear-gradient(transparent 70%, #a7d6ff 70%);
+}
+
+
+
+.main-container {
+  background-image: url("/images/img_171225_01_02.jpg");
+  height: 800px;
+  background-size: cover;
+}

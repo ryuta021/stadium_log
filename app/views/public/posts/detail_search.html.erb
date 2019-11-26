@@ -1,44 +1,27 @@
-<h3 class="center-align">検索結果</h3>
- <div class="col s12">
-  <div class="col s12 m4 l2"></div>
-    <div class="col s12 m4 l8">
-      <table class="table-hover">
-        <thead>
-          <tr>
-            <th> 球場画像</th>
-            <th> 投稿者</th>
-            <th> 球場名</th>
-            <th> 観戦日</th>
-            <th> 投稿内容</th>
-            <th> アクセス</th>
-            <th> グルメ</th>
-            <th> 雰囲気</th>
-            <th> キャパシティ</th>
-            <th> 観光場所</th>
-          </tr>
-        </thead>
-          <% @posts.each do |post| %>
-            <tbody>
-              <tr>
-                <td><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %></td>
-                <td><%#= post.user.name %></td>
-                <td><%= post.stadium.name %></td>
-                <td><%= post.watching_date.strftime("%Y年%m月%d日") %></td>
-                <td><%= post.post_content %></td>
-                <td><%= post.access_rate %>点</td>
-                <td><%= post.gouremet_rate %>点</td>
-                <td><%= post.mood_rate %>点</td>
-                <td><%= post.capacity_rate %>点</td>
-                <td><%= post.sightseeing_rate %>点</td>
-                <td><%= render 'public/favorites/favorite',post: post %></td>
-                <td>いいね数<%= post.favorite_count %></td>
-                <td><%= link_to "詳細", public_post_path(post.id) ,class: "btn-floating btn-large waves-effect waves-light red" %></td>
-                <td><%#= render 'relationships/follow_button', user: @user %></td>
-              </tr>　
-               <% end %>
-             </tbody>
-       </table>
-       <%= paginate @posts %>
-     </div>
-   </div>
+
+
+<main>
+
+
+
+<div class="row">
+  <div class="col s12 m8">
+    <% @posts.each do |post| %>
+      <div class="card ">
+        <div class="card-content ">
+          <span><%= link_to  public_post_path(post.id) do %><%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100' %><% end %></span>
+          <span>投稿日<%= post.created_at.strftime("%m月%d日") %></span>&emsp;<span>観戦日<%= post.watching_date.strftime("%m月%d日") %></span>
+          <span class="card-title"><%= link_to  public_stadium_path(post.stadium.id) do %> <%= post.stadium.name %><% end %></span>
+          <span><%= link_to  public_user_path(post.user.id) do %><%= post.user.name %><% end %></span>
+
+          <p><%= link_to  public_post_path(post.id) do %><%= post.post_content %><% end %></p>
+           <span><%= render 'public/favorites/favorite',post: post %></span>
+           <span><%= render 'public/relationships/follow_button', user: post.user %></span>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate @posts  %>
+  </div>
+</div>
 </main>
+

@@ -1,8 +1,14 @@
 class Post < ApplicationRecord
 
-  #validates :post_content, presence: true
-  #validates :watching_date, presence: true
-  #validates :stadium_id, presence: true
+  validates :post_content, presence: true
+  validates :watching_date, presence: true
+  validates :stadium_id, presence: true
+  validates :access_rate, presence: true
+  validates :gouremet_rate, presence: true
+  validates :sightseeing_rate, presence: true
+  validates :mood_rate, presence: true
+  validates :capacity_rate, presence: true
+
   attachment :posted_image
 
 	belongs_to :user
@@ -15,9 +21,9 @@ class Post < ApplicationRecord
   after_validation :geocode
 
 
- def total_rate
-  access_rate + gouremet_rate + sightseeing_rate + mood_rate + capacity_rate
- end
+  def get_total_rate(user_id)
+       gouremet_rate + sightseeing_rate + mood_rate + capacity_rate
+  end
 
   def like_user(user_id)
    favorites.find_by(user_id: user_id)
@@ -30,12 +36,4 @@ class Post < ApplicationRecord
       self.within_bounding_box(box)
   end
 
-
-  # def geocode
-  #   uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address="+self.address.gsub(" ", "")+"&key=AIzaSyBXVVA0A41o5mRG_hSO9KrzOp73q5ES91c")
-  #   res = HTTP.get(uri).to_s
-  #   response = JSON.parse(res)
-  #   self.latitude = response["results"][0]["geometry"]["location"]["lat"]
-  #   self.longitude = response["results"][0]["geometry"]["location"]["lng"]
-  # end
 end
