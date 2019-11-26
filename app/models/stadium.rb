@@ -11,6 +11,5 @@ class Stadium < ApplicationRecord
 
 
 
-
-
 end
+

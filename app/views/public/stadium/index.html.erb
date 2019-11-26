@@ -1,7 +1,8 @@
-
 <main>
   <div class="row">
+
     <div class="col s12">
+
       <div id='map' data-posteds='<%= @posteds %>'></div>
       <div class="carousel carousel-slider center col s5">
         <div class="carousel-fixed-item center "></div>
@@ -56,11 +57,60 @@
                            <h6><%= "#{ i+1 }位" %></h6>
                            <h6><%= link_to public_post_path(rank.id) do %><%= rank.post_content %></h6><% end %>
                            <h6 class="bold"><%= rank.favorite_count %>いいね</h6>
+
+    <div class="col s2 ">
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>球場一覧</h4></li>
+         <% @stadiums.each do |stadium|  %>
+        <li class="collection-item"><%= link_to public_stadium_path(stadium.id) do %><%= stadium.name %><% end %></li>
+         <% end %>
+      </ul>
+    </div>
+    <div class="col s10">
+
+
+       <div id='map' data-posteds='<%= @posteds %>'></div>
+
+        <div class="col s4">
+
+          <ul class="collapsible ">
+            <li>
+              <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">いいねランキング</h5></div>
+                      <div class="collapsible-body">
+                        <table class="striped">
+                        <% @post.each.with_index(1) do |rank, i| %>
+                          <tr>
+                           <td><h6><%= "第#{ i+1 }位" %></td><h6>
+                           <td><h6><%= rank.post_content %></h6></td>
+                           <td><h7><%= rank.favorite_count %>いいね</td><h7>
+                          </tr>
+                       </tbody>
+                             
                     <% end %>
                 </div>
               </li>
             </ul>
           </div>
+
+                      <ul class="collapsible ">
+                        <li>
+                          <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">いいねランキング</h5></div>
+                            <div class="collapsible-body">
+                              <table class="striped">
+                                 <% @post.each.with_index(1) do |rank, i| %>
+                                 <tr>
+                                 <td><h6><%= "第#{ i+1 }位" %></td><h6>
+                                 <td><h6><%= rank.post_content %></h6></td>
+                                 <td><h7><%#= (average).floor(2) %>点</td><h7>
+                                 </tr>
+                             </tbody>
+                          <% end %>
+                        </table>
+                      </div>
+                  </li>
+              </ul>
+           </div>
+
 
            <div class="col s4">
               <ul class="collapsible ">
@@ -215,6 +265,7 @@
 
 
 
+
  <script type="text/javascript">
           function initMap() {
             var test = {lat: <%=  @posted.latitude %>, lng: <%=  @posted.longitude %>};
@@ -256,6 +307,8 @@
           }
 
         </script>
+
+
 
         <script async defer
           src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap">

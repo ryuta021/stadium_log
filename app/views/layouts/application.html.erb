@@ -112,6 +112,7 @@
         </ul>
       </li>
 
+
       <ul class="collapsible">
         <li>
           <a class="collapsible-header">球場一覧<i class="material-icons chevron right">chevron_left</i></a>
@@ -125,6 +126,28 @@
               <% end %>
            </div>
         </li>
+
+</ul>
+    <!-- マークアップ追記 -->
+
+
+  <ul id="slide-out" class="sidenav">
+   <% if user_signed_in? %>
+        <div class="background">
+          </div>
+          <a href="#user"><%= attachment_image_tag @user, :image, :fill, 250, 250, fallback: "no_image.png", size:'200x200'  %></a>
+          <li class="black-text name center-align"><h4><%= current_user.name %></h4></li>
+          <li class="black-text email center-align"><h5><%= current_user.email %></h5></li>
+          <li class="black-text email center-align">好きなチーム</li>
+          <li class="black-text email center-align"><%= current_user.team.team %></li>
+        </div></li>
+        <li><div class="divider "></div></li>
+        <li class="center-align"><h5><%= link_to "マイページ", public_user_path(current_user.id) %></h5></li>
+        <li class="center-align"><h5><%= link_to "投稿する", new_public_post_path %></h5></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+
+
       </ul>
   </ul>
 
