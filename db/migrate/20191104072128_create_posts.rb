@@ -12,6 +12,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
     	t.float :mood_rate
     	t.float :capacity_rate
         t.datetime :deleted_at
+        t.float :total_rate
         t.timestamps
     end
   end
