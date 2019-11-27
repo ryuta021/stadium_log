@@ -3,3 +3,43 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+.plan_title {
+  color: #505050;/*文字色*/
+  padding: 0.5em;/*文字周りの余白*/
+  display: inline-block;/*おまじない*/
+  line-height: 1.3;/*行高*/
+  background: #dbebf8;/*背景色*/
+  vertical-align: middle;
+  border-radius: 25px 0px 0px 25px;/*左側の角を丸く*/
+}
+
+.plan_title:before {
+  content: '●';
+  color: white;
+  margin-right: 8px;
+}
+
+
+h1 {
+  position: relative;
+  color: white;
+  background: #81d0cb;
+  line-height: 1.4;
+  padding: 0.5em 0.5em 0.5em 1.8em;
+}
+
+h1:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f14a";
+  position: absolute;
+  left : 0.5em; /*左端からのアイコンまでの距離*/
+}
+
+
+.heading {
+  color: #010079;
+  text-shadow: 0 0 5px white;
+  padding: 0.3em 0.5em;
+  background: -webkit-repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+  background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+}
