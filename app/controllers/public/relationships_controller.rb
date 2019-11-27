@@ -3,7 +3,6 @@ class Public::RelationshipsController < ApplicationController
 
   def index
     @user = current_user.relationships
-    #@user.find(params[:Relationship_id])
   end
 
 

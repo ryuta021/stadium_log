@@ -11,8 +11,8 @@ class Admin::StadiumController < ApplicationController
     else
       @stadiums = Stadium.all
       render :index
+    end
   end
-end
 
   def edit
     @stadium = Stadium.find(params[:id])

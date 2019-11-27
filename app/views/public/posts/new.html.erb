@@ -12,37 +12,33 @@
         <div class="card grey lighten-4">
           <div class="card-content ">
             <h5 class="title">投稿画面</h5>
-             <div class="form-group">
-                <label>観戦した日にちを選択</label><br>
+            <div class="form-group">
+              <label>観戦した日にちを選択</label><br>
                 <%= f.date_field :watching_date, class: 'form-control' %>
               </div><br>
-
               <div class="form-group">
                 <label>投稿本文</label>
                 <%= f.text_area :post_content, class: "form-control", autocomplete: 'off',placeholder: "入力してください" %>
               </div><br>
-
               <div class="form-group">
                 <label>投稿画像</label>
                 <%= f.attachment_field :posted_image, class: "file-field input-field"  %>
               </div><br>
-
               <div class="input-field ">
                 <%= f.label :行った飲食店や宿泊施設などのお店の名前または住所を入力してください %>
                 <%= f.text_field :address, class: "materialize-textarea" %>
-              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col s6 center-align">
-       <div class="card grey lighten-4">
-        <div class="card-content ">
-          <h5 class="title">採点項目</h5>
-           <div class="form-group">
-             <label>球場選択</label><br>
-             <%= f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control" %>
-           </div>
-
+        <div class="card grey lighten-4">
+          <div class="card-content ">
+            <h5 class="title">採点項目</h5>
+            <div class="form-group">
+              <label>球場選択</label><br>
+              <%= f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control" %>
+            </div>
             <div class="form-group row star" id="star1">
               <%= f.label :access_rate,'アクセス ', class:'col-md-3 col-form-label' %>
               <%= f.hidden_field :access_rate, id: :review_star %>
@@ -67,40 +63,34 @@
               <%= f.label :sightseeing_rate,'観光 ', class:'col-md-3 col-form-label' %>
               <%= f.hidden_field :sightseeing_rate, id: :review_star %>
             </div>
-
-         </div>
-       </div>
-     </div>
-   </div>
-   <h6 class="center-align">プラン作成画面</h6>
-   <div class="row">
-    <div class="col s2 "></div>
-    <div class="card grey lighten-4 col s12 m7 ">
-       <div class="card-content ">
-        <h5>野球を見に行くまでのおすすめのプランがあったら教えてください</h5><br>
-              (例)タイトル　大阪旅行<br>
-            　スポット金額　2000円　<br>
-             スポット滞在時間　30分　<br>
-             スポット場所　千代崎イオン<br>　
-             投稿内容　試合前に買い物<br>
-       </label>
-       </div>
-    </div>
-  </div>
-
-    <div class="plans">
-       <%= f.fields_for :plans do |plan| %>
-         <%= render 'plan_fields', f: plan %>
-       <% end %>
-      <div class="row">
-       <div class="col s12 center-align">
-          <div class="links">
-             <%= link_to_add_association 'プランを追加', f, :plans  , class: "btn  amber accent-4 col s12" %>
           </div>
         </div>
       </div>
-       <%= f.submit "投稿する" , class: "btn light-blue accent-4 col s12 " %>
+    </div>
+    <div class="row">
+      <h6 class="center-align">プラン作成画面</h6>
+      <div class="col s2 "></div>
+      <div class="card grey lighten-4 col s12 m7 ">
+        <div class="card-content ">
+          <h5>野球を見に行くまでのおすすめのプランがあったら教えてください</h5><br>
+                (例)タイトル　大阪旅行<br>　スポット金額　2000円　<br> スポット滞在時間　30分　<br>スポット場所　千代崎イオン<br>投稿内容　試合前に買い物<br>
+        </div>
+      </div>
+    </div>
+    <div class="plans">
+      <%= f.fields_for :plans do |plan| %>
+           <%= render 'plan_fields', f: plan %>
+         <% end %>
+        <div class="row">
+          <div class="col s12 center-align">
+            <div class="links">
+               <%= link_to_add_association 'プランを追加', f, :plans  , class: "btn  amber accent-4 col s12" %>
+            </div>
+          </div>
+      <%= f.submit "投稿する" , class: "btn light-blue accent-4 col s12 " %>
+      </div>
     <% end %>
+  </div>
 </main>
 
   <script>

@@ -4,8 +4,6 @@ class Public::UsersController < ApplicationController
 PER = 6
  def show
    @user = User.find(params[:id])
-   #@user = User.find_by(id: params[:id])
-   #@posts = Post.page(params[:page]).per(PER)
    @posts = @user.post.page(params[:page]).per(PER).order(:updated_at,:created_at).reverse_order
    @posteds = current_user.post.all.to_json
    @posted = Post.find_by(user_id: params[:id])

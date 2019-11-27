@@ -4,26 +4,20 @@ PER = 6
 
 
   def show
-     #binding.pry
 
     @posted =Stadium.find(params[:id])
-    @posts = Post.where(stadium_id: params[:id]).page(params[:page]).per(PER)
     @posteds = Post.where(stadium_id: params[:id]).to_json
-    #@total = @posts.average(:total_rate)
-
+    @posts = Post.where(stadium_id: params[:id]).page(params[:page]).per(PER)
     @access = @posts.average(:access_rate).blank? ? 0 : @posts.average(:access_rate).floor(2)
     @gouremet = @posts.average(:gouremet_rate).blank? ? 0 : @posts.average(:gouremet_rate).floor(2)
     @mood = @posts.average(:mood_rate).blank? ? 0 : @posts.average(:mood_rate).floor(2)
     @sightseeing = @posts.average(:sightseeing_rate).blank? ? 0 :  @posts.average(:sightseeing_rate).floor(2)
     @capacity = @posts.average(:capacity_rate).blank? ? 0 : @posts.average(:capacity_rate).floor(2)
     @total_rate = @posts.average(:total_rate).blank? ? 0 : @posts.average(:total_rate).floor(2)
-
-
-    #@all = Post.where(stadium_id: params[:id]).average(:total_rate)
   end
 
   def index
-  	 #binding.pry
+
     @post = Post.find(Favorite.group(:post_id).order('count(post_id) desc').limit(5).pluck(:post_id))
     @posted =Stadium.find_by(params[:id])
     @posteds = Stadium.all.to_json

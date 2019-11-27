@@ -1,12 +1,10 @@
 <main>
   <div class="row">
-
     <div class="col s12">
-
       <div id='map' data-posteds='<%= @posteds %>'></div>
       <div class="carousel carousel-slider center col s5">
         <div class="carousel-fixed-item center "></div>
-    　　　<% @stadiums.each do |stadiums| %>
+        <% @stadiums.each do |stadiums| %>
           <div class="carousel-item  darken-3-text" href="#one!">
              <%= link_to public_stadium_path(stadiums) do %>
                 <%= attachment_image_tag stadiums, :image, :fill, 250, 250, fallback: "no_image.png", size:'500x300' %>
@@ -26,238 +24,183 @@
           <h2>First Panel</h2>
           <p class="white-text">This is your first panel</p>
         </div>
-        <div class="carousel-item amber white-text" href="#two!">
-          <h2>Second Panel</h2>
-          <p class="white-text">This is your second panel</p>
-        </div>
-        <div class="carousel-item green white-text" href="#three!">
-          <h2>Third Panel</h2>
-          <p class="white-text">This is your third panel</p>
-        </div>
-        <div class="carousel-item blue white-text" href="#four!">
-          <h2>Fourth Panel</h2>
-          <p class="white-text">This is your fourth panel</p>
-        </div>
       </div>
     </div>
-  </div>　　　　
+  </div>
 </div>
 
-<div class="row">
-  <div class="col s12">
-　  <label class="center-align col s12"><h5>クリックするとランキングが見れます!</h5></label>
+  <div class="row">
+    <div class="col s12">
+      <label class="center-align col s12"><h5>クリックするとランキングが見れます!</h5></label>
+
       <div class="col s4">
         <ul class="collapsible ">
           <li>
-            <div class="collapsible-header card-panel  cyan accent-"><h5 class="white-text text-darken-2 bold"><i class="fas fa-heart"></i>いいね投稿ランキング</h5></div>
-               <div class="collapsible-body">
+            <div class="collapsible-header card-panel  cyan accent-">
+              <h5 class="white-text text-darken-2 bold">
+                <i class="fas fa-heart"></i>いいね投稿ランキング
+              </h5>
+            </div>
+           <div class="collapsible-body">
+             <table class="striped">
+               <tbody>
+                  <% @post.each.with_index(0) do |rank, i| %>
+                    <tr>
+                      <td><%= "#{ i+1 }位" %></td>
+                      <td><%= link_to public_post_path(rank.id) do %><%= rank.post_content %></h6><% end %></td>
+                      <td><h6 class="bold"><%= rank.favorite_count %>いいね</h6></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-                        <% @post.each.with_index(0) do |rank, i| %>
 
-                           <h6><%= "#{ i+1 }位" %></h6>
-                           <h6><%= link_to public_post_path(rank.id) do %><%= rank.post_content %></h6><% end %>
-                           <h6 class="bold"><%= rank.favorite_count %>いいね</h6>
+      <div class="col s4">
+        <ul class="collapsible ">
+          <li>
+            <div class="collapsible-header card-panel  red accent-4 ">
+              <h5 class="white-text text-darken-2 bold"><i class="fas fa-trophy"></i>総合ランキング</h5>
+            </div>
+            <div class="collapsible-body">
+              <table class="striped">
+                <% @sort_total.each.with_index do |sort_post, i|  %>
+                  <% stadium_id = sort_post[0] %>
+                  <% average = sort_post[1].to_f %>
+                  <tbody>
+                    <tr>
+                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                      <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
+                    </tr>
+                  </tbody>
+                <% end %>
+              </table>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-    <div class="col s2 ">
-      <ul class="collection with-header">
-        <li class="collection-header"><h4>球場一覧</h4></li>
-         <% @stadiums.each do |stadium|  %>
-        <li class="collection-item"><%= link_to public_stadium_path(stadium.id) do %><%= stadium.name %><% end %></li>
-         <% end %>
-      </ul>
+      <div class="col s4">
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header card-panel  light-blue accent-4 "><h5 class="white-text text-darken-2 bold"><i class="fas fa-utensils"></i>球場グルメランキング</h5></div>
+            <div class="collapsible-body">
+              <table class="striped">
+                <% @sort_posts.each.with_index do |sort_post, i|  %>
+                 <% stadium_id = sort_post[0] %>
+                 <% average = sort_post[1].to_f %>
+                  <tbody>
+                    <tr>
+                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                      <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
+                    </tr>
+                  </tbody>
+                <% end %>
+              </table>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col s4">
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header card-panel green accent-4 "><h5 class="white-text text-darken-2 bold"><i class="fas fa-grin-alt"></i>球場ムードランキング</h5></div>
+            <div class="collapsible-body">
+              <table class="striped">
+                <% @sort_moods.each.with_index do |sort_post, i|  %>
+                  <% stadium_id = sort_post[0] %>
+                  <% average = sort_post[1].to_f %>
+                    <tbody>
+                      <tr>
+                        <td><h6><%= "#{ i+1 }位" %></td><h6>
+                        <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %><%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                        <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
+                      </tr>
+                   </tbody>
+                <% end %>
+              </table>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col s4">
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header card-panel yellow accent-4 ttt"><h5 class="white-text text-darken-2 bold"><i class="fas fa-train"></i>アクセスランキング</h5></div>
+              <div class="collapsible-body">
+              <table class="striped">
+                <% @sort_accesses.each.with_index do |sort_post, i|  %>
+                  <% stadium_id = sort_post[0] %>
+                  <% average = sort_post[1].to_f %>
+                  <tbody>
+                    <tr>
+                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                      <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
+                    </tr>
+                  </tbody>
+                <% end %>
+              </table>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col s4">
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header card-panel orange accent-4 "><h5 class="white-text text-darken-2 bold"><i class="far fa-eye"></i>観光ランキング</h5></div>
+            <div class="collapsible-body">
+              <table class="striped">
+                <% @sort_sightseeings.each.with_index do |sort_post, i|  %>
+                  <% stadium_id = sort_post[0] %>
+                  <% average = sort_post[1].to_f %>
+                  <tbody>
+                    <tr>
+                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                      <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
+                    </tr>
+                  </tbody>
+                <% end %>
+              </table>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="col s4">
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header card-panel grey"><h5 class="white-text text-darken-2 bold"><i class="fas fa-baseball-ball"></i>キャパランキング</h5></div>
+            <div class="collapsible-body">
+              <table class="striped">
+                <% @sort_capacities.each.with_index do |sort_post, i|  %>
+                  <% stadium_id = sort_post[0] %>
+                  <% average = sort_post[1].to_f %>
+                  <tbody>
+                    <tr>
+                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
+                      <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
+                    </tr>
+                  </tbody>
+                <% end %>
+              </table>
+            </div>
+          </li>
+        </ul>
+      </div>
+
     </div>
-    <div class="col s10">
-
-
-       <div id='map' data-posteds='<%= @posteds %>'></div>
-
-        <div class="col s4">
-
-          <ul class="collapsible ">
-            <li>
-              <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">いいねランキング</h5></div>
-                      <div class="collapsible-body">
-                        <table class="striped">
-                        <% @post.each.with_index(1) do |rank, i| %>
-                          <tr>
-                           <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                           <td><h6><%= rank.post_content %></h6></td>
-                           <td><h7><%= rank.favorite_count %>いいね</td><h7>
-                          </tr>
-                       </tbody>
-                             
-                    <% end %>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-                      <ul class="collapsible ">
-                        <li>
-                          <div class="collapsible-header card-panel  red accent-4"><h5 class="white-text text-darken-2">いいねランキング</h5></div>
-                            <div class="collapsible-body">
-                              <table class="striped">
-                                 <% @post.each.with_index(1) do |rank, i| %>
-                                 <tr>
-                                 <td><h6><%= "第#{ i+1 }位" %></td><h6>
-                                 <td><h6><%= rank.post_content %></h6></td>
-                                 <td><h7><%#= (average).floor(2) %>点</td><h7>
-                                 </tr>
-                             </tbody>
-                          <% end %>
-                        </table>
-                      </div>
-                  </li>
-              </ul>
-           </div>
-
-
-           <div class="col s4">
-              <ul class="collapsible ">
-                <li>
-                  <div class="collapsible-header card-panel  red accent-4 "><h5 class="white-text text-darken-2 bold"><i class="fas fa-trophy"></i>総合ランキング</h5></div>
-                    <div class="collapsible-body">
-                      <table class="striped">
-                        <% @sort_total.each.with_index do |sort_post, i|  %>
-                         <% stadium_id = sort_post[0] %>
-                         <% average = sort_post[1].to_f %>
-                            <tbody>
-                              <tr>
-                                <td><h6><%= "#{ i+1 }位" %></td><h6>
-                                <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
-                                <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
-                              </tr>
-                           </tbody>
-                        <% end %>
-                      </table>
-                    </div>
-                </li>
-            </ul>
-         </div>
-
-
-           <div class="col s4">
-              <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header card-panel  light-blue accent-4 "><h5 class="white-text text-darken-2 bold"><i class="fas fa-utensils"></i>球場グルメランキング</h5></div>
-                    <div class="collapsible-body">
-                      <table class="striped">
-                        <% @sort_posts.each.with_index do |sort_post, i|  %>
-                         <% stadium_id = sort_post[0] %>
-                         <% average = sort_post[1].to_f %>
-                            <tbody>
-                              <tr>
-                                <td><h6><%= "#{ i+1 }位" %></td><h6>
-                                <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
-                                <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
-                              </tr>
-                           </tbody>
-                        <% end %>
-                      </table>
-                    </div>
-                </li>
-            </ul>
-         </div>
-
-
-           <div class="col s4">
-              <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header card-panel green accent-4 "><h5 class="white-text text-darken-2 bold"><i class="fas fa-grin-alt"></i>球場ムードランキング</h5></div>
-                    <div class="collapsible-body">
-                      <table class="striped">
-                        <% @sort_moods.each.with_index do |sort_post, i|  %>
-                         <% stadium_id = sort_post[0] %>
-                         <% average = sort_post[1].to_f %>
-                            <tbody>
-                              <tr>
-                                <td><h6><%= "#{ i+1 }位" %></td><h6>
-                                <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
-                                <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
-                              </tr>
-                           </tbody>
-                        <% end %>
-                      </table>
-                    </div>
-                </li>
-            </ul>
-         </div>
-
-
-
-           <div class="col s4">
-              <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header card-panel yellow accent-4 ttt"><h5 class="white-text text-darken-2 bold"><i class="fas fa-train"></i>アクセスランキング</h5></div>
-                    <div class="collapsible-body">
-                      <table class="striped">
-                        <% @sort_accesses.each.with_index do |sort_post, i|  %>
-                         <% stadium_id = sort_post[0] %>
-                         <% average = sort_post[1].to_f %>
-                            <tbody>
-                              <tr>
-                                <td><h6><%= "#{ i+1 }位" %></td><h6>
-                                <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
-                                <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
-                              </tr>
-                           </tbody>
-                        <% end %>
-                      </table>
-                    </div>
-                </li>
-            </ul>
-         </div>
-
-
-           <div class="col s4">
-              <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header card-panel orange accent-4 "><h5 class="white-text text-darken-2 bold"><i class="far fa-eye"></i>観光ランキング</h5></div>
-                    <div class="collapsible-body">
-                      <table class="striped">
-                        <% @sort_sightseeings.each.with_index do |sort_post, i|  %>
-                         <% stadium_id = sort_post[0] %>
-                         <% average = sort_post[1].to_f %>
-                            <tbody>
-                              <tr>
-                                <td><h6><%= "#{ i+1 }位" %></td><h6>
-                                <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
-                                <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
-                              </tr>
-                           </tbody>
-                        <% end %>
-                      </table>
-                    </div>
-                </li>
-            </ul>
-         </div>
-
-
-           <div class="col s4">
-              <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header card-panel grey"><h5 class="white-text text-darken-2 bold"><i class="fas fa-baseball-ball"></i>キャパランキング</h5></div>
-                    <div class="collapsible-body">
-                      <table class="striped">
-                        <% @sort_capacities.each.with_index do |sort_post, i|  %>
-                         <% stadium_id = sort_post[0] %>
-                         <% average = sort_post[1].to_f %>
-                            <tbody>
-                              <tr>
-                                <td><h6><%= "#{ i+1 }位" %></td><h6>
-                                <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
-                                <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
-                              </tr>
-                           </tbody>
-                        <% end %>
-                      </table>
-                    </div>
-                </li>
-            </ul>
-         </div>
-       </div>
-     </div>
-   </div>
   </div>
 </main>
 
@@ -268,7 +211,7 @@
 
  <script type="text/javascript">
           function initMap() {
-            var test = {lat: <%=  @posted.latitude %>, lng: <%=  @posted.longitude %>};
+            var test = {lat:35.676192, lng:139.650311 };
             var map = new google.maps.Map(document.getElementById('map'), {
               zoom: 5,
               center: test
@@ -306,9 +249,7 @@
 
           }
 
-        </script>
-
-
+</script>
 
         <script async defer
           src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap">
