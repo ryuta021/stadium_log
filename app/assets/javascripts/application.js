@@ -11,14 +11,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
-//= require bxslider
-//= require activestorage
 //= require jquery
+//= require rails-ujs
+//= require activestorage
+//= require bxslider
 //= require bootstrap-sprockets
-//= require_tree .
 //= require materialize
 //= require cocoon
+//= require_tree .
 
 
 
@@ -73,6 +73,7 @@
   // });
 
   // Or with jQuery
+
 
 
 
