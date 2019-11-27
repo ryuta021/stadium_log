@@ -1,8 +1,0 @@
-%h1 チーム編集画面
-= form_for(@team, url: admin_team_path) do |f|
-  .form-group
-    %label チーム名
-    = f.text_field :team, class: "form-control", autocomplete: 'off',placeholder: "入力してください"
-  %br/
-  = f.submit "チーム登録" , class: "btn btn-success col-lg-5"
-= link_to "削除",  admin_team_path(@team.id), method: :delete ,class: "btn btn-primary col-lg-5"

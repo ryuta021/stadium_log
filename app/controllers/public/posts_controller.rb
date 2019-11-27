@@ -28,7 +28,6 @@ class Public::PostsController < ApplicationController
 
 
    def show
-    # @rate = Post.where(stadium_id: params[:id])
     @rate = Post.where(stadium_id: params[:id])
     @access = @rate.average(:access_rate)
     @gouremet = @rate.average(:gouremet_rate)
