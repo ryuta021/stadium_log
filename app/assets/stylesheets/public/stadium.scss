@@ -19,22 +19,22 @@
   margin-right: 8px;
 }
 
-
-h1 {
+.bot {
   position: relative;
-  color: white;
-  background: #81d0cb;
-  line-height: 1.4;
-  padding: 0.5em 0.5em 0.5em 1.8em;
+  padding: 0.25em 0;
+}
+.bot:after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: -webkit-linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+  background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
 }
 
-h1:before {
-  font-family: "Font Awesome 5 Free";
-  content: "\f14a";
-  position: absolute;
-  left : 0.5em; /*左端からのアイコンまでの距離*/
-}
 
+.bold{
+  font-weight: bold;
+}
 
 .heading {
   color: #010079;
@@ -42,4 +42,11 @@ h1:before {
   padding: 0.3em 0.5em;
   background: -webkit-repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
   background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+}
+
+.about-title {
+  padding: 0.5em;/*文字周りの余白*/
+  color: #010101;/*文字色*/
+  background: #eaf3ff;/*背景色*/
+  border-bottom: solid 3px #516ab6;/*下線*/
 }
