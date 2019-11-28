@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-content center-align">
           <p><h5>観戦日</h5><%= @post.watching_date.strftime("%Y年%m月%d日") %></p>
-          <p><h5>ユーザー名<%= link_to  public_user_path(@post.id) do %></h5><%= @post.user.name %><% end %></p>
+          <p><h5>ユーザー名<%= link_to  public_user_path(@post.user.id) do %></h5><%= @post.user.name %><% end %></p>
           <p><%= render 'public/relationships/follow_button', user: @post.user %></p>
         </div>
       </div>
@@ -14,23 +14,23 @@
          <div class='form-group'>
           <h5><%= link_to  public_stadium_path(@post.stadium.id) do %><%= @post.stadium.name %><% end %></h5>
             <label>アクセス採点</label>
-             <span class="blue-text text-darken-2"><%= (@access).floor(2) %></span>
+             <span class="blue-text text-darken-2"><%= @access %></span>
             <br>
             <div id='star-rate'></div>
             <label>グルメ採点</label>
-            <span class="blue-text text-darken-2"><%= (@gouremet).floor(2) %></span>
+            <span class="blue-text text-darken-2"><%= @gouremet %></span>
             <br>
             <div id='star2-rate'></div>
             <label>ムード採点</label>
-             <span class="blue-text text-darken-2"><%= (@mood).floor(2) %></span>
-            <br>                           
+             <span class="blue-text text-darken-2"><%= @mood %></span>
+            <br>
             <div id='star3-rate'></div>
             <label>キャパシティ採点</label>
-            <span class="blue-text text-darken-2"><%= (@capacity).floor(2) %></span>
+            <span class="blue-text text-darken-2"><%= @capacity %></span>
             <br>
             <div id='star4-rate'></div>
             <label>観光採点</label>
-             <span class="blue-text text-darken-2"><%= (@gouremet).floor(2) %></span>
+             <span class="blue-text text-darken-2"><%= @gouremet %></span>
             <div id='star5-rate'></div>
          </div>
         </div>
@@ -44,31 +44,29 @@
         <p><%= @post.post_content %></p>
       </div>
     </div>
-
     <div class="row">
       <div class="col s12 ">
-        <% if @user == current_user %>
+        <% if current_user.id == @post.id  %>
           <div class="col s2 "></div>
           <%= link_to "投稿を編集する", edit_public_post_path(@post.id),method: :patch ,class:  "waves-effect waves-light btn-large col s3" %>
           <div class="col s1 "></div>
-          <%= link_to "削除",  public_post_path(@post.id), method: :delete ,class:  "waves-effect waves-light btn-large col s3" %></p>
+          <%= link_to "投稿を削除する",  public_post_path(@post.id), method: :delete ,class:  "waves-effect waves-light btn-large col s3" %></p>
         <% end %>
       </div>
     </div>
   </div>
 
+
   <div class="row">
-    <div class="col s12 m8">
-      <h6>プランを見る</h6>
+    <div class="col s12 m6">
+      <h3 class="center-align" >ユーザープラン</h3>
 　    <% @plan.each do |plan| %>
         <div class="card">
           <div class="card-content left-align">
             <h5 class="plan_title"><%= plan.title %></h5>
             <h5><%= attachment_image_tag plan, :spots_image_id, fallback: "no_image.png", size:'500x300' %></h5>
-            <h5>プランNo</h5>
-            <span class="blue-text text-darken-2"><%= plan.spot_number %></span>
             <h5>金額</h5>
-            <h5><i class="fas fa-yen-sign"></i><%= plan.spot_place %></h5>
+            <h5 class="blue-text text-darken-2"><i class="fas fa-yen-sign"></i><%= plan.spot_place %></h5>
             <h5>滞在時間</h5>
             <h5 class="blue-text text-darken-2"><%= plan.spot_time %>分</h5>
             <h5>スポット場所</h5>
@@ -94,9 +92,9 @@
             transitLayer.setMap(map);
 
             var posteds = $('#map').data('posteds')
-                // JSのeach文
+
             posteds.forEach(function(posted){
-            //posteds.each do |posted|
+
               var hoge = {lat: posted.latitude, lng: posted.longitude};
               console.log(hoge)
 

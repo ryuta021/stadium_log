@@ -1,8 +1,8 @@
 <main>
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="card col s6">
+   <div class="card col s6">
     <div class="card-content center-align ">
-      <h2>ユーザーログイン画面</h2>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <h2>ログイン画面</h2>
         <div class="field">
           <%= f.label :email %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -21,7 +21,7 @@
         <% end %>
 
         <div class="actions">
-          <%= f.submit "Log in" %>
+          <%= f.submit "Log in"  , class: " btn btn-success"%>
         </div>
       <% end %>
 

@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
 
-  validates :post_content, presence: true
+  validates :post_content, length: { minimum: 1, maximum: 120 }
   validates :watching_date, presence: true
   validates :stadium_id, presence: true
   validates :access_rate, presence: true
