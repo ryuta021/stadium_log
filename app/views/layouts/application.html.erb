@@ -34,15 +34,15 @@
               <li class="tab"><a href="#" data-target="slide-out" class="sidenav-trigger"><i class="fas fa-bars"></i></a></li>
                 <% if user_signed_in? %>
 
-                 <li class="tab"><%= link_to  "スタログとは!(初めての方はこちら)" ,about_path %><i class="fas fa-book-reader"></i><li>
+                  <li class="tab"><a class=" modal-trigger " href="#modal1"><i class="fas fa-search"></i> 検索する</a></li>
 
                   <li class="tab"><%= link_to "投稿する", new_public_post_path  %><i class="fas fa-pen"></i></li>
-
-                  <li class="tab"><a class=" modal-trigger " href="#modal1"><i class="fas fa-search"></i> 検索する</a></li>
 
                   <li class="tab"><%= link_to "投稿一覧", public_posts_path %><i class="far fa-folder"></i></li>
 
                   <li class="tab"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %><i class="fas fa-sign-out-alt"></i></li>
+
+                   <li class="tab"><%= link_to  "スタログとは!(初めての方はこちら)" ,about_path %><i class="fas fa-book-reader"></i><li>
 
                 <% elsif admin_user_signed_in? %>
 
@@ -155,9 +155,8 @@
         </div>
       </div>
       <div class="footer-copyright">
-        <div class="container">
+        <div class="container center-align">
         © 2019 stadium_log
-        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
         </div>
       </div>
     </footer>

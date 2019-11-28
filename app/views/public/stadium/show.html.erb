@@ -169,11 +169,9 @@
               var hoge = {lat: posted.latitude, lng: posted.longitude};
               console.log(hoge)
 
-            var contentString = '住所：' + "<a href='/public/post/" + posted.id + "'>" + posted.post_content + "</a>";
+            var contentString = '投稿：' + "<a href='/public/posts/" + posted.id + "'>" + posted.post_content + "</a>";
 
-
-
-              
+　　　　　　　　　　　　　　　　　　　　
               var infowindow = new google.maps.InfoWindow({
                 content: contentString
               });

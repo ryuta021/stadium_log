@@ -23,8 +23,8 @@
         <div class="carousel-fixed-item center">
         </div>
         <% @stadiums.each do |stadiums| %>
-        <div class="carousel-item light-blue lighten-5 " href="#one!">
-          <h2 class="bold sub-title"><%= stadiums.name %></h2>
+        <div class="carousel-item yellow lighten-5" href="#one!">
+          <h2 class="bold bot"><%= stadiums.name %></h2>
           <%= stadiums.information %>
         </div>
         <% end %>
@@ -233,7 +233,7 @@
 
               console.log(posted)
 
-              var contentString = '住所：' + "<a href='/public/stadium/" + posted.id + "'>" + posted.name + "</a>";
+              var contentString = '球場：' + "<a href='/public/stadium/" + posted.id + "'>" + posted.name + "</a>";
 
 
               var infowindow = new google.maps.InfoWindow({
