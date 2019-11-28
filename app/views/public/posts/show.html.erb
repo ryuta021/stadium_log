@@ -59,12 +59,12 @@
 
   <div class="row">
     <div class="col s12 m8">
+      <h6>プランを見る</h6>
 　    <% @plan.each do |plan| %>
-        <h4>プラン名</h4>
-        <h5><%= plan.title %></h5>
         <div class="card">
           <div class="card-content left-align">
-            <h5>No</h5>
+            <h5 class="plan_title"><%= plan.title %></h5>
+            <h5>プランNo</h5>
             <span class="blue-text text-darken-2"><%= plan.spot_number %></span>
             <h5><i class="fas fa-yen-sign"></i><%= plan.spot_place %></h5>
             <h5 class="blue-text text-darken-2"><%= plan.spot_time %>分</h5>

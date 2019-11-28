@@ -21,10 +21,9 @@ class Public::PostsController < ApplicationController
   end
 
 
-   def favorite_post
+    def favorite_post
       @favorite = current_user.favorites
-   end
-
+    end
 
 
    def show
@@ -38,8 +37,6 @@ class Public::PostsController < ApplicationController
     @plan = Post.joins(:plans => :spots).select("posts.*,plans.*,spots.*").where(user_id: @post.user.id).where(stadium_id: @post.stadium_id).where(id: @post.id)
     @posteds = Post.joins(:plans => :spots).select("posts.*,plans.*,spots.*").where(user_id: @post.user.id).where(stadium_id: @post.stadium_id).where(id: @post.id).to_json
    end
-
-
 
   def create
       @post = Post.new(post_params)
@@ -66,10 +63,7 @@ class Public::PostsController < ApplicationController
     else
       render 'edit'
     end
- end
-
-
-
+  end
 
 
   def destroy

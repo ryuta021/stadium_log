@@ -37,7 +37,7 @@
             <h5 class="title">採点項目</h5>
             <div class="form-group">
               <label>球場選択</label><br>
-              <%= f.collection_select :stadium_id, Stadium.all, :id, :name, {:prompt => "選択してください"}, class: "mySelect2 form-control" %>
+              <%= f.collection_select :stadium_id, Stadium.all, :id, :name , class: "mySelect2 form-control" %>
             </div>
             <div class="form-group row star" id="star1">
               <%= f.label :access_rate,'アクセス ', class:'col-md-3 col-form-label' %>
@@ -68,15 +68,76 @@
       </div>
     </div>
     <div class="row">
-      <h6 class="center-align">プラン作成画面</h6>
-      <div class="col s2 "></div>
-      <div class="card grey lighten-4 col s12 m7 ">
-        <div class="card-content ">
-          <h5>野球を見に行くまでのおすすめのプランがあったら教えてください</h5><br>
-                (例)タイトル　大阪旅行<br>　スポット金額　2000円　<br> スポット滞在時間　30分　<br>スポット場所　千代崎イオン<br>投稿内容　試合前に買い物<br>
+      <div class="col s6 center-align">
+        <h5>採点項目の仕方</h5>
+        <div class="card grey lighten-4">
+          <div class="card-content ">
+            <h6 class="title">野球を見に行くまでのおすすめのプランがあったら教えてください</h6>
+              <table>
+                <tbody>
+                  <tr>
+                    <td class="item">アクセス</td>
+                    <td>立地電車や駅から歩いてかかる時間など</td>
+                  </tr>
+                  <tr>
+                    <td class="item">グルメ</td>
+                    <td>球場グルメの美味しさ価格帯など</td>
+                  </tr>
+                  <tr>
+                    <td class="item">ムード</td>
+                    <td>ホーム球場の応援の雰囲気など</td>
+                  </tr>
+                    <td class="item">キャパシティ</td>
+                    <td>チケットの購入のしやすさ</td>
+                  <tr>
+                    <td class="item">観光</td>
+                    <td>球場周辺の観光地など遊ぶ場所</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
         </div>
       </div>
+
+      <div class="col s6 center-align">
+        <h5>プランの作り方</h5>
+        <div class="card grey lighten-4">
+            <div class="card-content ">
+              <h6 class="title">野球を見に行くまでのおすすめのプランがあったら教えてください</h6>
+　　　　　<table>
+         <tbody>
+          <tr>
+            <td class="item">タイトル</td>
+            <td>大阪旅行</td>
+          </tr>
+          <tr>
+            <td class="item">金額</td>
+            <td>2000円</td>
+          </tr>
+          <tr>
+            <td class="item">滞在時間</td>
+            <td>30分</td>
+          </tr>
+          <tr>
+            <td class="item">場所</td>
+            <td>千代崎イオン</td>
+          </tr>
+          <tr>
+            <td class="item">スポット内容</td>
+            <td>試合前に買い物</td>
+          </tr>
+            <td></td>
+            <td></td>
+          </tr>
+         </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+
+
+
+
     <div class="plans">
       <%= f.fields_for :plans do |plan| %>
            <%= render 'plan_fields', f: plan %>

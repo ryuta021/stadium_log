@@ -7,32 +7,36 @@
         <% @stadiums.each do |stadiums| %>
           <div class="carousel-item  darken-3-text" href="#one!">
              <%= link_to public_stadium_path(stadiums) do %>
-                <%= attachment_image_tag stadiums, :image, :fill, 250, 250, fallback: "no_image.png", size:'500x300' %>
+                <%= attachment_image_tag stadiums, :image, fallback: "no_image.png", size:'500x300' %>
              <% end %>
              <%= link_to public_stadium_path(stadiums) do %>
-                <h4><%= stadiums.name %></h4>
+                <h4 class="bold box"><%= stadiums.name %></h4>
              <% end %>
           </div>
         <% end %>
       </div>
+
+
       <div class="col s1"></div>
+
       <div class="carousel carousel-slider center col s5">
         <div class="carousel-fixed-item center">
-          <a class="btn waves-effect white grey-text darken-text-2">button</a>
         </div>
-        <div class="carousel-item red white-text" href="#one!">
-          <h2>First Panel</h2>
-          <p class="white-text">This is your first panel</p>
+        <% @stadiums.each do |stadiums| %>
+        <div class="carousel-item light-blue lighten-5 " href="#one!">
+          <h2 class="bold sub-title"><%= stadiums.name %></h2>
+          <%= stadiums.information %>
         </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 
-  <div class="row">
-    <div class="col s12">
-      <label class="center-align col s12"><h5>クリックするとランキングが見れます!</h5></label>
 
+  <div class="row">
+    <div class="col s12 center-align">
+        <h3 class="bold">クリックするとランキングが見れます!</h3>
       <div class="col s4">
         <ul class="collapsible ">
           <li>
@@ -72,7 +76,7 @@
                   <% average = sort_post[1].to_f %>
                   <tbody>
                     <tr>
-                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="bold"><%= "#{ i+1 }位" %></td><h6>
                       <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                       <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
                     </tr>
@@ -95,7 +99,7 @@
                  <% average = sort_post[1].to_f %>
                   <tbody>
                     <tr>
-                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="bold"><%= "#{ i+1 }位" %></td><h6>
                       <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                       <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
                     </tr>
@@ -118,7 +122,7 @@
                   <% average = sort_post[1].to_f %>
                     <tbody>
                       <tr>
-                        <td><h6><%= "#{ i+1 }位" %></td><h6>
+                        <td><h6 class="bold"><%= "#{ i+1 }位" %></td><h6>
                         <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %><%= Stadium.find(stadium_id).name %></h6></td><% end %>
                         <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
                       </tr>
@@ -141,7 +145,7 @@
                   <% average = sort_post[1].to_f %>
                   <tbody>
                     <tr>
-                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="bold"><%= "#{ i+1 }位" %></td><h6>
                       <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                       <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
                     </tr>
@@ -164,7 +168,7 @@
                   <% average = sort_post[1].to_f %>
                   <tbody>
                     <tr>
-                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="bold"><%= "#{ i+1 }位" %></td><h6>
                       <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                       <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
                     </tr>
@@ -188,7 +192,7 @@
                   <% average = sort_post[1].to_f %>
                   <tbody>
                     <tr>
-                      <td><h6><%= "#{ i+1 }位" %></td><h6>
+                      <td><h6 class="bold"><%= "#{ i+1 }位" %></td><h6>
                       <td><h6 class="rank"><%= link_to  public_stadium_path(stadium_id) do %> <%= Stadium.find(stadium_id).name %></h6></td><% end %>
                       <td><h6 class="bold"><%= (average).floor(2) %>点</td><h6>
                     </tr>
@@ -221,14 +225,14 @@
             transitLayer.setMap(map);
 
             var posteds = $('#map').data('posteds')
-                // JSのeach文
+
             posteds.forEach(function(posted){
             //posteds.each do |posted|
               var hoge = {lat: posted.latitude, lng: posted.longitude};
               console.log(hoge)
 
               console.log(posted)
-             
+
               var contentString = '住所：' + "<a href='/public/stadium/" + posted.id + "'>" + posted.name + "</a>";
 
 
