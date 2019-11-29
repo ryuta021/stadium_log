@@ -17,29 +17,51 @@
        <div id='map' data-posteds=<%= @posteds %>></div>
     </div>
 
-      <% @posts.each do |post| %>
-      <div class=" col s4"></div>
-       <div class="card col s8">
-        <div class="left-align">
-          <%= link_to public_post_path(post.id) do %>
-            <%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'50x50'  %>
-          <% end %>
-          <span class="card-title"><%= link_to  public_stadium_path(post.stadium.id) do %>
-            <%= post.stadium.name %><% end %>
-          </span>&emsp;
-          <span><%= link_to  public_user_path(post.user.id) do %>
-            <%= post.user.name %><% end %>
-          </span>&emsp;
-          <span>観戦<%= post.watching_date.strftime("%m月%d日") %></span>
+
+
+ <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col s3"></div>
+      <div class="col s12 m7">
+        <h4 class="header"></h4>
+          <div class="card horizontal grey lighten-4">
+            <div class="card-image">
+              <%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'250x250' %>
+            </div>
+            <div class="card-stacked">
+              <table>
+                <tr>
+                   <td class="bold">投稿日<%= post.created_at.strftime("%m月%d日") %></td>
+                   <td class="bold">観戦日<%= post.watching_date.strftime("%m月%d日") %></td>
+                </tr>
+              </table>
+                <h5 class="card-title"><%= link_to  public_stadium_path(post.stadium.id) do %> <%= post.stadium.name %><% end %></h5>
+                 <div class="card-content">
+                   <p><%= link_to  public_post_path(post.id) do %><%= post.post_content %><% end %></p>
+                 </div>
+                 <div class="card-action">
+              <table>
+                <tr>
+                  <td class="bold"><%= render 'public/favorites/favorite',post: post %></td>
+                  <td class="bold"><%= render 'public/relationships/follow_button', user: post.user %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
-        <div class="card-content">
-          <%= link_to  public_post_path(post.id) do %><%= post.post_content %><% end %>
-        </div>
-      <% end %>
-    </div>
-     <%= paginate @posts %>
+      </div>
+    <% end %>
+    <%= paginate @posts  %>
   </div>
-</main>
+  </main>
+
+
+
+
+
+
+
+
 
 
 
@@ -62,9 +84,9 @@
             transitLayer.setMap(map);
 
             var posteds = $('#map').data('posteds')
-                // JSのeach文
+
             posteds.forEach(function(posted){
-            //posteds.each do |posted|
+
               var hoge = {lat: posted.latitude, lng: posted.longitude};
               console.log(hoge)
               var contentString = '住所：' + posted.address;

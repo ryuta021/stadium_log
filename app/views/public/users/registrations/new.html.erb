@@ -1,14 +1,15 @@
-<div class="col-lg-12">
-  <div class="text-center">
-    <h3>アカウントを作成する</h3>
-  </div>
-</div>
+
 
 <main>
-
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
+
+
+      <div class="col-lg-12">
+        <div class="text-center">
+          <h3>アカウントを作成する</h3>
+        </div>
+      </div>
 
       <div class="form-row">
         <div class="col-md-12 form-group">
@@ -44,7 +45,7 @@
             <div class="col-sm-3"></div>
             <label class="col-sm-1">メールアドレス</label>
             <div class="col-sm-5">
-            <%= f.text_field :email, placeholder:"kobaba@kokoko", class: "form-control" %>
+            <%= f.text_field :email, placeholder:"genda@gmail.com", class: "form-control" %>
             </div>
           </div>
         </div>
@@ -83,11 +84,9 @@
           </div>
         </div>
       </div>
+  <% end %>
 
-
-<% end %>
-
-</div>
+  </div>
 </div>
 <%= render "public/users/shared/links" %>
 </div>
