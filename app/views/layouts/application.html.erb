@@ -72,7 +72,7 @@
       <ul id="slide-out" class="sidenav grey lighten-2">
         <li>
           <div class="user-view grey lighten-2">
-             <%= attachment_image_tag current_user, :image, :fill, 250, 250, fallback: "no_image.png", size:'150x150'  %>
+             <%= attachment_image_tag current_user, :image,  fallback: "no_image.png", size:'150x150'  %>
           </div>
         </li>
         <% if user_signed_in? %>
@@ -125,19 +125,6 @@
                </li>
              </ul>
              <%= f.submit "検索" ,class: "waves-effect waves-light btn-small" %>
-          <% end %>
-        </div>
-        <div class="modal-content">
-          <h6>スポット名から検索</h6>
-          <%= search_form_for(@s, url: public_post_detail_search_path(current_user) ) do |f| %>
-          <label>調べたいキーワードから調べてください　(例) 大阪旅行　</label>
-            <%#= f.label :title, "スポットを検索する　調べたいキーワードを入力してください"  %>
-             <ul class="collection">
-               <li class="collection-item">
-                  <%= f.search_field :spot_content ,class: "input-field" %>
-               </li>
-             </ul>
-             <%= f.submit "検索" ,class: "waves-effect waves-light btn-small blue lighten-3" %>
           <% end %>
         </div>
       <% end %>

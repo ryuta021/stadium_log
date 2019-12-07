@@ -6,7 +6,6 @@ PER = 6
   def show
     #binding.pry
     @posted =Stadium.find(params[:id])
-    # @posteds = Post.where(stadium_id: params[:id]).to_json
     @posteds = Post.where(stadium_id: params[:id]).page(params[:page]).to_json
     @posts = Post.where(stadium_id: params[:id]).page(params[:page]).per(PER)
     @access = @posts.average(:access_rate).blank? ? 0 : @posts.average(:access_rate).floor(2)

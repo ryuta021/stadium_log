@@ -14,3 +14,9 @@ User.create!(
    team_id: 1,
    name: 'テスト太郎',
 )
+
+
+Admin_user.create!(
+   email: 'admin@test.com',
+   password: '888888',
+)
