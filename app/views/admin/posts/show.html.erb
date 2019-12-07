@@ -2,7 +2,7 @@
  <div class="form-group">
     <label>投稿画像</label>
      <br>
-    <%= attachment_image_tag @post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'100x100'  %>
+    <%= attachment_image_tag @post, :posted_image,  fallback: "no_image.png", size:'100x100'  %>
     <br>
 </div>
 

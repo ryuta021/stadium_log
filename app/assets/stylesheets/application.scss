@@ -43,8 +43,6 @@ main {
   flex: 1 0 auto;
 }
 
-
-
 .bold{
 font-weight: bold;
 
@@ -53,7 +51,6 @@ font-weight: bold;
 .nav-wrapper a img{
     height: 70px;
 }
-
 
 .rank {
   position: relative;
@@ -71,6 +68,7 @@ font-weight: bold;
   border-left: solid 15px transparent;
   border-bottom: solid 15px rgb(119, 195, 223);
 }
+
 .rank:after {
   position: absolute;
   content: '';

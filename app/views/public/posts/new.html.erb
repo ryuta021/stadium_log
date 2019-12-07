@@ -69,66 +69,13 @@
     </div>
     <div class="row">
       <div class="col s6 center-align">
-        <h5>採点項目の仕方</h5>
-        <div class="card grey lighten-4">
-          <div class="card-content ">
-            <h6 class="title">採点項目の付け方</h6>
-              <table>
-                <tbody>
-                  <tr>
-                    <td class="item">アクセス</td>
-                    <td>(例)立地電車や駅から歩いてかかる時間など</td>
-                  </tr>
-                  <tr>
-                    <td class="item">グルメ</td>
-                    <td>(例)球場グルメの美味しさ価格帯など</td>
-                  </tr>
-                  <tr>
-                    <td class="item">ムード</td>
-                    <td>(例)ホーム球場の応援の雰囲気など</td>
-                  </tr>
-                    <td class="item">キャパシティ</td>
-                    <td>(例)チケットの購入のしやすさ</td>
-                  <tr>
-                    <td class="item">観光</td>
-                    <td>(例)球場周辺の観光地など遊ぶ場所</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-        </div>
+        <h5>投稿の仕方</h5>
+        <%= image_tag '投稿例.png', class: "post_logo" %>
       </div>
 
       <div class="col s6 center-align">
         <h5>プランの作り方</h5>
-        <div class="card grey lighten-4">
-            <div class="card-content ">
-              <h6 class="title">野球を見に行くまでのおすすめのプランがあったら教えてください</h6>
-　　　　　<table>
-         <tbody>
-
-          <tr>
-            <td class="item">タイトル</td>
-            <td>(例)試合前の買い出し</td>
-          </tr>
-          <tr>
-            <td class="item">金額</td>
-            <td>(例)2000円</td>
-          </tr>
-          <tr>
-            <td class="item">滞在時間</td>
-            <td>(例)30分</td>
-          </tr>
-          <tr>
-            <td class="item">場所</td>
-            <td>(例)千代崎イオン</td>
-          </tr>
-          <tr>
-            <td class="item">スポット内容</td>
-            <td>(例)試合前に球場隣接のイオンで買い物</td>
-          </tr>
-         </tbody>
-        </table>
+        <%= image_tag 'プラン作り方例.png' , class: "post_logo" %>
       </div>
     </div>
   </div>
@@ -138,21 +85,21 @@
 
     <div class="plans">
       <%= f.fields_for :plans do |plan| %>
-           <%= render 'plan_fields', f: plan %>
-         <% end %>
-        <div class="row">
-          <div class="col s12 center-align">
-            <div class="links">
-               <%= link_to_add_association 'プランを追加', f, :plans  , class: "btn  amber accent-4 col s12" %>
-            </div>
+          <%= render 'plan_fields', f: plan %>
+      <% end %>
+      <div class="row">
+        <div class="col s12 center-align">
+          <div class="links">
+             <%= link_to_add_association 'プランを追加', f, :plans  , class: "btn  amber accent-4 col s12" %>
           </div>
+        </div>
       <%= f.submit "投稿する" , class: "btn light-blue accent-4 col s12 " %>
       </div>
     <% end %>
   </div>
 </main>
 
-  <script>
+<script>
   $('#star1').raty({
     size     : 36,
     starOff:  '<%= asset_path('star-off.png') %>',
@@ -193,4 +140,4 @@
     scoreName: 'post[sightseeing_rate]',
     half: true,
   });
-  </script>
+</script>

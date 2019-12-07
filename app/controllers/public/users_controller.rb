@@ -1,3 +1,4 @@
+
 class Public::UsersController < ApplicationController
 
 

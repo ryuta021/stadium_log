@@ -23,8 +23,10 @@
                  <div class="card-action">
               <table>
                 <tr>
-                  <td class="bold"><%= render 'public/favorites/favorite',post: post %></td>
-                  <td class="bold"><%= render 'public/relationships/follow_button', user: post.user %></td>
+                   <% if user_signed_in? %>
+                    <td class="bold"><%= render 'public/favorites/favorite',post: post %></td>
+                    <td class="bold"><%= render 'public/relationships/follow_button', user: post.user %></td>
+                  <% end %>
                 </tr>
               </table>
             </div>

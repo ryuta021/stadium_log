@@ -51,8 +51,10 @@
                   <% @post.each.with_index(0) do |rank, i| %>
                     <tr>
                       <td><%= "#{ i+1 }位" %></td>
-                      <td><%= link_to public_post_path(rank.id) do %><%= rank.post_content %></h6><% end %></td>
                       <td><h6 class="bold"><%= rank.favorite_count %>いいね</h6></td>
+                    </tr>
+                    <tr>
+                      <td><%= link_to public_post_path(rank.id) do %><%= rank.post_content %></h6><% end %></td>
                     </tr>
                   <% end %>
                 </tbody>
