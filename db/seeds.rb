@@ -9,14 +9,14 @@
 
 
 User.create!(
-   email: 'test@test.com',
+   email: 'test@user.com',
    password: '111111',
    team_id: 1,
-   name: 'テスト太郎',
+   name: 'テストユーザー',
 )
 
 
 Admin_user.create!(
    email: 'admin@test.com',
-   password: '888888',
+   password: '333333',
 )

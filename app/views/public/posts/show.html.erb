@@ -68,7 +68,7 @@
         <div class="card">
           <div class="card-content left-align">
             <h5 class="plan_title"><%= plan.title %></h5>
-            <h5><%= attachment_image_tag plan, :spots_image_id, fallback: "no_image.png", size:'500x300' %></h5>
+            <h5><%= attachment_image_tag plan, :spots_image, fallback: "no_image.png", size:'500x300' %></h5>
             <h5>金額</h5>
             <h5 class="blue-text text-darken-2"><i class="fas fa-yen-sign"></i><%= plan.spot_place %></h5>
             <h5>滞在時間</h5>

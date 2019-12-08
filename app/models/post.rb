@@ -10,7 +10,7 @@ class Post < ApplicationRecord
   validates :capacity_rate, presence: true
 
   attachment :posted_image
-
+  attachment :spots_image
 	belongs_to :user
 	belongs_to :stadium
 	has_many :favorites, dependent: :destroy
