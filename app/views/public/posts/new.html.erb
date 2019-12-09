@@ -78,11 +78,6 @@
         <%= image_tag 'プラン作り方例.png' , class: "post_logo" %>
       </div>
     </div>
-  </div>
-
-
-
-
     <div class="plans">
       <%= f.fields_for :plans do |plan| %>
           <%= render 'plan_fields', f: plan %>
@@ -94,9 +89,8 @@
           </div>
         </div>
       <%= f.submit "投稿する" , class: "btn light-blue accent-4 col s12 " %>
-      </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </main>
 
 <script>

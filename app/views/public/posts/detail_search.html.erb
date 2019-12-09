@@ -17,10 +17,10 @@
                 </tr>
               </table>
               <h5 class="card-title"><%= link_to  public_stadium_path(post.stadium.id) do %> <%= post.stadium.name %><% end %></h5>
-                 <div class="card-content">
-                   <p><%= link_to  public_post_path(post.id) do %><%= post.post_content %><% end %></p>
-                 </div>
-                 <div class="card-action">
+              <div class="card-content">
+                <p><%= link_to  public_post_path(post.id) do %><%= post.post_content %><% end %></p>
+              </div>
+              <div class="card-action">
               <table>
                 <tr>
                   <td class="bold"><%= render 'public/favorites/favorite',post: post %></td>
