@@ -1,8 +1,10 @@
 <main>
+  <div class="row">
+   <h3 class="center-align">ログイン画面</h3>
+   <div class=" col s3"></div>
    <div class="card col s6">
     <div class="card-content center-align ">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <h2>ログイン画面</h2>
         <div class="field">
           <%= f.label :email %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -26,7 +28,7 @@
       <% end %>
 
       <%= render "public/users/shared/links" %>
-      © 2019 GitH
-    </div>
-  </div>
+     </div>
+   </div>
+ </div>
 </main>

@@ -49,13 +49,11 @@
     </div>
     <div class="row">
       <div class="col s12 ">
-        <% if user_signed_in? %>
-          <% if current_user.id == @post.id  %>
-           <div class="col s2 "></div>
-           <%= link_to "投稿を編集する", edit_public_post_path(@post.id),method: :patch ,class:  "waves-effect waves-light btn-large col s3" %>
-           <div class="col s1 "></div>
-           <%= link_to "投稿を削除する",  public_post_path(@post.id), method: :delete ,class:  "waves-effect waves-light btn-large col s3" %></p>
-          <% end %>
+        <% if current_user.id == @post.user.id  %>
+          <div class="col s2 "></div>
+          <%= link_to "投稿を編集する", edit_public_post_path(@post.id) ,class:  "waves-effect waves-light btn-large col s3" %>
+          <div class="col s1 "></div>
+          <%= link_to "投稿を削除する",  public_post_path(@post.id), method: :delete ,class:  "waves-effect waves-light btn-large col s3" %></p>
         <% end %>
       </div>
     </div>
@@ -68,7 +66,7 @@
         <div class="card">
           <div class="card-content left-align">
             <h5 class="plan_title"><%= plan.title %></h5>
-            <h5><%= attachment_image_tag plan, :spots_image, fallback: "no_image.png", size:'500x300' %></h5>
+            <h5><%= attachment_image_tag plan, :spots_image_id, fallback: "no_image.png", size:'500x300' %></h5>
             <h5>金額</h5>
             <h5 class="blue-text text-darken-2"><i class="fas fa-yen-sign"></i><%= plan.spot_place %></h5>
             <h5>滞在時間</h5>

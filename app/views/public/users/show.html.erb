@@ -16,6 +16,7 @@
        <h6 class="center-align">お気に入りの場所の住所が表示されます</h6>
        <div id='map' data-posteds=<%= @posteds %>></div>
     </div>
+  </div>
 
 
 
@@ -24,22 +25,22 @@
       <div class="col s3"></div>
       <div class="col s12 m7">
         <h4 class="header"></h4>
-          <div class="card horizontal grey lighten-4">
-            <div class="card-image">
-              <%= attachment_image_tag post, :posted_image, :fill, 250, 250, fallback: "no_image.png", size:'250x250' %>
+        <div class="card horizontal grey lighten-4">
+          <div class="card-image">
+            <%= attachment_image_tag post, :posted_image,  fallback: "no_image.png", size:'250x250' %>
+          </div>
+          <div class="card-stacked">
+            <table>
+              <tr>
+                 <td class="bold">投稿日<%= post.created_at.strftime("%m月%d日") %></td>
+                 <td class="bold">観戦日<%= post.watching_date.strftime("%m月%d日") %></td>
+              </tr>
+            </table>
+            <h5 class="card-title"><%= link_to  public_stadium_path(post.stadium.id) do %> <%= post.stadium.name %><% end %></h5>
+            <div class="card-content">
+             <p><%= link_to  public_post_path(post.id) do %><%= post.post_content %><% end %></p>
             </div>
-            <div class="card-stacked">
-              <table>
-                <tr>
-                   <td class="bold">投稿日<%= post.created_at.strftime("%m月%d日") %></td>
-                   <td class="bold">観戦日<%= post.watching_date.strftime("%m月%d日") %></td>
-                </tr>
-              </table>
-                <h5 class="card-title"><%= link_to  public_stadium_path(post.stadium.id) do %> <%= post.stadium.name %><% end %></h5>
-                 <div class="card-content">
-                   <p><%= link_to  public_post_path(post.id) do %><%= post.post_content %><% end %></p>
-                 </div>
-                 <div class="card-action">
+            <div class="card-action">
               <table>
                 <tr>
                   <td class="bold"><%= render 'public/favorites/favorite',post: post %></td>
@@ -53,11 +54,9 @@
     <% end %>
     <%= paginate @posts  %>
   </div>
-  </main>
+</main>
 
-
-
-            <script type="text/javascript">
+          <script type="text/javascript">
           function initMap() {
 
              var test = { lat:36.204824, lng:138.252924};
